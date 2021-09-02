@@ -17,6 +17,7 @@ public class Counter extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.counter_back_button);
         Button incrementButton = findViewById(R.id.counter_increment_button);
+        Button decreaseButton = findViewById(R.id.counter_decrease_button);
         TextView counterText = findViewById(R.id.counter_counterText);
 
         Integer[] count = {0};
@@ -27,6 +28,16 @@ public class Counter extends AppCompatActivity {
                 count[0]++;
                 counterText.setText(count[0].toString());
             }
+
+        });
+
+        decreaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count[0]--;
+                counterText.setText(count[0].toString());
+            }
+
 
         });
 
