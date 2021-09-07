@@ -16,13 +16,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button buttonToCounter = (Button)findViewById(R.id.button_to_counter);
+        Button buttonToLogin = (Button)findViewById(R.id.button_to_login);
 
         buttonToCounter.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // Where we write the logic for our button
-
                 startActivity(new Intent(v.getContext(), Counter.class));
+            }
+
+        });
+
+        buttonToLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), Login.class));
             }
 
         });
