@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.First_App">
         <activity
+            android:name=".LoginInfo"
+            android:exported="true" />
+        <activity
+            android:name=".Login"
+            android:exported="true" />
+        <activity
             android:name=".Counter"
             android:exported="true" />
         <activity
