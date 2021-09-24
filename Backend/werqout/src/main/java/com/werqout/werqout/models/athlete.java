@@ -29,7 +29,19 @@ public class athlete {
      * Password of the athlete- hashed in DB and will be checked with REGEX
      */
     private String password;
-
+    /**
+     * Constructs an athlete
+     * @param id
+     * @param userName
+     * @param email
+     * @param password
+     */
+    public athlete(int id, String userName, String email, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
     /**
      * gets the User's' ID
      * @return users ID
