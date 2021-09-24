@@ -10,7 +10,7 @@ import javax.persistence.Id;
  * @author JJ SchraderBachar
  */
 @Entity
-public class athlete {
+public class Athlete {
     /**
      * User ID
      */
@@ -36,7 +36,7 @@ public class athlete {
      * @param email
      * @param password
      */
-    public athlete(int id, String userName, String email, String password) {
+    public Athlete(int id, String userName, String email, String password) {
         this.id = id;
         this.userName = userName;
         this.email = email;
