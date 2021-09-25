@@ -42,6 +42,9 @@ public class Athlete {
         this.email = email;
         this.password = password;
     }
+    public Athlete(){
+        
+    }
     /**
      * gets the User's' ID
      * @return users ID
