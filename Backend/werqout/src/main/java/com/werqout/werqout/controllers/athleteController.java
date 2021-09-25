@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class AthleteController {
     
-    
+    @Autowired
     AthleteRepository athleteRepository;
 
     @GetMapping("/")
