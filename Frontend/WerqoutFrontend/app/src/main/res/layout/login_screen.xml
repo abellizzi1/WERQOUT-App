@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/login_label"
+        android:id="@+id/login_label_login"
         android:layout_width="173dp"
         android:layout_height="69dp"
         android:text="Login"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.277" />
 
     <TextView
-        android:id="@+id/werqout_label"
+        android:id="@+id/werqout_label_login"
         android:layout_width="294dp"
         android:layout_height="61dp"
         android:text="WERQOUT"
@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.626" />
 
     <TextView
-        android:id="@+id/email_label"
+        android:id="@+id/email_label_login"
         android:layout_width="122dp"
         android:layout_height="45dp"
         android:text="Email"
@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.381" />
 
     <TextView
-        android:id="@+id/password_label"
+        android:id="@+id/password_label_login"
         android:layout_width="147dp"
         android:layout_height="39dp"
         android:text="Password"
@@ -104,6 +104,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.552" />
+
+    <Button
+        android:id="@+id/submit_button_login"
+        android:layout_width="138dp"
+        android:layout_height="68dp"
+        android:background="#00FFA7"
+        android:text="Submit"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.749" />
+
+    <Button
+        android:id="@+id/register_button_login"
+        android:layout_width="142dp"
+        android:layout_height="50dp"
+        android:background="#00FFA7"
+        android:text="Register"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
