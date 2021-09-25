@@ -1,6 +1,7 @@
 package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ public class AthleteController {
     @Autowired
     AthleteRepository athleteRepository;
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public List<Athlete> getAthlete() {
         //need to have a method that returns username and email and make sure it matches with the database
         return athleteRepository.findAll();
