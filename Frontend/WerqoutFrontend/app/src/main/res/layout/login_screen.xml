@@ -7,12 +7,12 @@
 
     android:background="#000000"
 
-    tools:context=".MainActivity">
+    tools:context=".LoginScreen">
 
     <TextView
         android:id="@+id/login_label_login"
-        android:layout_width="173dp"
-        android:layout_height="69dp"
+        android:layout_width="142dp"
+        android:layout_height="50dp"
         android:text="Login"
         android:textAlignment="center"
         android:textColor="#00FFA7"
@@ -20,58 +20,25 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.17" />
 
     <TextView
-        android:id="@+id/werqout_label_login"
-        android:layout_width="294dp"
-        android:layout_height="61dp"
-        android:text="WERQOUT"
+        android:id="@+id/password_label_login"
+        android:layout_width="147dp"
+        android:layout_height="39dp"
+        android:text="Password"
         android:textAlignment="center"
         android:textColor="#00FFA7"
-        android:textSize="48sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
-
-    <EditText
-        android:id="@+id/email_input_login"
-        android:layout_width="306dp"
-        android:layout_height="54dp"
-        android:ems="10"
-        android:hint="Enter email here"
-        android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.453" />
-
-    <EditText
-        android:id="@+id/password_input_login"
-        android:layout_width="306dp"
-        android:layout_height="54dp"
-        android:ems="10"
-        android:hint="Enter password here"
-        android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintVertical_bias="0.504" />
 
     <TextView
         android:id="@+id/email_label_login"
@@ -87,23 +54,40 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.333" />
+
+    <EditText
+        android:id="@+id/email_input_login"
+        android:layout_width="306dp"
+        android:layout_height="54dp"
+        android:ems="10"
+        android:hint="Enter email here"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.404" />
 
     <TextView
-        android:id="@+id/password_label_login"
-        android:layout_width="147dp"
-        android:layout_height="39dp"
-        android:text="Password"
+        android:id="@+id/werqout_label_login"
+        android:layout_width="294dp"
+        android:layout_height="61dp"
+        android:text="WERQOUT"
         android:textAlignment="center"
         android:textColor="#00FFA7"
-        android:textSize="24sp"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
         android:id="@+id/submit_button_login"
@@ -119,7 +103,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.708" />
 
     <Button
         android:id="@+id/register_button_login"
@@ -136,6 +120,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.914" />
+
+    <EditText
+        android:id="@+id/password_input_login"
+        android:layout_width="304dp"
+        android:layout_height="55dp"
+        android:ems="10"
+        android:hint="Enter password here"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
