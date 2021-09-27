@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Group {
 	
 	@Id
@@ -22,13 +24,16 @@ public class Group {
 	 * Array which holds members of the group
 	 * Foreign key for Athlete table
 	 */
-	private ArrayList<Integer> members;
+	@OneToMany
+	private List<Athlete> members;
 	
 	/**
 	 * Object which represents the group's coach
 	 * Foreign key to Athlete table
 	 */
-	private int coach;
+	// TODO: add coach dependency once coach class is working
+	//@ManyToOne
+	//private int coach;
 	
 	/**
 	 * String providing a general description of the group
@@ -59,15 +64,13 @@ public class Group {
 	 * @param description
 	 * 		String description:	: String to be group's general description
 	 */
-	public Group(String name, int[] members, int coach, String description) {
+	public Group(String name, Athlete[] members, int coach, String description) {
 		this.name = name;
-		this.coach = coach;
 		
 		// Iterate through members argument, add each member to members ArrayList
 		for(int i = 0; i < members.length; i++) {
 			this.members.add(members[i]);
 		}
-		this.coach = coach;
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
@@ -98,13 +101,6 @@ public class Group {
 		this.name = name;
 	}
 	
-	public int getCoach() {
-		return coach;
-	}
-	
-	public void setCoach(int coach) {
-		this.coach = coach;
-	}
 	
 	/**
 	 * Method returns all members of this group as an array of String
@@ -112,23 +108,23 @@ public class Group {
 	 * @return
 	 * 		Integer[] members : array containing id's for all members of this group
 	 */
-	public Integer[] getMembers() {
-		return (Integer[]) members.toArray();
+	public List<Athlete> getMembers() {
+		return members;
 	}
 	
 	public int getNumMembers() {
 		return members.size();
 	}
 	
-	public void addMember(int toAdd) {
+	public void addMember(Athlete toAdd) {
 		members.add(toAdd);
 	}
 	
-	public void removeMember(int toRemove) {
+	public void removeMember(Athlete toRemove) {
 		members.remove(toRemove);
 	}
 	
-	public boolean isMember(int search) {
+	public boolean isMember(Athlete search) {
 		return members.contains(search);
 	}
 	
