@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -52,6 +53,7 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 jsonLoginPostRequest();
+                jsonGetRequest();
             }
         });
     }
@@ -67,18 +69,61 @@ public class LoginScreen extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Toast.makeText(getApplicationContext(), "Login sent",
-//                                Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-//                Toast.makeText(getApplicationContext(), "Login Failed",
-//                        Toast.LENGTH_SHORT).show();
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+
+        };
         AppController.getInstance().addToRequestQueue(jsonLogin,
                 tag_json_obj_post);
+    }
+
+    private void jsonGetRequest() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                Const.URL_JSON_GET_REQUEST, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                        //TODO: readResponse(response);
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+            /**
+             * Passing some request headers
+             * */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(jsonObjReq,
+                tag_json_obj_post);
+    }
+
+    private void readResponse(JSONObject response)
+    {
+        //TODO: Once response is returned, have some sort of logic to move user
+        //to home screen.
     }
 }
