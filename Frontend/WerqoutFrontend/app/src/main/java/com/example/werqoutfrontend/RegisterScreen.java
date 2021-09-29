@@ -10,6 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.werqoutfrontend.network.ServerRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterScreen extends AppCompatActivity {
 
     private String firstName;
@@ -41,6 +48,11 @@ public class RegisterScreen extends AppCompatActivity {
             public void onClick(View v) {
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("firstName", email);
+                params.put("lastName", password);
+                ServerRequest request = new ServerRequest();
+                request.jsonPostRequest(new JSONObject(params));
             }
         });
 
