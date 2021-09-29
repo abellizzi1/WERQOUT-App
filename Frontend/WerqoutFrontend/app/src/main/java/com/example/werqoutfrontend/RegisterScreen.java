@@ -51,6 +51,7 @@ public class RegisterScreen extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("firstName", email);
                 params.put("lastName", password);
+
                 ServerRequest request = new ServerRequest();
                 request.jsonPostRequest(new JSONObject(params));
             }

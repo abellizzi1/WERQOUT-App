@@ -52,7 +52,6 @@ public class ServerRequest {
 
     public void jsonGetRequest()
     {
-        Athlete athlete = new Athlete();
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 Const.URL_JSON_GET_REQUEST, null,
                 new Response.Listener<JSONObject>() {
@@ -60,12 +59,6 @@ public class ServerRequest {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, response.toString());
-                        try {
-                            athlete.setEmail(response.get("colin").toString());
-                            //need help with parsing json object
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -88,6 +81,5 @@ public class ServerRequest {
         };
         AppController.getInstance().addToRequestQueue(jsonObjReq,
                 tag_json_obj_post);
-//        return athlete;
     }
 }
