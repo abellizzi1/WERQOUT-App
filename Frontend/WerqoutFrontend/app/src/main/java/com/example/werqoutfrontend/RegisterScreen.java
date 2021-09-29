@@ -68,10 +68,10 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     errorMsg += "Last name ";
                 }
-//                if (!isValidEmail(email))
-//                {
-//                    errorMsg += "Email ";
-//                }
+               if (!isValidEmail(email))
+               {
+                   errorMsg += "Email ";
+               }
                 if (!isValidPassword(password) || !password.equals(confirmPassword)) {
                     errorMsg += "Password ";
                 }
