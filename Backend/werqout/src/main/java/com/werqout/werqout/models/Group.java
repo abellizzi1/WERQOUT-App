@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import java.util.ArrayList;
-
+@Entity
 public class Group {
 	
 	@Id
