@@ -24,8 +24,8 @@ public class Group {
 	 * Array which holds members of the group
 	 * Foreign key for Athlete table
 	 */
-	@OneToMany
-	private List<Athlete> members;
+	//@OneToMany
+	//private List<Athlete> members;
 	
 	/**
 	 * Object which represents the group's coach
@@ -64,13 +64,11 @@ public class Group {
 	 * @param description
 	 * 		String description:	: String to be group's general description
 	 */
-	public Group(String name, Athlete[] members, int coach, String description) {
+	public Group(String name, String description) {
 		this.name = name;
 		
 		// Iterate through members argument, add each member to members ArrayList
-		for(int i = 0; i < members.length; i++) {
-			this.members.add(members[i]);
-		}
+		
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
@@ -107,7 +105,7 @@ public class Group {
 	 * 
 	 * @return
 	 * 		Integer[] members : array containing id's for all members of this group
-	 */
+	 *
 	public List<Athlete> getMembers() {
 		return members;
 	}
@@ -127,7 +125,7 @@ public class Group {
 	public boolean isMember(Athlete search) {
 		return members.contains(search);
 	}
-	
+	*/
 	public String getDescription() {
 		return description;
 	}

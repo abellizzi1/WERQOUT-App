@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.werqout.werqout.repository.GroupRepository;
 import com.werqout.werqout.models.Group;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 public class GroupController {
 	
+	@Autowired
 	GroupRepository groupRepository;
 	
 	@GetMapping("/groups")
@@ -59,7 +61,7 @@ public class GroupController {
 		return groupRepository.findById(id).getMembers();
 	}
 	
-	@GetMapping("/groups/{id}/athletes")
+	@GetMapping("/groups/{id}/athletes/{id}")
 	boolean isMember(@PathVariable int groupId, @RequestBody Athlete athlete) {
 		Group group = groupRepository.findById(groupId);
 		return group.getMembers().contains(athlete);
