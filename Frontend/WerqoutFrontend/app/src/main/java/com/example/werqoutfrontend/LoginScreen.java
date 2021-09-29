@@ -30,6 +30,7 @@ import java.util.Map;
 public class LoginScreen extends AppCompatActivity {
     private TextView emailInput;
     private TextView passwordInput;
+
     private String emailResponse;
     private String passwordResponse;
     private String email;
@@ -68,17 +69,18 @@ public class LoginScreen extends AppCompatActivity {
     }
     public void jsonGetRequest()
     {
+        //TODO: Replace email in the url with some sort of identifier
+        String url = Const.URL_JSON_GET_REQUEST + "/" + email;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_GET_REQUEST, null,
+                url, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, response.toString());
                         try {
-                            //TODO: Find out how to find json object in our project
-                            emailResponse = response.getJSONObject(email).get("firstName").toString();
-                            passwordResponse = response.getJSONObject(email).get("lastName").toString();
+                            emailResponse = response.get("email").toString();
+                            passwordResponse = response.get("password").toString();
                             login();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -119,7 +121,7 @@ public class LoginScreen extends AppCompatActivity {
         }
         else
             {
-                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
     }
 

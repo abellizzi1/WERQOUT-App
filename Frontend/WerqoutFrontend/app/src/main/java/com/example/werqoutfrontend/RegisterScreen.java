@@ -56,12 +56,6 @@ public class RegisterScreen extends AppCompatActivity {
                 lastName = lastNameInput.getText().toString();
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("firstName", email);
-                params.put("lastName", password);
-
-                ServerRequest request = new ServerRequest();
-                request.jsonPostRequest(new JSONObject(params));
                 confirmPassword = confirmPasswordInput.getText().toString();
                 TextView errorMessage = findViewById(R.id.error_message_register);
                 String errorMsg = "";
@@ -74,10 +68,10 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     errorMsg += "Last name ";
                 }
-                if (!isValidEmail(email))
-                {
-                    errorMsg += "Email ";
-                }
+//                if (!isValidEmail(email))
+//                {
+//                    errorMsg += "Email ";
+//                }
                 if (!isValidPassword(password) || !password.equals(confirmPassword)) {
                     errorMsg += "Password ";
                 }
@@ -89,6 +83,21 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     errorMsg += "invalid";
                     errorMessage.setText(errorMsg);
+                }
+                //if all fields are filled out properly, then we can send
+                //a post request to the server.
+                else
+                {
+                    //Storing the values in a hashmap to be placed in JSON
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("firstName", firstName);
+                    params.put("lastName", lastName);
+                    params.put("email", email);
+                    params.put("password", password);
+
+                    //Send the post request to the server
+                    ServerRequest request = new ServerRequest();
+                    request.jsonPostRequest(new JSONObject(params));
                 }
             }
         });
