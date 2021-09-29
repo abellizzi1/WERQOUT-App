@@ -14,6 +14,13 @@ import android.widget.TextView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.werqoutfrontend.network.ServerRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterScreen extends AppCompatActivity {
 
     private String firstName;
@@ -34,6 +41,7 @@ public class RegisterScreen extends AppCompatActivity {
         userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(userAdapter);
 
+
         Button submitRegisterButton = findViewById(R.id.register_button_register);
         EditText firstNameInput = findViewById(R.id.firstName_input_register);
         EditText lastNameInput = findViewById(R.id.lastName_input_register);
@@ -48,6 +56,12 @@ public class RegisterScreen extends AppCompatActivity {
                 lastName = lastNameInput.getText().toString();
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("firstName", email);
+                params.put("lastName", password);
+
+                ServerRequest request = new ServerRequest();
+                request.jsonPostRequest(new JSONObject(params));
                 confirmPassword = confirmPasswordInput.getText().toString();
                 TextView errorMessage = findViewById(R.id.error_message_register);
                 String errorMsg = "";
