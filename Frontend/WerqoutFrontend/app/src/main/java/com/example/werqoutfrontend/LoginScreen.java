@@ -15,11 +15,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.werqoutfrontend.app.AppController;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,17 +72,25 @@ public class LoginScreen extends AppCompatActivity {
     public void jsonGetRequest()
     {
         //TODO: Replace email in the url with some sort of identifier
-        String url = Const.URL_JSON_GET_REQUEST + "/" + email;
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+        String url = Const.URL_JSON_GET_REQUEST;
+        JsonArrayRequest jsonArray = new JsonArrayRequest(Request.Method.GET,
                 url, null,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                    public void onResponse(JSONArray athletes) {
+                        Log.d(TAG, athletes.toString());
                         try {
-                            emailResponse = response.get("email").toString();
-                            passwordResponse = response.get("password").toString();
+                            for(int i = 0; i < athletes.length(); i++)
+                            {
+                                JSONObject athlete = athletes.getJSONObject(i);
+                                if(athlete.get("email").toString().equals(email))
+                                {
+                                    emailResponse = athlete.get("email").toString();
+                                    passwordResponse = athlete.get("password").toString();
+                                    break;
+                                }
+                            }
                             login();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -107,7 +117,7 @@ public class LoginScreen extends AppCompatActivity {
                 return headers;
             }
         };
-        AppController.getInstance().addToRequestQueue(jsonObjReq,
+        AppController.getInstance().addToRequestQueue(jsonArray,
                 tag_json_obj_post);
     }
 
