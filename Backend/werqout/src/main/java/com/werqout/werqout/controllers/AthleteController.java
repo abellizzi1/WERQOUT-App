@@ -2,6 +2,7 @@ package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,12 +46,14 @@ public class AthleteController {
     	return athleteRepository.findById(id);
     }
     
+    @Transactional
     @DeleteMapping("/athletes/{id}")
     public String deleteAthlete(@PathVariable int id) {
     	if(athleteRepository.findById(id) == null)
     		return "No Such Athlete";
+    	String athleteName = athleteRepository.findById(id).getUserName();
     	athleteRepository.deleteById(id);
-    	return "Athlete: " + athleteRepository.findById(id).getUserName() + " Deleted";
+    	return "Athlete: " + athleteName + " Deleted";
     }
     
 }
