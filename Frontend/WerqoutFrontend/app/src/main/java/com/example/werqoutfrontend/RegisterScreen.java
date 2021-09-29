@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterScreen extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class RegisterScreen extends AppCompatActivity {
     private String lastName;
     private String email;
     private String password;
+    private String confirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +34,62 @@ public class RegisterScreen extends AppCompatActivity {
         userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(userAdapter);
 
-
         Button submitRegisterButton = findViewById(R.id.register_button_register);
         EditText firstNameInput = findViewById(R.id.firstName_input_register);
         EditText lastNameInput = findViewById(R.id.lastName_input_register);
         EditText emailInput = findViewById(R.id.email_input_register);
         EditText passwordInput = findViewById(R.id.password_input_register);
+        EditText confirmPasswordInput = findViewById(R.id.confirmPassword_input_register);
 
         submitRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firstName = firstNameInput.getText().toString();
+                lastName = lastNameInput.getText().toString();
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
+                confirmPassword = confirmPasswordInput.getText().toString();
+                TextView errorMessage = findViewById(R.id.error_message_register);
+                String errorMsg = "";
+
+                if (!isValidName(firstName))
+                {
+                    errorMsg += "First name ";
+                }
+                if (!isValidName(lastName))
+                {
+                    errorMsg += "Last name ";
+                }
+                if (!isValidEmail(email))
+                {
+                    errorMsg += "Email ";
+                }
+                if (!isValidPassword(password) || !password.equals(confirmPassword)) {
+                    errorMsg += "Password ";
+                }
+                if (userSpinner.getSelectedItem().toString().equals("Select type of user..."))
+                {
+                    errorMsg += "Dropdown";
+                }
+                if (errorMsg.length() > 0)
+                {
+                    errorMsg += "invalid";
+                    errorMessage.setText(errorMsg);
+                }
             }
         });
 
+    }
+
+    public boolean isValidPassword(String pass)
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches() && pass.length() >= 8 && pass.length() <= 16;
     }
 
     public boolean isValidEmail(String email)
