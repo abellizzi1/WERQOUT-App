@@ -59,6 +59,7 @@ public class RegisterScreen extends AppCompatActivity {
                 confirmPassword = confirmPasswordInput.getText().toString();
                 TextView errorMessage = findViewById(R.id.error_message_register);
                 String errorMsg = "";
+                errorMessage.setText("");
 
                 if (!isValidName(firstName))
                 {
@@ -77,7 +78,7 @@ public class RegisterScreen extends AppCompatActivity {
                 }
                 if (userSpinner.getSelectedItem().toString().equals("Select type of user..."))
                 {
-                    errorMsg += "Dropdown";
+                    errorMsg += "Dropdown ";
                 }
                 if (errorMsg.length() > 0)
                 {
@@ -106,13 +107,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     public boolean isValidPassword(String pass)
     {
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches() && pass.length() >= 8 && pass.length() <= 16;
+        return pass.length() >= 8 && pass.length() <= 16 && pass.matches("(.*[0-9].*)") && pass.matches("(.*[A-Z].*)") && pass.matches("^(?=.*[@#!$%^&+=*()~_{}|:;<>]).*$");
     }
 
     public boolean isValidEmail(String email)
@@ -120,7 +115,7 @@ public class RegisterScreen extends AppCompatActivity {
         String[] emailSplit = email.split("@");
         if (emailSplit.length == 2 && isAlphaNumeric(emailSplit[0]))
         {
-            String[] periodSplit = emailSplit[1].split(".");
+            String[] periodSplit = emailSplit[1].split("\\.");
             if (periodSplit.length == 2 && isAlphaNumeric(periodSplit[0] + periodSplit[1]))
             {
                 return true;
@@ -136,6 +131,6 @@ public class RegisterScreen extends AppCompatActivity {
 
     public boolean isAlphaNumeric(String s)
     {
-        return s.matches("[a-zA-Z0-9]+");
+        return s.matches("^[a-zA-Z0-9]+$");
     }
 }
