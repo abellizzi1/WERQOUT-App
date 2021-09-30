@@ -4,11 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
 @Entity
+@Table(name = "groups")
 public class Group {
 	
 	@Id
@@ -24,8 +28,9 @@ public class Group {
 	 * Array which holds members of the group
 	 * Foreign key for Athlete table
 	 */
-	//@OneToMany
-	//private List<Athlete> members;
+	@ManyToMany
+	@JsonIgnore
+	private List<Athlete> members;
 	
 	/**
 	 * Object which represents the group's coach
@@ -46,7 +51,7 @@ public class Group {
 	 * Value represents average rating of the group, based on user reviews
 	 */
 	private double rating;
-	private int numRatings;
+	private Integer numRatings;
 	
 	
 	/**
@@ -72,7 +77,7 @@ public class Group {
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
-		rating = 0;
+		//rating = 0;
 		numRatings = 0;
 	}
 	
@@ -80,7 +85,7 @@ public class Group {
 	 * Default constructor for group, only variable defined is rating and numRatings
 	 */
 	public Group() {
-		this.rating = 0;
+		//this.rating = 0;
 		this.numRatings = 0;
 	}
 	
@@ -105,14 +110,14 @@ public class Group {
 	 * 
 	 * @return
 	 * 		Integer[] members : array containing id's for all members of this group
-	 *
+	 */
 	public List<Athlete> getMembers() {
 		return members;
 	}
 	
-	public int getNumMembers() {
-		return members.size();
-	}
+	//public int getNumMembers() {
+	//	return members.size();
+	//}
 	
 	public void addMember(Athlete toAdd) {
 		members.add(toAdd);
@@ -125,7 +130,7 @@ public class Group {
 	public boolean isMember(Athlete search) {
 		return members.contains(search);
 	}
-	*/
+	
 	public String getDescription() {
 		return description;
 	}

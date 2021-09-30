@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import java.util.List;
 
 /**
  * This class defines an ahtlete model and all its fields and functions.
@@ -36,6 +39,10 @@ public class Athlete {
      * @param email
      * @param password
      */
+    
+    @ManyToMany
+    private List<Group> groups;
+    
     public Athlete(int id, String userName, String email, String password) {
         this.id = id;
         this.userName = userName;
@@ -102,5 +109,15 @@ public class Athlete {
         this.password = password;
     }
 
+    public List<Group> getGroups() {
+    	return groups;
+    }
     
+    public void addGroup(Group group) {
+    	groups.add(group);
+    }
+    
+    public void removeGroup(Group group) {
+    	groups.remove(group);
+    }
 }
