@@ -69,10 +69,10 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     errorMsg += "Last name ";
                 }
-               if (!isValidEmail(email))
-               {
+                if (!isValidEmail(email))
+                {
                    errorMsg += "Email ";
-               }
+                }
                 if (!isValidPassword(password) || !password.equals(confirmPassword)) {
                     errorMsg += "Password ";
                 }
@@ -91,7 +91,7 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     //Storing the values in a hashmap to be placed in JSON
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("firstName", firstName);
+                    params.put("userName", firstName);
                     params.put("lastName", lastName);
                     params.put("email", email);
                     params.put("password", password);
