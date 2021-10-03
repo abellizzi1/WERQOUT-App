@@ -1,13 +1,12 @@
 package com.werqout.werqout.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.werqout.werqout.models.Athlete;
 
-@Repository
-public interface AthleteRepository extends UserRepository{
+public interface AthleteRepository extends JpaRepository<Athlete, Long>{
     
-	Athlete findById(int id);
+	Athlete findById(long id);
 	
-	void deleteById(int id);
+	void deleteById(long id);
 }

@@ -1,9 +1,6 @@
 package com.werqout.werqout.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * This class defines an ahtlete model and all its fields and functions.
@@ -25,5 +22,34 @@ public class Athlete extends User {
         this.groupName = groupName;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    @Override
+    public long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(long id) {
+        super.setId(id);
+    }
+
+    @Override
+    public String getUserName() {
+        return super.getUserName();
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        super.setUserName(userName);
+    }
+    
+    
     
 }
