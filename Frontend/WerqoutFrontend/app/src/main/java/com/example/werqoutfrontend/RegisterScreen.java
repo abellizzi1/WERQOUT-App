@@ -99,6 +99,7 @@ public class RegisterScreen extends AppCompatActivity {
                     //Send the post request to the server
                     ServerRequest request = new ServerRequest();
                     request.jsonPostRequest(new JSONObject(params));
+                    startActivity(new Intent(v.getContext(), LoginScreen.class));
                 }
             }
         });

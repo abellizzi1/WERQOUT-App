@@ -37,6 +37,7 @@ public class LoginScreen extends AppCompatActivity {
     private String passwordResponse;
     private String email;
     private String password;
+    private static String firstName;
 
     private String TAG = ServerRequest.class.getSimpleName();
     private String tag_json_obj_post = "jobj_req_post";
@@ -88,6 +89,7 @@ public class LoginScreen extends AppCompatActivity {
                                 {
                                     emailResponse = athlete.get("email").toString();
                                     passwordResponse = athlete.get("password").toString();
+                                    firstName = athlete.get("firstName").toString();
                                     break;
                                 }
                             }
@@ -127,6 +129,7 @@ public class LoginScreen extends AppCompatActivity {
                 && passwordResponse.equals(password))
         {
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
             //startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
         }
         else
@@ -135,5 +138,6 @@ public class LoginScreen extends AppCompatActivity {
             }
     }
 
+    public static String getFirstName() { return firstName; }
 
 }
