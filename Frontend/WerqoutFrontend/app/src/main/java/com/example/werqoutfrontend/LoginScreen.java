@@ -89,7 +89,7 @@ public class LoginScreen extends AppCompatActivity {
                                 {
                                     emailResponse = athlete.get("email").toString();
                                     passwordResponse = athlete.get("password").toString();
-                                    firstName = athlete.get("firstName").toString();
+                                    firstName = athlete.get("userName").toString();
                                     break;
                                 }
                             }
