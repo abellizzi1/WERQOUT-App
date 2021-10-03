@@ -15,7 +15,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
         setContentView(R.layout.athlete_home_screen);
 
         TextView welcomeLabel = findViewById(R.id.name_label_athlete_home);
-        // set welcomeLabel text to "Hi, [firstName]!"
-        // ^ get firstName ?
+        welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
     }
 }
