@@ -55,7 +55,7 @@ public class LoginScreen extends AppCompatActivity {
         registerButton_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), AthleteHomeScreen.class));
+                startActivity(new Intent(v.getContext(), RegisterScreen.class));
             }
 
         });

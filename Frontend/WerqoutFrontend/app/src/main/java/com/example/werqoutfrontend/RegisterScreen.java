@@ -91,7 +91,7 @@ public class RegisterScreen extends AppCompatActivity {
                 {
                     //Storing the values in a hashmap to be placed in JSON
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("firstName", firstName);
+                    params.put("userName", firstName);
                     params.put("lastName", lastName);
                     params.put("email", email);
                     params.put("password", password);
@@ -99,6 +99,7 @@ public class RegisterScreen extends AppCompatActivity {
                     //Send the post request to the server
                     ServerRequest request = new ServerRequest();
                     request.jsonPostRequest(new JSONObject(params));
+                    startActivity(new Intent(v.getContext(), LoginScreen.class));
                 }
             }
         });
