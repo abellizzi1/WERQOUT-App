@@ -127,6 +127,7 @@ public class LoginScreen extends AppCompatActivity {
                 && passwordResponse.equals(password))
         {
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
             //startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
         }
         else
