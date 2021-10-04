@@ -1,9 +1,12 @@
 package com.werqout.werqout.models;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
 import java.util.List;
@@ -12,7 +15,15 @@ import java.util.List;
  * This class defines an ahtlete model and all its fields and functions.
  * @author JJ SchraderBachar
  */
+
+/*
+ * @Inheritance tag specifies that this superclass and its subclasses will be mapped in the same table.
+ * Because of this, we need a way to tell which type we are working with. This will add a column named
+ * DTYPE by default which will hold the value designated by @DiscriminatorValue.
+ */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("Athlete")
 public class Athlete {
     /**
      * User ID
