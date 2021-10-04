@@ -65,7 +65,8 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-            jsonGetRequest();
+            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+//            jsonGetRequest();
             }
         });
 
@@ -129,7 +130,6 @@ public class LoginScreen extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
-            //startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
         }
         else
             {

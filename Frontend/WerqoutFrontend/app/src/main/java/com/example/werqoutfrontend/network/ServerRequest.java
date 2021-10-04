@@ -54,7 +54,7 @@ public class ServerRequest{
     public void jsonGetRequest(VolleyCallback callback, String url)
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_GET_REQUEST, null,
+                url, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
