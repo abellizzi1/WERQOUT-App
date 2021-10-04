@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.example.werqoutfrontend.model.Athlete;
@@ -66,6 +67,10 @@ public class AthleteHomeScreen extends AppCompatActivity{
                 {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onSuccess(JSONArray result) {
             }
         },Const.WEATHER_API);
     }

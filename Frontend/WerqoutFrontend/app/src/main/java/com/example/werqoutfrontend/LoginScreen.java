@@ -18,8 +18,10 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.werqoutfrontend.app.AppController;
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,6 +124,40 @@ public class LoginScreen extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(jsonArray,
                 tag_json_obj_post);
     }
+
+//    public void getJson()
+//    {
+//        ServerRequest userLogin = new ServerRequest();
+//        userLogin.jsonArrayRequest(new VolleyCallback() {
+//            @Override
+//            public void onSuccess(JSONObject result) {
+//            }
+//
+//            @Override
+//            public void onSuccess(JSONArray athletes) {
+//                for(int i = 0; i < athletes.length(); i++)
+//                {
+//                    try {
+//                        JSONObject athlete = athletes.getJSONObject(i);
+//                        if(athlete.get("email").toString().equals(email))
+//                        {
+//
+//                            emailResponse = athlete.get("email").toString();
+//                            passwordResponse = athlete.get("password").toString();
+//                            firstName = athlete.get("userName").toString();
+//                            Athlete athlete1 = new Athlete(emailResponse, passwordResponse, firstName);
+//                            break;
+//                        }
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//                login();
+//            }
+//        },Const.URL_JSON_GET_REQUEST);
+//    }
 
     public void login()
     {
