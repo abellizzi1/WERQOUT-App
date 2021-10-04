@@ -15,6 +15,9 @@
         android:theme="@style/Theme.WerqoutFrontend"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ProfileScreen"
+            android:exported="true" />
+        <activity
             android:name=".AthleteHomeScreen"
             android:exported="true" />
         <activity

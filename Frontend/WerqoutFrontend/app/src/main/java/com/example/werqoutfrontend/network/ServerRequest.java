@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.werqoutfrontend.app.AppController;
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
 
 import org.json.JSONException;
@@ -18,7 +19,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServerRequest {
+public class ServerRequest{
     private String TAG = ServerRequest.class.getSimpleName();
     private String tag_json_obj_post = "jobj_req_post";
 
@@ -50,7 +51,7 @@ public class ServerRequest {
                 tag_json_obj_post);
     }
 
-    public void jsonGetRequest()
+    public void jsonGetRequest(VolleyCallback callback, String url)
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 Const.URL_JSON_GET_REQUEST, null,
@@ -58,6 +59,7 @@ public class ServerRequest {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        callback.onSuccess(response);
                         Log.d(TAG, response.toString());
                     }
                 }, new Response.ErrorListener() {

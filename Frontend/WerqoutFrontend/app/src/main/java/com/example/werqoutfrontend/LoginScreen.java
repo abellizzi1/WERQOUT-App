@@ -72,7 +72,6 @@ public class LoginScreen extends AppCompatActivity {
     }
     public void jsonGetRequest()
     {
-        //TODO: Replace email in the url with some sort of identifier
         String url = Const.URL_JSON_GET_REQUEST;
         JsonArrayRequest jsonArray = new JsonArrayRequest(Request.Method.GET,
                 url, null,
