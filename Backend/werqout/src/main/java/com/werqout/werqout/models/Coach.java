@@ -52,6 +52,9 @@ public class Coach extends User {
         return rating /= numRatings;
     }
 
+    public double getRating(){
+        return rating;
+    }
     
 
 }
