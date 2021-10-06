@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.werqout.werqout.repository.GroupRepository;
 import com.werqout.werqout.models.Group;
@@ -14,27 +15,28 @@ import com.werqout.werqout.models.Group;
 import java.util.List;
 
 @RestController
+@RequestMapping("/groups")
 public class GroupController {
 	
 	GroupRepository groupRepository;
 	
-	@GetMapping("/groups")
+	@GetMapping("/")
 	List<Group> getGroups(){
 		return groupRepository.findAll();
 	}
 	
-	@GetMapping("/groups/{id}")
+	@GetMapping("/{id}")
 	Group findGroup(@PathVariable int id) {
 		return groupRepository.findById(id);
 	}
 	
-	@PostMapping("/groups")
+	@PostMapping("/")
 	Group createGroup(@RequestBody Group group) {
 		groupRepository.save(group);
 		return groupRepository.findById(group.getId());
 	}
 	
-	@PutMapping("/groups/{id}")
+	@PutMapping("/{id}")
 	Group updateGroup(@PathVariable int id, @RequestBody Group group) {
 		Group toUpdate = groupRepository.findById(id);
 		if(toUpdate == null)
@@ -43,7 +45,7 @@ public class GroupController {
 		return groupRepository.findById(id);
 	}
 	
-	@DeleteMapping("/groups/{id}")
+	@DeleteMapping("/{id}")
 	String deleteGroup(@PathVariable int id) {
 		groupRepository.deleteById(id);
 		return "Group: " + groupRepository.findById(id).getName() + " deleted successfully!";
