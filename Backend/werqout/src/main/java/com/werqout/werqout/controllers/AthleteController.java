@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
 import com.werqout.werqout.models.Athlete;
+import com.werqout.werqout.models.Group;
 
 import java.util.List;
 
@@ -51,6 +52,15 @@ public class AthleteController {
     		return "No Such Athlete";
     	athleteRepository.deleteById(id);
     	return "Athlete: " + athleteRepository.findById(id).getUserName() + " Deleted";
+    }
+    
+    @PutMapping("/athletes/{id}/groups")
+    public void addGroup(@PathVariable int id, @RequestBody Group group) {
+    	athleteRepository.findById(id).addGroup(group);
+    }
+    
+    public void removeGroup(@PathVariable int id, @RequestBody Group group) {
+    	athleteRepository.findById(id).removeGroup(group);
     }
     
 }

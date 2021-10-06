@@ -7,7 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 import java.util.List;
 
@@ -52,6 +54,9 @@ public class Athlete {
      */
     
     @ManyToMany
+    @JoinTable(name = "group_members",
+    		   joinColumns = @JoinColumn(name = "athlete_id"),
+    		   inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groups;
     
     public Athlete(int id, String userName, String email, String password) {

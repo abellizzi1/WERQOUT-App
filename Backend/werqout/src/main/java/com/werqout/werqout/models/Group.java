@@ -28,8 +28,7 @@ public class Group {
 	 * Array which holds members of the group
 	 * Foreign key for Athlete table
 	 */
-	@ManyToMany
-	@JsonIgnore
+	@ManyToMany(mappedBy = "groups")
 	private List<Athlete> members;
 	
 	/**
@@ -94,6 +93,10 @@ public class Group {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getName() {
