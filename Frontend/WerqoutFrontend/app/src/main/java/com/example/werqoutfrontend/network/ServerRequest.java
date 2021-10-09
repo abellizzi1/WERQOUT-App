@@ -1,17 +1,20 @@
 package com.example.werqoutfrontend.network;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.werqoutfrontend.app.AppController;
-import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
+import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 
 import org.json.JSONArray;
@@ -24,6 +27,7 @@ import java.util.Map;
 public class ServerRequest{
     private String TAG = ServerRequest.class.getSimpleName();
     private String tag_json_obj_post = "jobj_req_post";
+    private String tag_image_request = "image_request";
 
     public void jsonPostRequest(JSONObject object)
     {
@@ -114,6 +118,24 @@ public class ServerRequest{
         };
         AppController.getInstance().addToRequestQueue(jsonLogin,
                 tag_json_obj_post);
+    }
+
+    public void imageRequest(VolleyCallbackImage callback, String url)
+    {
+        ImageRequest image = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                Log.d(TAG, response.toString());
+                callback.onSuccess(response);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(image, tag_image_request);
     }
 }
 

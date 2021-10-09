@@ -20,7 +20,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class LoginScreen extends AppCompatActivity {
     private TextView emailInput;
     private TextView passwordInput;
@@ -90,7 +89,6 @@ public class LoginScreen extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
                 login();
             }
