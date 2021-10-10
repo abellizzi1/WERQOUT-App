@@ -8,22 +8,6 @@
     android:background="#000000"
     tools:context=".AthleteHomeScreen">
 
-    <Button
-        android:id="@+id/view_all_button_athlete_home"
-        android:layout_width="142dp"
-        android:layout_height="50dp"
-        android:background="#00FFA7"
-        android:text="View all"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
-
     <TextView
         android:id="@+id/werqout_label_athlete_home"
         android:layout_width="294dp"
@@ -176,9 +160,9 @@
 
     <TextView
         android:id="@+id/workouts_label_athlete_home"
-        android:layout_width="350dp"
+        android:layout_width="250dp"
         android:layout_height="40dp"
-        android:text="Upcoming workouts (Preview)"
+        android:text="Upcoming workouts"
         android:textAlignment="center"
         android:textColor="#00FFA7"
         android:textSize="24sp"
@@ -188,5 +172,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.434" />
+
+    <ScrollView
+        android:id="@+id/scrollview_athlete_home"
+        android:layout_width="409dp"
+        android:layout_height="309dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar_athlete_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workouts_label_athlete_home"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/scrollLinear_athlete_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
