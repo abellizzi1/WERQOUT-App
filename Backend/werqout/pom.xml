@@ -15,7 +15,7 @@
 	<name>werqout</name>
 	<description>Workout Application for group fitness</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>1.8.0_302</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
