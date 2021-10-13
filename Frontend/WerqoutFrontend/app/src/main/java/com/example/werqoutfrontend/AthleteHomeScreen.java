@@ -1,6 +1,7 @@
 package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
@@ -22,10 +24,11 @@ import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 import org.json.JSONObject;
 
-public class AthleteHomeScreen extends AppCompatActivity{
+public class AthleteHomeScreen extends AppCompatActivity {
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

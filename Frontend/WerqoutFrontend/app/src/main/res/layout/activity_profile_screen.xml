@@ -26,7 +26,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/profile_picture_profile_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="1dp"
@@ -45,7 +45,8 @@
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintHorizontal_bias="0.992"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.507" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -57,6 +58,7 @@
         android:layout_height="49dp"
         android:text="Edit Profile"
         app:backgroundTint="#000000"
+        app:cornerRadius="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,35 +78,73 @@
         app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.109">
 
-        <LinearLayout
-            android:layout_width="329dp"
-            android:layout_height="match_parent"
-            android:background="#1EE98A"
-            android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="353dp">
 
-            <TextView
-                android:id="@+id/Username_text_profile_screen"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:baselineAligned="false"
-                android:text="Username:"
-                android:textSize="20sp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/email_text_profile_screen"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:text="Email:"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/Username_text_profile_screen"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:baselineAligned="false"
+                    android:text="Username:"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/bio_profileScreen"
-                android:layout_width="match_parent"
-                android:layout_height="174dp"
-                android:text="Bio:"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/email_text_profile_screen"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:text="Email:"
+                    android:textSize="20sp" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/bio_profileScreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="237dp"
+                    android:text="Bio:"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
+
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/friends_button_profile_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="23dp"
+        android:backgroundTint="#000000"
+        android:text="Friends"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/groups_button_profile_screen"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2"
+        app:layout_constraintVertical_bias="0.25"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2sp" />
+
+    <Button
+        android:id="@+id/groups_button_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="#000000"
+        android:text="Groups"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friends_button_profile_page"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2"
+        app:layout_constraintVertical_bias="0.25"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
