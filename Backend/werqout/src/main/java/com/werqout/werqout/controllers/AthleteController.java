@@ -14,6 +14,7 @@ import com.werqout.werqout.models.Athlete;
 import com.werqout.werqout.models.Group;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 public class AthleteController {
@@ -54,10 +55,18 @@ public class AthleteController {
     	return "Athlete: " + athleteRepository.findById(id).getUserName() + " Deleted";
     }
     
-    @PutMapping("/athletes/{id}/groups")
-    public void addGroup(@PathVariable int id, @RequestBody Group group) {
-    	athleteRepository.findById(id).addGroup(group);
+    @GetMapping("/athletes/{id}/groups")
+    public List<Group> getGroups(@PathVariable int id) {
+    	return athleteRepository.findById(id).getGroups();
     }
+    
+    @PostMapping("/athletes/{id}/groups")
+    public String addGroup(@PathVariable int id, @RequestBody Group group) {
+    	Athlete athlete = athleteRepository.findById(id);
+    	athlete.addGroup(group);
+    	return "success";
+    }
+    
     
     public void removeGroup(@PathVariable int id, @RequestBody Group group) {
     	athleteRepository.findById(id).removeGroup(group);

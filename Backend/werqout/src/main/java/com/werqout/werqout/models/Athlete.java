@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This class defines an ahtlete model and all its fields and functions.
@@ -64,6 +65,7 @@ public class Athlete {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.groups = new ArrayList<Group>();
     }
     public Athlete(){
         

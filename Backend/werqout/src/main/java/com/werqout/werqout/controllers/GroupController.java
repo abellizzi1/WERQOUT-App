@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.werqout.werqout.repository.GroupRepository;
-import com.werqout.werqout.controllers.AthleteController;
 import com.werqout.werqout.models.Group;
 import com.werqout.werqout.models.Athlete;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 public class GroupController {
@@ -62,10 +62,20 @@ public class GroupController {
 		return groupRepository.findById(id).getMembers();
 	}
 	
-	@GetMapping("/groups/{id}/athletes/{id}")
-	boolean isMember(@PathVariable int groupId, @RequestBody Athlete athlete) {
-		Group group = groupRepository.findById(groupId);
-		return group.getMembers().contains(athlete);
+
+	
+	@PostMapping("/groups/{id}/athletes")
+	void addMember(@PathVariable int id, @RequestBody Athlete athlete) {
+		Group group = groupRepository.findById(id);
+		if(group != null)
+			group.addMember(athlete);
 	}
 	
+	@DeleteMapping("/groups/{id}/athletes")
+	void removeMember(@PathVariable int groupId, @RequestBody Athlete athlete) {
+		Group group = groupRepository.findById(groupId);
+		if(group != null && group.getMembers().contains(athlete)) {
+			group.removeMember(athlete);
+		}
+	}
 }
