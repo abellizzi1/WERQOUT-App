@@ -7,46 +7,48 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.werqout.werqout.repository.GroupRepository;
-import com.werqout.werqout.models.Group;
+import com.werqout.werqout.repository.TeamRepository;
+import com.werqout.werqout.models.Team;
 
 import java.util.List;
 
 @RestController
-public class GroupController {
+@RequestMapping("/team")
+public class TeamController {
 	
-	GroupRepository groupRepository;
+	TeamRepository teamRepository;
 	
-	@GetMapping("/groups")
-	List<Group> getGroups(){
-		return groupRepository.findAll();
+	@GetMapping("/team")
+	List<Team> getTeam(){
+		return teamRepository.findAll();
 	}
 	
-	@GetMapping("/groups/{id}")
-	Group findGroup(@PathVariable int id) {
-		return groupRepository.findById(id);
+	@GetMapping("/team/{id}")
+	Team findGroup(@PathVariable int id) {
+		return teamRepository.findById(id);
 	}
 	
-	@PostMapping("/groups")
-	Group createGroup(@RequestBody Group group) {
-		groupRepository.save(group);
-		return groupRepository.findById(group.getId());
+	@PostMapping("/team")
+	Team createGroup(@RequestBody Team group) {
+		teamRepository.save(group);
+		return teamRepository.findById(group.getId());
 	}
 	
-	@PutMapping("/groups/{id}")
-	Group updateGroup(@PathVariable int id, @RequestBody Group group) {
-		Group toUpdate = groupRepository.findById(id);
+	@PutMapping("/team/{id}")
+	Team updateGroup(@PathVariable int id, @RequestBody Team group) {
+		Team toUpdate = teamRepository.findById(id);
 		if(toUpdate == null)
 			return null;
-		groupRepository.save(group);
-		return groupRepository.findById(id);
+		teamRepository.save(group);
+		return teamRepository.findById(id);
 	}
 	
-	@DeleteMapping("/groups/{id}")
+	@DeleteMapping("/team/{id}")
 	String deleteGroup(@PathVariable int id) {
-		groupRepository.deleteById(id);
-		return "Group: " + groupRepository.findById(id).getName() + " deleted successfully!";
+		teamRepository.deleteById(id);
+		return "Group: " + teamRepository.findById(id).getName() + " deleted successfully!";
 	}
 	
 }

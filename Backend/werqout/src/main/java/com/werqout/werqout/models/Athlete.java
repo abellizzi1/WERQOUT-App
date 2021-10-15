@@ -17,7 +17,7 @@ public class Athlete extends User {
         
     }
     
-    public Athlete(long id,String userName, String email, String password, String groupName) {
+    public Athlete(int id,String userName, String email, String password, String groupName) {
         super(id, userName, email, password);
         this.groupName = groupName;
     }
@@ -31,12 +31,12 @@ public class Athlete extends User {
     }
 
     @Override
-    public long getId() {
+    public int getId() {
         return super.getId();
     }
 
     @Override
-    public void setId(long id) {
+    public void setId(int id) {
         super.setId(id);
     }
 

@@ -7,59 +7,59 @@ import javax.persistence.Id;
 
 import java.util.ArrayList;
 @Entity
-public class Group {
+public class Team {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	/**
-	 * Name of the group 
+	 * Name of the team
 	 */
 	private String name;
 	
 	/**
-	 * Array which holds members of the group
+	 * Array which holds members of the team
 	 * Foreign key for Athlete table
 	 */
 	private ArrayList<Integer> members;
 	
 	/**
-	 * Object which represents the group's coach
+	 * Object which represents the team's coach
 	 * Foreign key to Athlete table
 	 */
 	private int coach;
 	
 	/**
-	 * String providing a general description of the group
+	 * String providing a general description of the team
 	 */
 	private String description;
 	
 	// TODO: Create gyms and add usual gym as an instance var
 	
 	/**
-	 * Value represents average rating of the group, based on user reviews
+	 * Value represents average rating of the team, based on user reviews
 	 */
 	private double rating;
 	private int numRatings;
 	
 	
 	/**
-	 * Create a new group and set key parameters
+	 * Create a new teamand set key parameters
 	 * 
 	 * @param name
-	 * 		String name			: Name of group to be created
+	 * 		String name			: Name of teamto be created
 	 * 
 	 * @param members
 	 * 		int[] members		: Array of ints which are keys to the athlete table, to be added to members list
 	 * 
 	 * @param coach
-	 * 		int coach			: Int which is a key to the athlete table, sets this as group's coach
+	 * 		int coach			: Int which is a key to the athlete table, sets this as team's coach
 	 * 
 	 * @param description
-	 * 		String description:	: String to be group's general description
+	 * 		String description:	: String to be team's general description
 	 */
-	public Group(String name, int[] members, int coach, String description) {
+	public Team(String name, int[] members, int coach, String description) {
 		this.name = name;
 		this.coach = coach;
 		
@@ -76,9 +76,9 @@ public class Group {
 	}
 	
 	/**
-	 * Default constructor for group, only variable defined is rating and numRatings
+	 * Default constructor for team, only variable defined is rating and numRatings
 	 */
-	public Group() {
+	public Team() {
 		this.rating = 0;
 		this.numRatings = 0;
 	}
@@ -107,10 +107,10 @@ public class Group {
 	}
 	
 	/**
-	 * Method returns all members of this group as an array of String
+	 * Method returns all members of this teamas an array of String
 	 * 
 	 * @return
-	 * 		Integer[] members : array containing id's for all members of this group
+	 * 		Integer[] members : array containing id's for all members of this team
 	 */
 	public Integer[] getMembers() {
 		return (Integer[]) members.toArray();
