@@ -1,7 +1,9 @@
 package com.werqout.werqout.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +11,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 
 import java.util.List;
@@ -54,18 +59,19 @@ public class Athlete {
      * @param password
      */
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+    			cascade = CascadeType.PERSIST)
     @JoinTable(name = "group_members",
     		   joinColumns = @JoinColumn(name = "athlete_id"),
     		   inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private List<Group> groups;
+    @JsonIgnore
+    private List<Group> groups = new ArrayList<Group>();
     
     public Athlete(int id, String userName, String email, String password) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.groups = new ArrayList<Group>();
     }
     public Athlete(){
         

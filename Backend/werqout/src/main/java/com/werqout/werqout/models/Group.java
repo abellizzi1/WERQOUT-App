@@ -30,7 +30,8 @@ public class Group {
 	 * Foreign key for Athlete table
 	 */
 	@ManyToMany(mappedBy = "groups")
-	private List<Athlete> members;
+	@JsonIgnore
+	private List<Athlete> members = new ArrayList<Athlete>();
 	
 	/**
 	 * Object which represents the group's coach

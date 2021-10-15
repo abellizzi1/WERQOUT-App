@@ -14,7 +14,6 @@ import com.werqout.werqout.models.Athlete;
 import com.werqout.werqout.models.Group;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @RestController
 public class AthleteController {
@@ -61,10 +60,11 @@ public class AthleteController {
     }
     
     @PostMapping("/athletes/{id}/groups")
-    public String addGroup(@PathVariable int id, @RequestBody Group group) {
+    public List<Group> addGroup(@PathVariable int id, @RequestBody Group group) {
     	Athlete athlete = athleteRepository.findById(id);
     	athlete.addGroup(group);
-    	return "success";
+    	athleteRepository.save(athlete);
+    	return athleteRepository.findById(id).getGroups();
     }
     
     
