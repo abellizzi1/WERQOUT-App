@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".EditProfileScreen"
+    >
+
+    <Button
+        android:id="@+id/cancel_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/done_button_edit_profile_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile" />
+
+    <Button
+        android:id="@+id/done_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel_button_edit_profile_screen"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile" />
+
+    <TextView
+        android:id="@+id/title_text_edit_profile"
+        android:layout_width="235dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="Edit Profile"
+        android:textAlignment="center"
+        android:textColor="#00FFA7"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text_edit_profile"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TableLayout
+        android:id="@+id/user_info_table_edit_profile"
+        android:layout_width="409dp"
+        android:layout_height="269dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="118dp">
+
+            <TextView
+                android:id="@+id/username_label_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Username:" />
+
+            <EditText
+                android:id="@+id/edit_text_username_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/email_label_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:" />
+
+            <EditText
+                android:id="@+id/edit_email_edit_profilescreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/password_label_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password:" />
+
+            <EditText
+                android:id="@+id/edit_text_password_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="382dp"
+            android:layout_height="24dp" />
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -137,5 +137,37 @@ public class ServerRequest{
 
         AppController.getInstance().addToRequestQueue(image, tag_image_request);
     }
+
+    public void jsonObjectRequest(String url, int requestType, JSONObject object)
+    {
+        //GET = 0, POST = 1, PUT = 2, and DELETE = 3
+        JsonObjectRequest request = new JsonObjectRequest(requestType, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map <String,String> params = new HashMap<String, String>();
+//                try {
+//                    params.put("profilePicture", object.getString("picture"));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                return params;
+//            }
+        };
+        AppController.getInstance().addToRequestQueue(request,
+                tag_json_obj_post);
+    }
 }
 

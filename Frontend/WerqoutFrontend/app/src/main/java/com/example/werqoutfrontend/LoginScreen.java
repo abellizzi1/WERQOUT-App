@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -17,10 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginScreen extends AppCompatActivity implements Serializable {
     private TextView emailInput;
     private TextView passwordInput;
 
@@ -56,8 +60,8 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-            //getJsonLoginInfo();
-                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+            getJsonLoginInfo();
+//                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
             }
         });
 
@@ -84,6 +88,8 @@ public class LoginScreen extends AppCompatActivity {
                             emailResponse = user.get("email").toString();
                             passwordResponse = user.get("password").toString();
                             firstName = user.get("userName").toString();
+                            int id = Integer.valueOf(user.get("id").toString());
+                            Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             break;
                         }
 
@@ -93,7 +99,7 @@ public class LoginScreen extends AppCompatActivity {
                 }
                 login();
             }
-        },Const.URL_JSON_GET_REQUEST);
+        },Const.POSTMAN_TEST_URL);
     }
 
     public void login()
