@@ -9,34 +9,34 @@ import javax.persistence.Entity;
 @Entity
 public class Athlete extends User {
    /**
-    * Name of the group the athlete is in. Foreign Key to groups table
+    * Name of the team the athlete is in. Foreign Key to team table
     */
-    public String groupName;
+    public String teamName;
 
     public Athlete(){
         
     }
     
-    public Athlete(int id,String userName, String email, String password, String groupName) {
+    public Athlete(long id,String userName, String email, String password, String teamName) {
         super(id, userName, email, password);
-        this.groupName = groupName;
+        this.teamName = teamName;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return super.getId();
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(long id) {
         super.setId(id);
     }
 

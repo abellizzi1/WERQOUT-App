@@ -11,7 +11,7 @@ public class Team {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	/**
 	 * Name of the team
@@ -59,14 +59,14 @@ public class Team {
 	 * @param description
 	 * 		String description:	: String to be team's general description
 	 */
-	public Team(String name, int[] members, int coach, String description) {
+	public Team(long id, String name, int[] members, int coach, String description) {
+		this.id = id;
 		this.name = name;
-		this.coach = coach;
-		
 		// Iterate through members argument, add each member to members ArrayList
 		for(int i = 0; i < members.length; i++) {
 			this.members.add(members[i]);
 		}
+		
 		this.coach = coach;
 		this.description = description;
 		
@@ -86,7 +86,7 @@ public class Team {
 	/*
 	 * General getters and setters, documentation added on special methods
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
