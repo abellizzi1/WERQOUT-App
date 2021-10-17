@@ -4,10 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
+@Table(name = "teams")
 public class Team {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +30,17 @@ public class Team {
 	 * Array which holds members of the team
 	 * Foreign key for Athlete table
 	 */
-	private ArrayList<Integer> members;
+	@ManyToMany(mappedBy = "teams")
+	@JsonIgnore
+	private List<Athlete> members = new ArrayList<Athlete>();
 	
 	/**
 	 * Object which represents the team's coach
 	 * Foreign key to Athlete table
 	 */
-	private int coach;
+	// TODO: add coach dependency once coach class is working
+	//@ManyToOne
+	//private int coach;
 	
 	/**
 	 * String providing a general description of the team
@@ -41,7 +53,7 @@ public class Team {
 	 * Value represents average rating of the team, based on user reviews
 	 */
 	private double rating;
-	private int numRatings;
+	private Integer numRatings;
 	
 	
 	/**
@@ -59,25 +71,23 @@ public class Team {
 	 * @param description
 	 * 		String description:	: String to be team's general description
 	 */
-	public Team(String name, int[] members, int coach, String description) {
+
+	public Team(String name, String description) {
 		this.name = name;
-		this.coach = coach;
 		
 		// Iterate through members argument, add each member to members ArrayList
-		for(int i = 0; i < members.length; i++) {
-			this.members.add(members[i]);
-		}
-		this.coach = coach;
+		
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
-		rating = 0;
+		//rating = 0;
 		numRatings = 0;
 	}
 	
 	/**
 	 * Default constructor for team, only variable defined is rating and numRatings
 	 */
+
 	public Team() {
 		this.rating = 0;
 		this.numRatings = 0;
@@ -90,6 +100,10 @@ public class Team {
 		return id;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -98,13 +112,6 @@ public class Team {
 		this.name = name;
 	}
 	
-	public int getCoach() {
-		return coach;
-	}
-	
-	public void setCoach(int coach) {
-		this.coach = coach;
-	}
 	
 	/**
 	 * Method returns all members of this teamas an array of String
@@ -112,23 +119,23 @@ public class Team {
 	 * @return
 	 * 		Integer[] members : array containing id's for all members of this team
 	 */
-	public Integer[] getMembers() {
-		return (Integer[]) members.toArray();
+	public List<Athlete> getMembers() {
+		return members;
 	}
 	
-	public int getNumMembers() {
-		return members.size();
-	}
+	//public int getNumMembers() {
+	//	return members.size();
+	//}
 	
-	public void addMember(int toAdd) {
+	public void addMember(Athlete toAdd) {
 		members.add(toAdd);
 	}
 	
-	public void removeMember(int toRemove) {
+	public void removeMember(Athlete toRemove) {
 		members.remove(toRemove);
 	}
 	
-	public boolean isMember(int search) {
+	public boolean isMember(Athlete search) {
 		return members.contains(search);
 	}
 	

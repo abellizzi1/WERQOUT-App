@@ -47,11 +47,9 @@ public class Coach extends User {
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
      */
-    public double rate(){
+    public double rate() {
         numRatings++;
         return rating /= numRatings;
     }
-
-    
 
 }
