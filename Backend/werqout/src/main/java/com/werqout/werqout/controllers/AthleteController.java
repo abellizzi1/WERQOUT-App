@@ -25,7 +25,7 @@ public class AthleteController {
     
     @GetMapping("/{id}")
     public Athlete getAthlete(@PathVariable long id) {
-    	return athleteRepository.findById(id);
+    	return athleteRepository.findById(id).get();
     }
 
     @PostMapping("/")
@@ -39,15 +39,15 @@ public class AthleteController {
     	if(athleteRepository.findById(id) == null)
     		return null;
     	athleteRepository.save(athlete);
-    	return athleteRepository.findById(id);
+    	return athleteRepository.findById(id).get();
     }
     
     @Transactional
     @DeleteMapping("/{id}")
     public String deleteAthlete(@PathVariable long id) {
     	if(athleteRepository.findById(id) == null)
-    		return "No Such Athlete";
-    	String athleteName = athleteRepository.findById(id).getUserName();
+    		return "No Such Athlete";                       //putting .get() here to resolve cannot convert from optional<>...
+    	String athleteName = athleteRepository.findById(id).get().getUserName();
     	athleteRepository.deleteById(id);
     	return "Athlete: " + athleteName + " Deleted";
     }
