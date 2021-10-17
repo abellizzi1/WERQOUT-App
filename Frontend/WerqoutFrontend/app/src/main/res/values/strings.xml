@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WerqoutFrontend</string>
+
+    <string-array name="names">
+        <item>Select type of user...</item>
+        <item>Athlete</item>
+        <item>Coach</item>
+        <item>Gym Owner</item>
+    </string-array>
+
+</resources>

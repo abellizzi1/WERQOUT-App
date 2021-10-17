@@ -1,14 +1,11 @@
 package com.werqout.werqout.models;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -30,9 +27,7 @@ import java.util.ArrayList;
  * DTYPE by default which will hold the value designated by @DiscriminatorValue.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("Athlete")
-public class Athlete {
+public class Athlete extends User {
     /**
      * User ID
      */
@@ -59,6 +54,11 @@ public class Athlete {
      * @param password
      */
     
+    /**
+     * Name of the group the athlete is in. Foreign Key to groups table
+     */
+     public String groupName;
+     
     @ManyToMany(fetch = FetchType.LAZY,
     			cascade = CascadeType.PERSIST)
     @JoinTable(name = "group_members",
@@ -67,70 +67,43 @@ public class Athlete {
     @JsonIgnore
     private List<Group> groups = new ArrayList<Group>();
     
-    public Athlete(int id, String userName, String email, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-    }
+
+
     public Athlete(){
         
     }
-    /**
-     * gets the User's' ID
-     * @return users ID
-     */
-    public int getId() {
-        return id;
+    
+    public Athlete(long id,String userName, String email, String password, String groupName) {
+        super(id, userName, email, password);
+        this.groupName = groupName;
     }
-    /**
-     * Sets the ID
-     * @param id of the ahtlete
-     */
-    public void setId(int id) {
-        this.id = id;
+
+    public String getGroupName() {
+        return groupName;
     }
-    /**
-     * gets the user's username
-     * @return userName
-     */
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    @Override
+    public long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(long id) {
+        super.setId(id);
+    }
+
+    @Override
     public String getUserName() {
-        return userName;
+        return super.getUserName();
     }
-    /**
-     * Sets the username
-     * @param userName username of the athlete
-     */
+    
+    @Override
     public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    /**
-     * gets the athletes email
-     * @return athlete's email
-     */
-    public String getEmail() {
-        return email;
-    }
-    /**
-     * Sets the atheletes email
-     * @param email of the athelete
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    /**
-     * gets the athletes Password- should be hashed to store into database
-     * @return athletes hashed password
-     */
-    public String getPassword() {
-        return password;
-    }
-    /**
-     * Sets the athlete's password
-     * @param password of the althlete
-     */
-    public void setPassword(String password) {
-        this.password = password;
+        super.setUserName(userName);
     }
 
     public List<Group> getGroups() {
