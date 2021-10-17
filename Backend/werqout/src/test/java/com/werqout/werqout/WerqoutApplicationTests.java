@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class WerqoutApplicationTests {
 
-	// @Test commentint out so our ci can run
+	// @Test
 	// void contextLoads() {
 	// }
 

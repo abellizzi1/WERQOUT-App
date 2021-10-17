@@ -14,7 +14,6 @@ import java.util.List;
 
 import com.werqout.werqout.repository.CoachRepository;
 import com.werqout.werqout.models.Coach;
-import com.werqout.werqout.models.User;
 
 @RestController
 @RequestMapping("/coaches")
@@ -24,19 +23,19 @@ public class CoachController {
 	CoachRepository coachRepository;
 	
 	@GetMapping("/")
-	public List<User> getAllCoaches(){
+	public List<Coach> getAllCoaches(){
 		return coachRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Coach getCoach(@PathVariable long id) {
-		return (Coach) coachRepository.findById(id);
+	public Coach getCoach(@PathVariable int id) {
+		return coachRepository.findById(id);
 	}
 	
 	@PostMapping("/")
 	public Coach createCoach(@RequestBody Coach coach) {
 		coachRepository.save(coach);
-		return (Coach) coachRepository.findById(coach.getId());
+		return coachRepository.findById(coach.getId());
 	}
 	
 	@PutMapping("/{id}")
@@ -49,7 +48,7 @@ public class CoachController {
 	
 	@Transactional
 	@DeleteMapping
-	public String deleteAthlete(@PathVariable long id) {
+	public String deleteAthlete(@PathVariable int id) {
 		if(coachRepository.findById(id) == null)
 			return "No Such Coach";
 		String coachName = coachRepository.findById(id).getUserName();
