@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".EditProfileScreen"
-    >
+    tools:context=".EditProfileScreen">
 
     <Button
         android:id="@+id/cancel_button_edit_profile_screen"
@@ -121,4 +120,18 @@
             android:layout_width="382dp"
             android:layout_height="24dp" />
     </TableLayout>
+
+    <Button
+        android:id="@+id/delete_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:text="Delete"
+        android:textColor="#B50000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/done_button_edit_profile_screen"
+        app:layout_constraintStart_toEndOf="@+id/cancel_button_edit_profile_screen"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile"
+        app:strokeColor="#B50000"
+        app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

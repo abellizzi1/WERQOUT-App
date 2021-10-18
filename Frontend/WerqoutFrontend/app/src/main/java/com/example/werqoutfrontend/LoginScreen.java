@@ -99,12 +99,16 @@ public class LoginScreen extends AppCompatActivity implements Serializable {
                 }
                 login();
             }
-        },Const.POSTMAN_TEST_URL);
+        },Const.URL_JSON_GET_REQUEST);
     }
 
     public void login()
     {
-        if(emailResponse.equalsIgnoreCase(email)
+        if(emailResponse == null)
+        {
+            Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
+        }
+        else if(emailResponse.equalsIgnoreCase(email)
                 && passwordResponse.equals(password))
         {
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();

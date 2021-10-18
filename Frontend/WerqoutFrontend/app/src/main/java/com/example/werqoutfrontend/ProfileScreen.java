@@ -16,11 +16,6 @@ import com.example.werqoutfrontend.utils.BitmapStringConversion;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProfileScreen extends AppCompatActivity {
     private ImageView profilePicture;

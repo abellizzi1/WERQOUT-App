@@ -1,7 +1,10 @@
 package com.example.werqoutfrontend;
 
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +34,7 @@ public class EditProfileScreen extends AppCompatActivity {
 
         Button done = findViewById(R.id.done_button_edit_profile_screen);
         Button cancel = findViewById(R.id.cancel_button_edit_profile_screen);
+        Button delete = findViewById(R.id.delete_button_edit_profile_screen);
 
         username.setText(User.currentUser.getUsername());
         email.setText(User.currentUser.getEmail());
@@ -64,5 +68,38 @@ public class EditProfileScreen extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ProfileScreen.class));
             }
         });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                androidx.appcompat.app.AlertDialog.Builder builder =
+                        new androidx.appcompat.app.AlertDialog.Builder(EditProfileScreen.this);
+                builder.setCancelable(true);
+                builder.setTitle("Delete Account?");
+                builder.setMessage("This action cannot be undone");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteAccount();
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+    }
+    private void deleteAccount()
+    {
+        ServerRequest deleteRequest = new ServerRequest();
+        String url = Const.URL_JSON_GET_REQUEST + "/" + String.valueOf(User.currentUser.getId());
+        deleteRequest.jsonObjectRequest(url,3,null);
+        startActivity(new Intent(getApplicationContext(), LoginScreen.class));
     }
 }
