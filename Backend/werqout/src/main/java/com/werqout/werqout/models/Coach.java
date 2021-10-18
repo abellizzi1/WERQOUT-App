@@ -16,7 +16,7 @@ public class Coach extends User {
     private String gymName;
     
     @OneToOne
-    @JoinColumn(name = "coachId", referencedColumnName = "id")
+    @JoinColumn(name = "managed_team", referencedColumnName = "id")
     private Team managedTeam;
 
     /**
