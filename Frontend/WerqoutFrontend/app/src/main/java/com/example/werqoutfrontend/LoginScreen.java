@@ -107,10 +107,10 @@ public class LoginScreen extends AppCompatActivity {
 
     public void login()
     {
-        if(emailResponse.equalsIgnoreCase(email)
-                && passwordResponse.equals(password))
+        if (!userSpinner.getSelectedItem().toString().equals("Select type of user..."))
         {
-            if (!userSpinner.getSelectedItem().toString().equals("Select type of user..."))
+            if(emailResponse.equalsIgnoreCase(email)
+                    && passwordResponse.equals(password))
             {
                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                 if (userSpinner.getSelectedItem().toString().equals("Athlete"))
@@ -121,16 +121,19 @@ public class LoginScreen extends AppCompatActivity {
                 {
                     startActivity(new Intent(getApplicationContext(), CoachHomeScreen.class));
                 }
-                else
-                {
-                    // startActivity Gym owner home screen
-                }
+                else {
+                        // startActivity Gym owner home screen
+                    }
             }
-        }
-        else
+            else
             {
                 Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Type of user not selected", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static String getFirstName() { return firstName; }
