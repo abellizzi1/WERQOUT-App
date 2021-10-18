@@ -74,6 +74,19 @@ public class LoginScreen extends AppCompatActivity {
 
     public void getJsonLoginInfo()
     {
+        if (userSpinner.getSelectedItem().toString().equals("Athlete"))
+        {
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
+        }
+        else if (userSpinner.getSelectedItem().toString().equals("Coach"))
+        {
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
+        }
+        else
+        {
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
+        }
+
         ServerRequest userLogin = new ServerRequest();
         userLogin.jsonArrayRequest(new VolleyCallback() {
             //Is there a way that I don't need to include this method?
@@ -102,7 +115,7 @@ public class LoginScreen extends AppCompatActivity {
                 }
                 login();
             }
-        },Const.URL_JSON_GET_REQUEST);
+        },Const.CURRENT_URL);
     }
 
     public void login()
