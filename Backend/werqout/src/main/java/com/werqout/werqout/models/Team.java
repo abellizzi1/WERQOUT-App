@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,9 @@ public class Team {
 	@ManyToMany(mappedBy = "teams")
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
+	
+	@OneToOne(mappedBy = "managedTeam")
+	private Coach coach;
 	
 	/**
 	 * Object which represents the team's coach

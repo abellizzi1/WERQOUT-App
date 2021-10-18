@@ -1,6 +1,8 @@
 package com.werqout.werqout.models;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Coach extends User {
@@ -12,6 +14,10 @@ public class Coach extends User {
      * Name of the primary gym this type of User coaches at
      */
     private String gymName;
+    
+    @OneToOne
+    @JoinColumn(name = "coachId", referencedColumnName = "id")
+    private Team managedTeam;
 
     /**
 	 * Value represents average rating of the group, based on user reviews
@@ -35,7 +41,7 @@ public class Coach extends User {
      * @param rating the average rating this user has received
      * @param numRatings the amount of ratings this user has recieved
      */
-    public Coach(int id, String userName, String email, String password, String groupName, String gymName,
+    public Coach(long id, String userName, String email, String password, String groupName, String gymName,
             double rating, int numRatings) {
         super(id, userName, email, password);
         this.groupName = groupName;

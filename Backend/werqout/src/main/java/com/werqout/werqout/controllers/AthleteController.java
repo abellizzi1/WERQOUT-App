@@ -1,6 +1,9 @@
 package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
 import com.werqout.werqout.models.Athlete;
-import com.werqout.werqout.models.Group;
+import com.werqout.werqout.models.Team;
 
 
 
@@ -56,12 +59,12 @@ public class AthleteController {
 
     
     @GetMapping("/athletes/{id}/groups")
-    public List<Group> getGroups(@PathVariable int id) {
+    public List<Team> getGroups(@PathVariable int id) {
     	return athleteRepository.findById(id).getGroups();
     }
     
     @PostMapping("/athletes/{id}/groups")
-    public List<Group> addGroup(@PathVariable int id, @RequestBody Group group) {
+    public List<Team> addGroup(@PathVariable int id, @RequestBody Team group) {
     	Athlete athlete = athleteRepository.findById(id);
     	athlete.addGroup(group);
     	athleteRepository.save(athlete);
@@ -69,7 +72,7 @@ public class AthleteController {
     }
     
     
-    public void removeGroup(@PathVariable int id, @RequestBody Group group) {
+    public void removeGroup(@PathVariable int id, @RequestBody Team group) {
     	athleteRepository.findById(id).removeGroup(group);
     }
     
