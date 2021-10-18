@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
 import com.werqout.werqout.models.Athlete;
+import com.werqout.werqout.models.Team;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class AthleteController {
         return athleteRepository.findAll();
     }
     //Ta suggested to have this
-    @RequestMapping(value="post/{id}/{usr}/{email}/{pwd}/{group}", method=RequestMethod.GET)
-    public Athlete postAthleteByPath(@PathVariable Long id,@PathVariable String usr,@PathVariable String email,@PathVariable String pwd,@PathVariable String group){
-        Athlete athlete = new Athlete(id,usr,email,pwd,group);
+    @RequestMapping(value="post/{id}/{usr}/{email}/{pwd}/{team}", method=RequestMethod.GET)
+    public Athlete postAthleteByPath(@PathVariable Long id,@PathVariable String usr,@PathVariable String email,@PathVariable String pwd,@PathVariable String team){
+        Athlete athlete = new Athlete(id,usr,email,pwd,team);
         athleteRepository.save(athlete);
         return athlete;
     }    
@@ -68,5 +69,23 @@ public class AthleteController {
     }
 
 
+    
+    @GetMapping("/athletes/{id}/team")
+    public List<Team> getTeams(@PathVariable int id) {
+    	return athleteRepository.findById(id).getTeams();
+    }
+    
+    @PostMapping("/athletes/{id}/teams")
+    public List<Team> addTeam(@PathVariable int id, @RequestBody Team team) {
+    	Athlete athlete = athleteRepository.findById(id);
+    	athlete.addTeam(team);
+    	athleteRepository.save(athlete);
+    	return athleteRepository.findById(id).getTeams();
+    }
+    
+    
+    public void removeTeam(@PathVariable int id, @RequestBody Team team) {
+    	athleteRepository.findById(id).removeTeam(team);
+    }
     
 }
