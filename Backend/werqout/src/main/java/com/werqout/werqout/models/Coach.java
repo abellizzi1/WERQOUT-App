@@ -57,5 +57,13 @@ public class Coach extends User {
         numRatings++;
         return rating /= numRatings;
     }
+    
+    public Team getManagedTeam() {
+    	return managedTeam;
+    }
+    
+    public void setManagedTeam(Team team) {
+    	managedTeam = team;
+    }
 
 }

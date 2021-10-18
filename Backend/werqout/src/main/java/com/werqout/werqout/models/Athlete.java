@@ -65,7 +65,7 @@ public class Athlete extends User {
     		   joinColumns = @JoinColumn(name = "athlete_id"),
     		   inverseJoinColumns = @JoinColumn(name = "group_id"))
     @JsonIgnore
-    private List<Team> groups = new ArrayList<Team>();
+    private List<Team> teams = new ArrayList<Team>();
     
 
 
@@ -107,14 +107,14 @@ public class Athlete extends User {
     }
 
     public List<Team> getGroups() {
-    	return groups;
+    	return teams;
     }
     
     public void addGroup(Team group) {
-    	groups.add(group);
+    	teams.add(group);
     }
     
     public void removeGroup(Team group) {
-    	groups.remove(group);
+    	teams.remove(group);
     }
 }

@@ -158,5 +158,13 @@ public class Team {
 	public void rate(double rating) {
 		this.rating = (this.rating + rating) / ++numRatings;
 	}
+	
+	public Coach getCoach() {
+		return coach;
+	}
+	
+	public void setCoach(Coach coach) {
+		this.coach = coach;
+	}
 
 }

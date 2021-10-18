@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.werqout.werqout.repository.CoachRepository;
 import com.werqout.werqout.models.Coach;
+import com.werqout.werqout.models.Team;
 
 @RestController
 @RequestMapping("/coaches")
@@ -53,5 +54,24 @@ public class CoachController {
 			return "No Such Coach";
 		String coachName = coachRepository.findById(id).getUserName();
 		return "Coach: " + coachName + " Deleted";
+	}
+	
+	/*
+	 * Methods that handle managedGroup
+	 */
+	
+	@GetMapping("/{id}/teams")
+	public Team getManagedTeam(@PathVariable int id) {
+		return coachRepository.findById(id).getManagedTeam();
+	}
+	
+	@PutMapping("/{id}/teams")
+	public Team setManagedTeam(@PathVariable int id, @RequestBody Team team) {
+		Coach coach = coachRepository.findById(id);
+		if(coach == null)
+			return null;
+		coach.setManagedTeam(team);
+		coachRepository.save(coach);
+		return coachRepository.findById(id).getManagedTeam();
 	}
 }
