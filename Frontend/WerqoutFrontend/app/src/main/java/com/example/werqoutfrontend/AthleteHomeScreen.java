@@ -6,25 +6,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.werqoutfrontend.model.Athlete;
+
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
-
-import org.json.JSONObject;
 
 public class AthleteHomeScreen extends AppCompatActivity{
     private TextView temperatureView;
@@ -40,8 +36,8 @@ public class AthleteHomeScreen extends AppCompatActivity{
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
 
         /* Weather icon and temperature attributes */
-        temperatureView = findViewById(R.id.weather_textview_athlete_home);
-        imageView = findViewById(R.id.weather_icon_athlete_home);
+        temperatureView = findViewById(R.id.weather_textview_coach_home);
+        imageView = findViewById(R.id.weather_icon_coach_home);
 
         Button profileButton = findViewById(R.id.profile_button_athlete_home);
         Button messageButton = findViewById(R.id.messages_button_athlete_home);
