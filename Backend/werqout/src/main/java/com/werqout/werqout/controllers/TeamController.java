@@ -1,6 +1,7 @@
 package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +19,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/team")
 public class TeamController {
-	
+	@Autowired
 	TeamRepository teamRepository;
 	
-	@GetMapping("/team")
+	@GetMapping("/all")
 	List<Team> getTeam(){
 		return teamRepository.findAll();
 	}
@@ -34,7 +35,7 @@ public class TeamController {
 	@PostMapping("/team")
 	Team createTeam(@RequestBody Team group) {
 		teamRepository.save(group);
-		return teamRepository.findById(group.getId());
+		return teamRepository.findById(group.getId()).get();
 	}
 	
 	@PutMapping("/team/{id}")

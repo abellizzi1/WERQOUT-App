@@ -57,7 +57,7 @@ public class Athlete extends User {
     /**
      * Name of the group the athlete is in. Foreign Key to groups table
      */
-     public String groupName;
+     public String teamName;
      
     @ManyToMany(fetch = FetchType.LAZY,
     			cascade = CascadeType.PERSIST)
@@ -65,7 +65,7 @@ public class Athlete extends User {
     		   joinColumns = @JoinColumn(name = "athlete_id"),
     		   inverseJoinColumns = @JoinColumn(name = "group_id"))
     @JsonIgnore
-    private List<Group> groups = new ArrayList<Group>();
+    private List<Team> teams = new ArrayList<Team>();
     
 
 
@@ -73,26 +73,26 @@ public class Athlete extends User {
         
     }
     
-    public Athlete(int id,String userName, String email, String password, String groupName) {
+    public Athlete(long id,String userName, String email, String password, String teamName) {
         super(id, userName, email, password);
-        this.groupName = groupName;
+        this.teamName = teamName;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return super.getId();
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(long id) {
         super.setId(id);
     }
 
@@ -106,15 +106,15 @@ public class Athlete extends User {
         super.setUserName(userName);
     }
 
-    public List<Group> getGroups() {
-    	return groups;
+    public List<Team> getTeams() {
+    	return teams;
     }
     
-    public void addGroup(Group group) {
-    	groups.add(group);
+    public void addTeam(Team team) {
+    	teams.add(team);
     }
     
-    public void removeGroup(Group group) {
-    	groups.remove(group);
+    public void removeTeam(Team team) {
+    	teams.remove(team);
     }
 }
