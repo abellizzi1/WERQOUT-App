@@ -6,7 +6,7 @@ import com.werqout.werqout.models.Athlete;
 
 public interface AthleteRepository extends JpaRepository<Athlete, Long>{
     
-	Athlete findById(long id);
+	Athlete findById(int id);
 	
-	void deleteById(long id);
+	void deleteById(int id);
 }

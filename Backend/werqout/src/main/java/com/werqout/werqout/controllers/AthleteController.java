@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
 import com.werqout.werqout.models.Athlete;
+import com.werqout.werqout.models.Group;
 
 
 
@@ -25,7 +26,7 @@ public class AthleteController {
     
     @GetMapping("/{id}")
     public Athlete getAthlete(@PathVariable long id) {
-    	return athleteRepository.findById(id);
+    	return athleteRepository.findById(id).get();
     }
 
     @PostMapping("/")
@@ -39,19 +40,37 @@ public class AthleteController {
     	if(athleteRepository.findById(id) == null)
     		return null;
     	athleteRepository.save(athlete);
-    	return athleteRepository.findById(id);
+    	return athleteRepository.findById(id).get();
     }
     
     @Transactional
     @DeleteMapping("/{id}")
     public String deleteAthlete(@PathVariable long id) {
     	if(athleteRepository.findById(id) == null)
-    		return "No Such Athlete";
-    	String athleteName = athleteRepository.findById(id).getUserName();
+    		return "No Such Athlete";                       //putting .get() here to resolve cannot convert from optional<>...
+    	String athleteName = athleteRepository.findById(id).get().getUserName();
     	athleteRepository.deleteById(id);
     	return "Athlete: " + athleteName + " Deleted";
     }
 
 
+    
+    @GetMapping("/athletes/{id}/groups")
+    public List<Group> getGroups(@PathVariable int id) {
+    	return athleteRepository.findById(id).getGroups();
+    }
+    
+    @PostMapping("/athletes/{id}/groups")
+    public List<Group> addGroup(@PathVariable int id, @RequestBody Group group) {
+    	Athlete athlete = athleteRepository.findById(id);
+    	athlete.addGroup(group);
+    	athleteRepository.save(athlete);
+    	return athleteRepository.findById(id).getGroups();
+    }
+    
+    
+    public void removeGroup(@PathVariable int id, @RequestBody Group group) {
+    	athleteRepository.findById(id).removeGroup(group);
+    }
     
 }

@@ -4,81 +4,91 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-public class Group {
+@Table(name = "teams")
+public class Team {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	/**
-	 * Name of the group 
+	 * Name of the team
 	 */
 	private String name;
 	
 	/**
-	 * Array which holds members of the group
+	 * Array which holds members of the team
 	 * Foreign key for Athlete table
 	 */
-	private ArrayList<Integer> members;
+	@ManyToMany(mappedBy = "teams")
+	@JsonIgnore
+	private List<Athlete> members = new ArrayList<Athlete>();
 	
 	/**
-	 * Object which represents the group's coach
+	 * Object which represents the team's coach
 	 * Foreign key to Athlete table
 	 */
-	private int coach;
+	// TODO: add coach dependency once coach class is working
+	//@ManyToOne
+	//private int coach;
 	
 	/**
-	 * String providing a general description of the group
+	 * String providing a general description of the team
 	 */
 	private String description;
 	
 	// TODO: Create gyms and add usual gym as an instance var
 	
 	/**
-	 * Value represents average rating of the group, based on user reviews
+	 * Value represents average rating of the team, based on user reviews
 	 */
 	private double rating;
-	private int numRatings;
+	private Integer numRatings;
 	
 	
 	/**
-	 * Create a new group and set key parameters
+	 * Create a new teamand set key parameters
 	 * 
 	 * @param name
-	 * 		String name			: Name of group to be created
+	 * 		String name			: Name of teamto be created
 	 * 
 	 * @param members
 	 * 		int[] members		: Array of ints which are keys to the athlete table, to be added to members list
 	 * 
 	 * @param coach
-	 * 		int coach			: Int which is a key to the athlete table, sets this as group's coach
+	 * 		int coach			: Int which is a key to the athlete table, sets this as team's coach
 	 * 
 	 * @param description
-	 * 		String description:	: String to be group's general description
+	 * 		String description:	: String to be team's general description
 	 */
-	public Group(String name, int[] members, int coach, String description) {
+
+	public Team(String name, String description) {
 		this.name = name;
-		this.coach = coach;
 		
 		// Iterate through members argument, add each member to members ArrayList
-		for(int i = 0; i < members.length; i++) {
-			this.members.add(members[i]);
-		}
-		this.coach = coach;
+		
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
-		rating = 0;
+		//rating = 0;
 		numRatings = 0;
 	}
 	
 	/**
-	 * Default constructor for group, only variable defined is rating and numRatings
+	 * Default constructor for team, only variable defined is rating and numRatings
 	 */
-	public Group() {
+
+	public Team() {
 		this.rating = 0;
 		this.numRatings = 0;
 	}
@@ -90,6 +100,10 @@ public class Group {
 		return id;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -98,37 +112,30 @@ public class Group {
 		this.name = name;
 	}
 	
-	public int getCoach() {
-		return coach;
-	}
-	
-	public void setCoach(int coach) {
-		this.coach = coach;
-	}
 	
 	/**
-	 * Method returns all members of this group as an array of String
+	 * Method returns all members of this teamas an array of String
 	 * 
 	 * @return
-	 * 		Integer[] members : array containing id's for all members of this group
+	 * 		Integer[] members : array containing id's for all members of this team
 	 */
-	public Integer[] getMembers() {
-		return (Integer[]) members.toArray();
+	public List<Athlete> getMembers() {
+		return members;
 	}
 	
-	public int getNumMembers() {
-		return members.size();
-	}
+	//public int getNumMembers() {
+	//	return members.size();
+	//}
 	
-	public void addMember(int toAdd) {
+	public void addMember(Athlete toAdd) {
 		members.add(toAdd);
 	}
 	
-	public void removeMember(int toRemove) {
+	public void removeMember(Athlete toRemove) {
 		members.remove(toRemove);
 	}
 	
-	public boolean isMember(int search) {
+	public boolean isMember(Athlete search) {
 		return members.contains(search);
 	}
 	
