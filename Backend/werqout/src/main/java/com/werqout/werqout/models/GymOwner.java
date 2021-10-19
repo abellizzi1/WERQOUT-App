@@ -2,19 +2,37 @@ package com.werqout.werqout.models;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Table;
+import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "gym_owner")
 public class GymOwner extends User {
     /**
      * Name of the gym that the owner is an owner of
      */
     private String gymName;
 
+    //todo have an event that a gym owner can create and then make joinable by coaches and their teams
     /**
      * Groups that go to the gym. Foreign key to groups table. 
      */
-    private ArrayList<Integer> groups;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "teams_in_gym",
+               joinColumns = @JoinColumn(name= "group_id"),
+               inverseJoinColumns = @JoinColumn(name="gym_owner_id"))
+    @JsonIgnore
+            //delcare as a list because hibernate doesn't support arraylist
+    private List<Team> teams = new ArrayList<Team>();
 
     /**
 	 * Value represents average rating of the group, based on user reviews
@@ -40,10 +58,9 @@ public class GymOwner extends User {
      * @param gymName
      * @param groups
      */
-    public GymOwner(long id, String userName, String email, String password, String gymName, ArrayList<Integer> groups) {
+    public GymOwner(long id, String userName, String email, String password, String gymName) {
         super(id, userName, email, password);
         this.gymName = gymName;
-        this.groups = groups;
         this.rating = 0;
         this.numRatings = 0;
     }
