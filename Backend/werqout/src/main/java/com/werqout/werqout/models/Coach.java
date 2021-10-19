@@ -35,7 +35,7 @@ public class Coach extends User {
      * @param rating the average rating this user has received
      * @param numRatings the amount of ratings this user has recieved
      */
-    public Coach(long id, String userName, String email, String password, String groupName, String gymName,
+    public Coach(int id, String userName, String email, String password, String groupName, String gymName,
             double rating, int numRatings) {
         super(id, userName, email, password);
         this.groupName = groupName;
@@ -47,14 +47,9 @@ public class Coach extends User {
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
      */
-    public double rate(){
+    public double rate() {
         numRatings++;
         return rating /= numRatings;
     }
-
-    public double getRating(){
-        return rating;
-    }
-    
 
 }

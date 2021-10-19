@@ -9,17 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.werqoutfrontend.app.AppController;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +19,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class LoginScreen extends AppCompatActivity {
     private TextView emailInput;
@@ -65,62 +56,43 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-            jsonGetRequest();
+            getJsonLoginInfo();
             }
         });
 
     }
-    public void jsonGetRequest()
-    {
-        //TODO: Replace email in the url with some sort of identifier
-        String url = Const.URL_JSON_GET_REQUEST;
-        JsonArrayRequest jsonArray = new JsonArrayRequest(Request.Method.GET,
-                url, null,
-                new Response.Listener<JSONArray>() {
 
-                    @Override
-                    public void onResponse(JSONArray athletes) {
-                        Log.d(TAG, athletes.toString());
-                        try {
-                            for(int i = 0; i < athletes.length(); i++)
-                            {
-                                JSONObject athlete = athletes.getJSONObject(i);
-                                if(athlete.get("email").toString().equals(email))
-                                {
-                                    emailResponse = athlete.get("email").toString();
-                                    passwordResponse = athlete.get("password").toString();
-                                    firstName = athlete.get("userName").toString();
-                                    break;
-                                }
-                            }
-                            login();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+    public void getJsonLoginInfo()
+    {
+        ServerRequest userLogin = new ServerRequest();
+        userLogin.jsonArrayRequest(new VolleyCallback() {
+            //Is there a way that I don't need to include this method?
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+
+            @Override
+            public void onSuccess(JSONArray users) {
+                for(int i = 0; i < users.length(); i++)
+                {
+                    try {
+                        JSONObject user = users.getJSONObject(i);
+                        if(user.get("email").toString().equals(email))
+                        {
+
+                            emailResponse = user.get("email").toString();
+                            passwordResponse = user.get("password").toString();
+                            firstName = user.get("userName").toString();
+                            break;
                         }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-
+                }
+                login();
             }
-        })
-        {
-            /**
-             * Passing some request headers
-             * */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(jsonArray,
-                tag_json_obj_post);
+        },Const.URL_JSON_GET_REQUEST);
     }
 
     public void login()
@@ -130,7 +102,6 @@ public class LoginScreen extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
-            //startActivity(new Intent(getApplicationContext(), RegisterScreen.class));
         }
         else
             {
