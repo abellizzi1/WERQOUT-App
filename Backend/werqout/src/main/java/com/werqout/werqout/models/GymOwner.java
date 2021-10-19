@@ -11,11 +11,10 @@ import javax.persistence.Table;
 import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "gym_owner")
+// @Table(name = "gym_owner")
 public class GymOwner extends User {
     /**
      * Name of the gym that the owner is an owner of
@@ -28,8 +27,8 @@ public class GymOwner extends User {
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "teams_in_gym",
-               joinColumns = @JoinColumn(name= "group_id"),
-               inverseJoinColumns = @JoinColumn(name="gym_owner_id"))
+               joinColumns = @JoinColumn(name= "gym_owner_id"),
+               inverseJoinColumns = @JoinColumn(name="group_id"))
     @JsonIgnore
             //delcare as a list because hibernate doesn't support arraylist
     private List<Team> teams = new ArrayList<Team>();
@@ -70,12 +69,16 @@ public class GymOwner extends User {
     public void setGymName(String gymName) {
         this.gymName = gymName;
     }
-    public ArrayList<Integer> getGroups() {
-        return groups;
+    public List<Team> getTeams() {
+        return teams;
     }
-    public void setGroups(ArrayList<Integer> groups) {
-        this.groups = groups;
+    public void addTeam(Team team) {
+        teams.add(team);
     }
+    public void removeTeam(Team team) {
+        teams.remove(team);
+    }
+    
     public double getRating() {
         return rating;
     }

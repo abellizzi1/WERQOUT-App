@@ -15,6 +15,7 @@ import com.werqout.werqout.repository.GymOwnerRepository;
 import java.util.List;
 
 import com.werqout.werqout.models.GymOwner;
+import com.werqout.werqout.models.Team;
 
 @RestController
 @RequestMapping("/gymOwner")
@@ -53,7 +54,32 @@ public class GymOwnerController {
         return gymOwnerRepository.findById(id);
     }
 
-    @DeleteMapping("/id")
+    @GetMapping("/{id}/teams")
+    public List<Team> getTeams(@PathVariable long id) {
+    	return gymOwnerRepository.findById(id).getTeams();
+    }
+
+    @PostMapping("/{id}/teams")
+    public List<Team> addTeam(@PathVariable long id, @RequestBody Team team) {
+    	GymOwner go = gymOwnerRepository.findById(id);
+    	go.addTeam(team);
+    	gymOwnerRepository.save(go);
+    	return gymOwnerRepository.findById(id).getTeams();
+    }
+
+    @DeleteMapping("/{id}/teams")
+    public String removeTeam(@PathVariable long id, @RequestBody Team team){
+        if (gymOwnerRepository.findById(id) == null){
+            return "No such gymOwner";
+        }
+        else{
+            gymOwnerRepository.findById(id).removeTeam(team);
+            return team.getName() + " has been deleted";
+        }
+        
+    }   
+
+    @DeleteMapping("/{id}")
     String deleteGymOwner(@PathVariable long id){
         gymOwnerRepository.deleteById(id);
         return "Gym Owner: " + gymOwnerRepository.findById(id).getUserName() + " deleted successfully";

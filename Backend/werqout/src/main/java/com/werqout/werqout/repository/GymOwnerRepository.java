@@ -1,11 +1,10 @@
 package com.werqout.werqout.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.werqout.werqout.models.GymOwner;
 
-@Repository
-public interface GymOwnerRepository extends UserRepository {
+public interface GymOwnerRepository extends  JpaRepository<GymOwner, Long>{
 
     GymOwner findById(long id);
 
