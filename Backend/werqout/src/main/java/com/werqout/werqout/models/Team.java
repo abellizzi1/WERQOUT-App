@@ -19,7 +19,7 @@ public class Team {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	/**
 	 * Name of the team
@@ -96,7 +96,7 @@ public class Team {
 	/*
 	 * General getters and setters, documentation added on special methods
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
