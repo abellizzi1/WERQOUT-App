@@ -6,8 +6,8 @@ import com.werqout.werqout.models.Team;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 	
-	Team findById(int id);
+	Team findById(long id);
 	
-	void deleteById(int id);
+	void deleteById(long id);
 
 }

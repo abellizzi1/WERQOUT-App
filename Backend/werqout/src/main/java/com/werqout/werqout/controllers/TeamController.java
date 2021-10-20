@@ -29,7 +29,7 @@ public class TeamController {
 	}
 	
 	@GetMapping("/{id}")
-	Team findTeam(@PathVariable int id) {
+	Team findTeam(@PathVariable long id) {
 		return teamRepository.findById(id);
 	}
 	
@@ -40,7 +40,7 @@ public class TeamController {
 	}
 	
 	@PutMapping("/{id}")
-	Team updateGroup(@PathVariable int id, @RequestBody Team group) {
+	Team updateGroup(@PathVariable long id, @RequestBody Team group) {
 		Team toUpdate = teamRepository.findById(id);
 		if(toUpdate == null)
 			return null;
@@ -49,7 +49,7 @@ public class TeamController {
 	}
 	
 	@DeleteMapping("/{id}")
-	String deleteGroup(@PathVariable int id) {
+	String deleteGroup(@PathVariable long id) {
 		teamRepository.deleteById(id);
 		return "Group: " + teamRepository.findById(id).getName() + " deleted successfully!";
 	}
@@ -59,14 +59,14 @@ public class TeamController {
 	 */
 	
 	@GetMapping("/{id}/athletes")
-	List<Athlete> getMembers(@PathVariable int id){
+	List<Athlete> getMembers(@PathVariable long id){
 		return teamRepository.findById(id).getMembers();
 	}
 	
 
 	
 	@PostMapping("/{id}/athletes")
-	void addMember(@PathVariable int id, @RequestBody Athlete athlete) {
+	void addMember(@PathVariable long id, @RequestBody Athlete athlete) {
 		Team team = teamRepository.findById(id);
 		if(team != null)
 			team.addMember(athlete);

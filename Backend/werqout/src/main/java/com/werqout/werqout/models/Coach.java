@@ -6,16 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "coaches")
 public class Coach {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
     
     @OneToOne
-    @JoinColumn(name = "managed_team", referencedColumnName = "id")
+    @JoinColumn(name = "managedTeam", referencedColumnName = "id")
     private Team managedTeam;
     
     private String userName;

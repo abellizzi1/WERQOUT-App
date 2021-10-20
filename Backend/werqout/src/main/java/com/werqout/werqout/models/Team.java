@@ -20,7 +20,7 @@ public class Team {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	/**
 	 * Name of the team
@@ -57,7 +57,7 @@ public class Team {
 	 * Value represents average rating of the team, based on user reviews
 	 */
 	private double rating;
-	private Integer numRatings;
+	private long numRatings;
 	
 	
 	/**
@@ -100,11 +100,11 @@ public class Team {
 	/*
 	 * General getters and setters, documentation added on special methods
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -157,6 +157,10 @@ public class Team {
 	
 	public void rate(double rating) {
 		this.rating = (this.rating + rating) / ++numRatings;
+	}
+	
+	public long getNumRatings() {
+		return numRatings;
 	}
 	
 	public Coach getCoach() {
