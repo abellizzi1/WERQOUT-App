@@ -1,29 +1,36 @@
 package com.werqout.werqout.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Coach extends User {
-    /**
-     * Name of the group this type of user coaches. Will be a foregin key to the groups table.
-     */
-    private String groupName;
-    /**
-     * Name of the primary gym this type of User coaches at
-     */
-    private String gymName;
+public class Coach {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
     
     @OneToOne
     @JoinColumn(name = "managed_team", referencedColumnName = "id")
     private Team managedTeam;
+    
+    private String userName;
+    
+    private String email;
+    
+    private String password;
 
     /**
 	 * Value represents average rating of the group, based on user reviews
 	 */
 	private double rating;
 	private int numRatings;
+	
+	// Constructors ==========================================================================================
 
     public Coach(){
         this.rating = 0;
@@ -41,14 +48,49 @@ public class Coach extends User {
      * @param rating the average rating this user has received
      * @param numRatings the amount of ratings this user has recieved
      */
-    public Coach(long id, String userName, String email, String password, String groupName, String gymName,
-            double rating, int numRatings) {
-        super(id, userName, email, password);
-        this.groupName = groupName;
-        this.gymName = gymName;
+    public Coach(long id, String userName, String email, String password, double rating, int numRatings) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
         this.rating = rating;
         this.numRatings = numRatings;
     }
+    
+    // Basic Getters/Setters =================================================================================
+    
+    public long getId() {
+    	return id;
+    }
+    
+    public void setId(long id) {
+    	this.id = id;
+    }
+    
+    public String getUserName() {
+    	return userName;
+    }
+    
+    public void setUserName(String userName) {
+    	this.userName = userName;
+    }
+    
+    public String getEmail() {
+    	return email;
+    }
+    
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    public String getPassword() {
+    	return password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    
     /**
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
@@ -58,6 +100,8 @@ public class Coach extends User {
         return rating /= numRatings;
     }
     
+    // Manage managedTeam ====================================================================================
+    
     public Team getManagedTeam() {
     	return managedTeam;
     }
@@ -66,4 +110,7 @@ public class Coach extends User {
     	managedTeam = team;
     }
 
+    public void removeManagedTeam() {
+    	managedTeam = null;
+    }
 }

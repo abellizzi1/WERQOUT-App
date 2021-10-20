@@ -29,10 +29,10 @@ public class AthleteController {
     
     @GetMapping("/{id}")
     public Athlete getAthlete(@PathVariable long id) {
-    	return athleteRepository.findById(id).get();
+    	return athleteRepository.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Athlete createAthlete(@RequestBody Athlete newAthlete){
         athleteRepository.save(newAthlete);
         return newAthlete;
@@ -43,7 +43,7 @@ public class AthleteController {
     	if(athleteRepository.findById(id) == null)
     		return null;
     	athleteRepository.save(athlete);
-    	return athleteRepository.findById(id).get();
+    	return athleteRepository.findById(id);
     }
     
     @Transactional
@@ -51,28 +51,29 @@ public class AthleteController {
     public String deleteAthlete(@PathVariable long id) {
     	if(athleteRepository.findById(id) == null)
     		return "No Such Athlete";                       //putting .get() here to resolve cannot convert from optional<>...
-    	String athleteName = athleteRepository.findById(id).get().getUserName();
+    	String athleteName = athleteRepository.findById(id).getUserName();
     	athleteRepository.deleteById(id);
     	return "Athlete: " + athleteName + " Deleted";
     }
 
 
     
-    @GetMapping("/athletes/{id}/groups")
-    public List<Team> getGroups(@PathVariable int id) {
+    @GetMapping("/{id}/teams")
+    public List<Team> getGroups(@PathVariable long id) {
     	return athleteRepository.findById(id).getGroups();
     }
     
-    @PostMapping("/athletes/{id}/groups")
-    public List<Team> addGroup(@PathVariable int id, @RequestBody Team group) {
+    @PostMapping("/{id}/teams")
+    public List<Team> addGroup(@PathVariable long id, @RequestBody Team group) {
     	Athlete athlete = athleteRepository.findById(id);
     	athlete.addGroup(group);
     	athleteRepository.save(athlete);
     	return athleteRepository.findById(id).getGroups();
     }
     
-    
-    public void removeGroup(@PathVariable int id, @RequestBody Team group) {
+    @Transactional
+    @DeleteMapping("/{id}/teams")
+    public void removeGroup(@PathVariable long id, @RequestBody Team group) {
     	athleteRepository.findById(id).removeGroup(group);
     }
     

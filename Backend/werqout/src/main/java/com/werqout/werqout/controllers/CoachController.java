@@ -48,7 +48,7 @@ public class CoachController {
 	}
 	
 	@Transactional
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	public String deleteAthlete(@PathVariable int id) {
 		if(coachRepository.findById(id) == null)
 			return "No Such Coach";
@@ -73,5 +73,16 @@ public class CoachController {
 		coach.setManagedTeam(team);
 		coachRepository.save(coach);
 		return coachRepository.findById(id).getManagedTeam();
+	}
+	
+	@Transactional
+	@DeleteMapping("/{id}/teams")
+	public boolean removeManagedTeam(@PathVariable long id) {
+		Coach coach = coachRepository.findById(id);
+		if(coach == null)
+			return false;
+		coach.removeManagedTeam();
+		coachRepository.save(coach);
+		return true;
 	}
 }

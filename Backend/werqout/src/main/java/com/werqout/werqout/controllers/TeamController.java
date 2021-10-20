@@ -17,29 +17,29 @@ import com.werqout.werqout.models.Team;
 import java.util.List;
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("/teams")
 public class TeamController {
 	
 	@Autowired
 	TeamRepository teamRepository;
 	
-	@GetMapping("/team")
+	@GetMapping("")
 	List<Team> getTeam(){
 		return teamRepository.findAll();
 	}
 	
-	@GetMapping("/team/{id}")
+	@GetMapping("/{id}")
 	Team findTeam(@PathVariable int id) {
 		return teamRepository.findById(id);
 	}
 	
-	@PostMapping("/team")
+	@PostMapping("")
 	Team createTeam(@RequestBody Team group) {
 		teamRepository.save(group);
 		return teamRepository.findById(group.getId());
 	}
 	
-	@PutMapping("/team/{id}")
+	@PutMapping("/{id}")
 	Team updateGroup(@PathVariable int id, @RequestBody Team group) {
 		Team toUpdate = teamRepository.findById(id);
 		if(toUpdate == null)
@@ -48,7 +48,7 @@ public class TeamController {
 		return teamRepository.findById(id);
 	}
 	
-	@DeleteMapping("/team/{id}")
+	@DeleteMapping("/{id}")
 	String deleteGroup(@PathVariable int id) {
 		teamRepository.deleteById(id);
 		return "Group: " + teamRepository.findById(id).getName() + " deleted successfully!";
@@ -58,21 +58,21 @@ public class TeamController {
 	 * Below are methods which concern members of a team
 	 */
 	
-	@GetMapping("/teams/{id}/athletes")
+	@GetMapping("/{id}/athletes")
 	List<Athlete> getMembers(@PathVariable int id){
 		return teamRepository.findById(id).getMembers();
 	}
 	
 
 	
-	@PostMapping("/teams/{id}/athletes")
+	@PostMapping("/{id}/athletes")
 	void addMember(@PathVariable int id, @RequestBody Athlete athlete) {
 		Team team = teamRepository.findById(id);
 		if(team != null)
 			team.addMember(athlete);
 	}
 	
-	@DeleteMapping("/teams/{id}/athletes")
+	@DeleteMapping("/{id}/athletes")
 	void removeMember(@PathVariable int teamId, @RequestBody Athlete athlete) {
 		Team group = teamRepository.findById(teamId);
 		if(group != null && group.getMembers().contains(athlete)) {
