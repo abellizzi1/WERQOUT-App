@@ -154,17 +154,13 @@ public class ServerRequest{
             }
         })
         {
-//            @Override
-//            protected Map<String, String> getParams()
-//            {
-//                Map <String,String> params = new HashMap<String, String>();
-//                try {
-//                    params.put("profilePicture", object.getString("picture"));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                return params;
-//            }
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map <String,String> params = new HashMap<String, String>();
+                params.put("profilePicture", Const.DEFAULT_PROFILE_PICTURE);
+                return params;
+            }
         };
         AppController.getInstance().addToRequestQueue(request,
                 tag_json_obj_post);

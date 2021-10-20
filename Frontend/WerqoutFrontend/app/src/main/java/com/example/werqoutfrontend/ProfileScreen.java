@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
-import com.example.werqoutfrontend.utils.BitmapStringConversion;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 

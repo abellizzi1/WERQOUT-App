@@ -42,6 +42,7 @@ public class LoginScreen extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
+
         Button submitButton_login = findViewById(R.id.submit_button_login);
         Button registerButton_login = findViewById(R.id.register_button_login);
         emailInput = findViewById(R.id.email_input_login);

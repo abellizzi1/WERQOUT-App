@@ -6,15 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 import org.json.JSONObject;
 
@@ -36,9 +39,19 @@ public class EditProfileScreen extends AppCompatActivity {
         Button cancel = findViewById(R.id.cancel_button_edit_profile_screen);
         Button delete = findViewById(R.id.delete_button_edit_profile_screen);
 
+        ImageView profilePic = findViewById(R.id.profile_picture_edit_profile_screen);
+
         username.setText(User.currentUser.getUsername());
         email.setText(User.currentUser.getEmail());
         password.setText(User.currentUser.getPassword());
+
+        ServerRequest request = new ServerRequest();
+        request.imageRequest(new VolleyCallbackImage() {
+            @Override
+            public void onSuccess(Bitmap response) {
+                profilePic.setImageBitmap(response);
+            }
+        },Const.DEFAULT_PROFILE_PICTURE);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
