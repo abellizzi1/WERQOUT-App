@@ -57,6 +57,8 @@
             android:id="@+id/scrollLinear_edit_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@drawable/empty_tall_divider"
             android:orientation="vertical" />
     </ScrollView>
 

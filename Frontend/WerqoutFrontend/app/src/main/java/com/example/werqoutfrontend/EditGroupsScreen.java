@@ -36,10 +36,10 @@ public class EditGroupsScreen extends AppCompatActivity {
             groupButton.setText("Group " + (i+1));
             linearScroll.addView(groupButton);
             params = groupButton.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.height = 300;
+            params.width = 1409;
             groupButton.setLayoutParams(params);
-            groupButton.setTextSize(12);
+            groupButton.setTextSize(30);
             groupButton.setTextColor(Color.parseColor("#000000"));
             groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
         }
