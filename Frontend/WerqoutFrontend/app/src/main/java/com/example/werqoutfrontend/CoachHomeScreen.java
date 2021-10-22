@@ -42,6 +42,14 @@ public class CoachHomeScreen extends AppCompatActivity {
         imageView = findViewById(R.id.weather_icon_coach_home);
 
         Button profileButton = findViewById(R.id.profile_button_coach_home);
+        Button editGroupButton = findViewById(R.id.edit_button_coach_home);
+
+        editGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), EditGroupsScreen.class));
+            }
+        });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +67,7 @@ public class CoachHomeScreen extends AppCompatActivity {
         for (int i = 0; i < 10; i++)
         {
             groupText = new TextView(this);
-            groupText.setText("Group 1");
+            groupText.setText("Group " + (i+1));
             linearScroll.addView(groupText);
             params = groupText.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
