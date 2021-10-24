@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 public class EditGroupsScreen extends AppCompatActivity implements View.OnClickListener {
 
     private static String selectedGroup = "";
-    private LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_groups);
+    private LinearLayout linearScroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class EditGroupsScreen extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.edit_groups_screen);
 
         Button backButton = findViewById(R.id.back_button_edit_groups);
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_groups);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,9 +30,8 @@ public class EditGroupsScreen extends AppCompatActivity implements View.OnClickL
             }
         });
 
-
-        ViewGroup.LayoutParams params;
         Button groupButton;
+        ViewGroup.LayoutParams params;
 
         for (int i = 0; i < 10; i++)
         {
@@ -53,6 +53,7 @@ public class EditGroupsScreen extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         selectedGroup = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+        startActivity(new Intent(v.getContext(), GroupInfoScreen.class));
     }
 
     public static String getSelectedGroup()

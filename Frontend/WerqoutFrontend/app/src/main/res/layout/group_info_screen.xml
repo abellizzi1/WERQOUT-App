@@ -7,6 +7,54 @@
     android:background="#000000"
     tools:context=".GroupInfoScreen">
 
+    <Button
+        android:id="@+id/addDeleteWorkouts_button_group_info"
+        android:layout_width="164dp"
+        android:layout_height="63dp"
+        android:background="#00FFA7"
+        android:text="Add/Delete Workouts"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
+
+    <Button
+        android:id="@+id/editGroup_button_group_info"
+        android:layout_width="164dp"
+        android:layout_height="63dp"
+        android:background="#00FFA7"
+        android:text="Edit Group"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
+
+    <Button
+        android:id="@+id/back_button_group_info"
+        android:layout_width="142dp"
+        android:layout_height="49dp"
+        android:background="#FFFFFF"
+        android:text="Back"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942" />
+
     <TextView
         android:id="@+id/group_name_label_group_info"
         android:layout_width="385dp"
@@ -22,4 +70,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
+
+    <ScrollView
+        android:id="@+id/scrollView_group_info"
+        android:layout_width="409dp"
+        android:layout_height="490dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/addDeleteWorkouts_button_group_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_name_label_group_info">
+
+        <LinearLayout
+            android:id="@+id/scrollLinear_group_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
