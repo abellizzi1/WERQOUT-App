@@ -12,5 +12,5 @@ public class Const {
     public static final String HALLOWEEN = "https://png.pngtree.com/png-clipart/20201208/original/" +
             "pngtree-halloween-vector-happy-halloween-halloween-party-halloween-background-halloween-" +
             "night-halloween-png-image_5520448.jpg";
-    public static final String POSTMAN_TEST_URL = "https://17a252f8-4402-4aee-8eb4-f65bdd901a56.mock.pstmn.io/getUser";
+    public static final String POSTMAN_TEST_URL = "https://17a252f8-4402-4aee-8eb4-f65bdd901a56.mock.pstmn.io/";
 }

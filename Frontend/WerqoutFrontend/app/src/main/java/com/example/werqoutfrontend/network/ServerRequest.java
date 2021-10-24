@@ -155,12 +155,18 @@ public class ServerRequest{
         })
         {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map <String,String> params = new HashMap<String, String>();
-                params.put("profilePicture", Const.DEFAULT_PROFILE_PICTURE);
-                return params;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
             }
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map <String,String> params = new HashMap<String, String>();
+//                params.put("profilePicture", Const.DEFAULT_PROFILE_PICTURE);
+//                return params;
+//            }
         };
         AppController.getInstance().addToRequestQueue(request,
                 tag_json_obj_post);

@@ -13,15 +13,15 @@ public final class BitmapStringConversion {
         final int COMPRESSION_QUALITY = 100;
         String encodedImage;
         ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
-        bitmapPicture.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
+        bitmapPicture.compress(Bitmap.CompressFormat.JPEG, COMPRESSION_QUALITY,
                 byteArrayBitmapStream);
         byte[] b = byteArrayBitmapStream.toByteArray();
-        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        encodedImage = Base64.encodeToString(b, Base64.NO_WRAP);
         return encodedImage;
     }
 //Use this code to convert the encoded string back to bitmap image
     public static Bitmap getBitmapFromString(String stringPicture) {
-        byte[] decodedString = Base64.decode(stringPicture, Base64.DEFAULT);
+        byte[] decodedString = Base64.decode(stringPicture, Base64.NO_WRAP);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
     }

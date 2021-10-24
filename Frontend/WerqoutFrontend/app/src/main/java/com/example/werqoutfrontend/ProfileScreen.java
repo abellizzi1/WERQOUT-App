@@ -42,7 +42,9 @@ public class ProfileScreen extends AppCompatActivity {
         userTypeText.setText("User type: " + User.currentUser.getUserType());
         emailText.setText("Email: " + User.currentUser.getEmail());
         bioText.append(" The one and only :)");
-
+        /*
+        TODO: Once we are able to properly store images, replace this server request with the stored image
+         */
         ServerRequest profilePic = new ServerRequest();
         profilePic.imageRequest(new VolleyCallbackImage() {
             @Override
