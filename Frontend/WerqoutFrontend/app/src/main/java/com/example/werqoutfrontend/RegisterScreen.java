@@ -3,7 +3,6 @@ package com.example.werqoutfrontend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,9 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.example.werqoutfrontend.network.ServerRequest;
-import com.example.werqoutfrontend.utils.BitmapStringConversion;
 import com.example.werqoutfrontend.utils.Const;
-import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 import org.json.JSONObject;
 
@@ -101,11 +98,20 @@ public class RegisterScreen extends AppCompatActivity {
                     params.put("password", password);
 
                     //Send the post request to the server
+                    if (userSpinner.getSelectedItem().toString().equals("Athlete"))
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
+                    }
+                    else if (userSpinner.getSelectedItem().toString().equals("Coach"))
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
+                    }
+                    else
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
+                    }
                     ServerRequest request = new ServerRequest();
-//                    request.jsonPostRequest(new JSONObject(params));
-                    request.jsonObjectRequest(Const.URL_JSON_POST_REQUEST_LOGIN,1,
-                            new JSONObject(params));
-
+                    request.jsonPostRequest(new JSONObject(params));
                     startActivity(new Intent(v.getContext(), LoginScreen.class));
                 }
             }

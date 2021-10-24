@@ -1,11 +1,12 @@
 package com.werqout.werqout.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.werqout.werqout.models.Group;
 
-public interface GroupRepository extends JpaRepository<Group, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.werqout.werqout.models.Team;
+
+public interface TeamRepository extends JpaRepository<Team, Long> {
 	
-	Group findById(int id);
+	Team findById(int id);
 	
 	void deleteById(int id);
 

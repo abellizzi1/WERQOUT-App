@@ -5,26 +5,25 @@ import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
-import org.json.JSONObject;
-
-public class AthleteHomeScreen extends AppCompatActivity {
+public class AthleteHomeScreen extends AppCompatActivity{
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
@@ -58,6 +57,46 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
             }
         });
+
+        LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_athlete_home);
+        ViewGroup.LayoutParams params;
+        TextView liftText;
+
+        TextView dateText;
+        TextView timeText;
+        for (int i = 0; i < 10; i++)
+        {
+            liftText = new TextView(this);
+            liftText.setText("Chest/Triceps Lift");
+            linearScroll.addView(liftText);
+            params = liftText.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            liftText.setLayoutParams(params);
+            liftText.setTextSize(25);
+            liftText.setTextColor(Color.parseColor("#FFFFFF"));
+
+            dateText = new TextView(this);
+            linearScroll.addView(dateText);
+            params = dateText.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            dateText.setLayoutParams(params);
+            dateText.setTextSize(25);
+            dateText.setTextColor(Color.parseColor("#FFFFFF"));
+            dateText.setText("10/21/21");
+
+            timeText = new TextView(this);
+            linearScroll.addView(timeText);
+            params = timeText.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            timeText.setLayoutParams(params);
+            timeText.setTextSize(25);
+            timeText.setTextColor(Color.parseColor("#FFFFFF"));
+            timeText.setText("10:00 AM\n");
+        }
+
 
     }
 

@@ -1,12 +1,13 @@
 package com.werqout.werqout.models;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
-public abstract class User {
+
+@Entity
+public class User {
     /**
      * Users ID
      */
