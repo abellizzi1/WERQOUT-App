@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -106,6 +108,8 @@ public class LoginScreen extends AppCompatActivity {
                             emailResponse = user.get("email").toString();
                             passwordResponse = user.get("password").toString();
                             firstName = user.get("userName").toString();
+                            int id = Integer.valueOf(user.get("id").toString());
+                            Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             break;
                         }
 

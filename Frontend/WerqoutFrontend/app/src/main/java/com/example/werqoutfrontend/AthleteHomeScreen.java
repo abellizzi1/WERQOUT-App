@@ -1,6 +1,7 @@
 package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +27,7 @@ public class AthleteHomeScreen extends AppCompatActivity{
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class AthleteHomeScreen extends AppCompatActivity{
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
 
         /* Weather icon and temperature attributes */
-        temperatureView = findViewById(R.id.weather_textview_coach_home);
-        imageView = findViewById(R.id.weather_icon_coach_home);
+        temperatureView = findViewById(R.id.weather_textview_athlete_home);
+        imageView = findViewById(R.id.weather_icon_athlete_home);
 
         Button profileButton = findViewById(R.id.profile_button_athlete_home);
         Button messageButton = findViewById(R.id.messages_button_athlete_home);

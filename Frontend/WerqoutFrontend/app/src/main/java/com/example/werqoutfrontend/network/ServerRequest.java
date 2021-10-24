@@ -137,5 +137,39 @@ public class ServerRequest{
 
         AppController.getInstance().addToRequestQueue(image, tag_image_request);
     }
+
+    public void jsonObjectRequest(String url, int requestType, JSONObject object)
+    {
+        //GET = 0, POST = 1, PUT = 2, and DELETE = 3
+        JsonObjectRequest request = new JsonObjectRequest(requestType, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map <String,String> params = new HashMap<String, String>();
+//                params.put("profilePicture", Const.DEFAULT_PROFILE_PICTURE);
+//                return params;
+//            }
+        };
+        AppController.getInstance().addToRequestQueue(request,
+                tag_json_obj_post);
+    }
 }
 
