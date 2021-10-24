@@ -18,10 +18,12 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ProfileScreen"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WerqoutFrontend"/>
         <activity
             android:name=".EditProfileScreen"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WerqoutFrontend"/>
         <activity
             android:name=".AthleteHomeScreen"
             android:exported="true" />

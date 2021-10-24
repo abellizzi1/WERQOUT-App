@@ -38,8 +38,8 @@ public class CoachHomeScreen extends AppCompatActivity {
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
 
         /* Weather icon and temperature attributes */
-        temperatureView = findViewById(R.id.weather_textview_coach_home);
-        imageView = findViewById(R.id.weather_icon_coach_home);
+        temperatureView = findViewById(R.id.weather_textview_athlete_home);
+        imageView = findViewById(R.id.weather_icon_athlete_home);
 
         Button profileButton = findViewById(R.id.profile_button_coach_home);
 
