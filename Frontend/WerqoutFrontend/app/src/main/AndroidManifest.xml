@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".GroupInfoScreen"
+            android:exported="false" />
+        <activity
             android:name=".EditGroupsScreen"
             android:exported="false" />
         <activity

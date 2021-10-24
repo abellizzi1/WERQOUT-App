@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class EditGroupsScreen extends AppCompatActivity {
+public class EditGroupsScreen extends AppCompatActivity implements View.OnClickListener {
+
+    private static String selectedGroup = "";
+    private LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_groups);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class EditGroupsScreen extends AppCompatActivity {
             }
         });
 
-        LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_groups);
+
         ViewGroup.LayoutParams params;
         Button groupButton;
 
@@ -42,6 +45,18 @@ public class EditGroupsScreen extends AppCompatActivity {
             groupButton.setTextSize(30);
             groupButton.setTextColor(Color.parseColor("#000000"));
             groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
+            groupButton.setId(i);
+            groupButton.setOnClickListener(this);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        selectedGroup = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+    }
+
+    public static String getSelectedGroup()
+    {
+        return selectedGroup;
     }
 }
