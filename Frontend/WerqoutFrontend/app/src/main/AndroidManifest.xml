@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.AppController"
@@ -15,15 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".SearchScreen"
+            android:exported="true"
+            android:theme="@style/Theme.WerqoutFrontend"/>
         <activity
             android:name=".ProfileScreen"
             android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend"/>
+            android:theme="@style/Theme.WerqoutFrontend" />
         <activity
             android:name=".EditProfileScreen"
             android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend"/>
+            android:theme="@style/Theme.WerqoutFrontend" />
         <activity
             android:name=".AthleteHomeScreen"
             android:exported="true" />
