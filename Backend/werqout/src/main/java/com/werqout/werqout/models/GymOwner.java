@@ -7,14 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Table;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
 @Entity
-// @Table(name = "gym_owner")
 public class GymOwner extends User {
     /**
      * Name of the gym that the owner is an owner of
@@ -25,12 +24,7 @@ public class GymOwner extends User {
     /**
      * Groups that go to the gym. Foreign key to groups table. 
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "teams_in_gym",
-               joinColumns = @JoinColumn(name= "gym_owner_id"),
-               inverseJoinColumns = @JoinColumn(name="group_id"))
-    @JsonIgnore
-            //delcare as a list because hibernate doesn't support arraylist
+    @OneToMany
     private List<Team> teams = new ArrayList<Team>();
 
     /**
@@ -77,6 +71,9 @@ public class GymOwner extends User {
     }
     public void removeTeam(Team team) {
         teams.remove(team);
+    }
+    public boolean isInTeam(Team team){
+        return teams.contains(team);
     }
     
     public double getRating() {
