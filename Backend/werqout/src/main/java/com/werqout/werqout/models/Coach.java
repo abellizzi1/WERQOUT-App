@@ -50,6 +50,7 @@ public class Coach {
      * @param rating the average rating this user has received
      * @param numRatings the amount of ratings this user has recieved
      */
+
     public Coach(long id, String userName, String email, String password, double rating, int numRatings) {
         this.id = id;
         this.userName = userName;

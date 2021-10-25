@@ -65,6 +65,7 @@ public class Athlete {
     private List<Team> teams = new ArrayList<Team>();
     
     // Constructors ==========================================================================================
+
     
     public Athlete(){
         
@@ -76,8 +77,9 @@ public class Athlete {
         this.email = email;
         this.password = password;
     }
-    
+
     // Basic Getters/Setters =================================================================================
+
 
     public long getId() {
         return id;
@@ -113,15 +115,15 @@ public class Athlete {
     
     // Manage teams list =====================================================================================
 
-    public List<Team> getGroups() {
+    public List<Team> getTeams() {
     	return teams;
     }
     
-    public void addGroup(Team group) {
-    	teams.add(group);
+    public void addTeam(Team team) {
+    	teams.add(team);
     }
     
-    public void removeGroup(Team group) {
-    	teams.remove(group);
+    public void removeTeam(Team team) {
+    	teams.remove(team);
     }
 }
