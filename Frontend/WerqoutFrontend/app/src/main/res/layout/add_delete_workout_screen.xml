@@ -7,6 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".AddDeleteWorkoutScreen">
 
+    <Button
+        android:id="@+id/add_button_add_delete"
+        android:layout_width="140dp"
+        android:layout_height="57dp"
+        android:background="#00FFA7"
+        android:text="Add"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+    <Button
+        android:id="@+id/delete_button_add_delete"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:background="#B61A1A"
+        android:text="Delete"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:backgroundTint="#B61A1A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455" />
+
     <Spinner
         android:id="@+id/ampm_spinner_add_delete"
         android:layout_width="140dp"
@@ -34,6 +66,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.869" />
+
+    <TextView
+        android:id="@+id/selected_label_add_delete"
+        android:layout_width="228dp"
+        android:layout_height="55dp"
+        android:text="Selected: none"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455" />
 
     <EditText
         android:id="@+id/workoutName_input_add_delete"
@@ -136,4 +182,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.531" />
+
+    <ScrollView
+        android:id="@+id/scrollView_add_delete"
+        android:layout_width="409dp"
+        android:layout_height="235dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/delete_button_add_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDeleteWorkouts_label_add_delete">
+
+        <LinearLayout
+            android:id="@+id/scrollLinear_add_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
