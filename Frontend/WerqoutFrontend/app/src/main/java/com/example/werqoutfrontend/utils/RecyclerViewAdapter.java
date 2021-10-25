@@ -19,17 +19,40 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.ExampleViewHolder> implements Filterable {
     private ArrayList<RecyclerViewComponent> mExampleList;
     private ArrayList<RecyclerViewComponent> fullList;
+    private OnComponentClickListener mListener;
+
+    public interface OnComponentClickListener{
+        void onComponentClick(int position);
+    }
+
+    public void setOnComponentClickListener(OnComponentClickListener listener)
+    {
+        mListener = listener;
+    }
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView mTextView1;
         public TextView mTextView2;
 
-        public ExampleViewHolder(@NonNull View itemView) {
+        public ExampleViewHolder(@NonNull View itemView, OnComponentClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView_search_screen);
             mTextView1 = itemView.findViewById(R.id.username_textView_search_screen);
             mTextView2 = itemView.findViewById(R.id.description_textView_search_screen);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null)
+                    {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION)
+                        {
+                            listener.onComponentClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
     public RecyclerViewAdapter(ArrayList<RecyclerViewComponent> exampleList)
@@ -44,7 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_component,
                 parent, false);
-        ExampleViewHolder evh = new ExampleViewHolder(v);
+        ExampleViewHolder evh = new ExampleViewHolder(v, mListener);
         return evh;
     }
 

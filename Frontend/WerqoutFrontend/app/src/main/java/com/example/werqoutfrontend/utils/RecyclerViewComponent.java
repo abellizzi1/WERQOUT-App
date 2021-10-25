@@ -5,12 +5,14 @@ public class RecyclerViewComponent {
     private int mImageResource;
     private String mText1;
     private String mText2;
+    private final int mOriginalIndex;
 
-    public RecyclerViewComponent(int ImageResource, String text1, String text2)
+    public RecyclerViewComponent(int ImageResource, String text1, String text2, int originalIndex)
     {
         mImageResource = ImageResource;
         mText1 = text1;
         mText2 = text2;
+        mOriginalIndex = originalIndex;
     }
 
     public int getImageResource() {
@@ -23,5 +25,9 @@ public class RecyclerViewComponent {
 
     public String getText2() {
         return mText2;
+    }
+
+    public int getOriginalIndex() {
+        return mOriginalIndex;
     }
 }

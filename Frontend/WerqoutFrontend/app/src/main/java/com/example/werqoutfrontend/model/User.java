@@ -1,13 +1,16 @@
 package com.example.werqoutfrontend.model;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class User implements Serializable {
     private String username;
     private String email;
     private String password;
     private String userType;
     private int id;
     public static User currentUser;
-    private boolean loggedIn = false;
+    public static boolean loggedIn = false;
 
     public User(String username, String email, String password, String userType, int id)
     {
