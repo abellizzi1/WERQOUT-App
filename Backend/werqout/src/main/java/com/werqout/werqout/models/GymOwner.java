@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class GymOwner extends User {
      * Groups that go to the gym. Foreign key to groups table. 
      */
     @OneToMany
+    @JoinTable(name="gym_teams",
+                joinColumns = @JoinColumn(name = "gym_owner_id"), 
+                inverseJoinColumns = @JoinColumn(name="team_id"))
     private List<Team> teams = new ArrayList<Team>();
 
     /**
