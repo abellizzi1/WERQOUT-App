@@ -10,13 +10,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
+import java.io.Serializable;
 
-public class ProfileScreen extends AppCompatActivity {
+
+public class ProfileScreen extends AppCompatActivity implements Serializable {
     private ImageView profilePicture;
     private TextView usernameText;
     private TextView userTypeText;
@@ -37,11 +40,23 @@ public class ProfileScreen extends AppCompatActivity {
 
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
 
-        usernameText.setText(User.currentUser.getUsername());
-        idText.setText("User ID: " + User.currentUser.getId());
-        userTypeText.setText("User type: " + User.currentUser.getUserType());
-        emailText.setText("Email: " + User.currentUser.getEmail());
-        bioText.append(" The one and only :)");
+        if(getIntent().getSerializableExtra("calledFrom") != null)
+        {
+            editProfile.setVisibility(View.GONE);
+            Athlete athlete = (Athlete) getIntent().getSerializableExtra("athlete");
+            usernameText.setText(athlete.getUsername());
+            idText.setText("User ID: " + athlete.getId());
+            userTypeText.setText("User type: " + athlete.getUserType());
+            emailText.setText("Email: " + athlete.getEmail());
+            bioText.append("Successfully viewed from the search activity");
+        }
+        else {
+            usernameText.setText(User.currentUser.getUsername());
+            idText.setText("User ID: " + User.currentUser.getId());
+            userTypeText.setText("User type: " + User.currentUser.getUserType());
+            emailText.setText("Email: " + User.currentUser.getEmail());
+            bioText.append(" The one and only :)");
+        }
         /*
         TODO: Once we are able to properly store images, replace this server request with the stored image
          */

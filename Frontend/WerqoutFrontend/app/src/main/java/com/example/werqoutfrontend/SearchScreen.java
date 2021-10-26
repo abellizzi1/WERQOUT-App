@@ -105,6 +105,7 @@ public class SearchScreen extends AppCompatActivity {
                     intent.putExtra("athlete", athlete);
                     intent.putExtra("calledFrom", "search");
                     startActivity(intent);
+                    //TODO: Send the object to the profile page and make the view different
 
                 } catch (JSONException e) {
                     e.printStackTrace();
