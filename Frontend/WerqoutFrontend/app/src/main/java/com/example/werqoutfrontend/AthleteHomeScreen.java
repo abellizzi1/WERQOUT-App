@@ -23,7 +23,8 @@ import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
-public class AthleteHomeScreen extends AppCompatActivity{
+public class AthleteHomeScreen extends AppCompatActivity {
+
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
