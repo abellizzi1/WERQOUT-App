@@ -1,11 +1,11 @@
 package com.werqout.werqout.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.werqout.werqout.models.Coach;
 
-@Repository
-public interface CoachRepository extends UserRepository {
+
+public interface CoachRepository extends JpaRepository<Coach, Long> {
 
     Coach findById(long id);
 

@@ -9,6 +9,19 @@
 
     tools:context=".LoginScreen">
 
+    <Spinner
+        android:id="@+id/typeUser_spinner_login"
+        android:layout_width="311dp"
+        android:layout_height="45dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#00FFA7"
+        android:foregroundTint="#F1F1F1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
+
     <TextView
         android:id="@+id/login_label_login"
         android:layout_width="142dp"
@@ -103,7 +116,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.708" />
+        app:layout_constraintVertical_bias="0.806" />
 
     <Button
         android:id="@+id/register_button_login"

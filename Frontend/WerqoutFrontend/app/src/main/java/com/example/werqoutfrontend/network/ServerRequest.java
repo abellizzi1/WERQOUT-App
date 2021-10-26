@@ -32,7 +32,7 @@ public class ServerRequest{
     public void jsonPostRequest(JSONObject object)
     {
         JsonObjectRequest jsonLogin = new JsonObjectRequest(Request.Method.POST,
-                Const.URL_JSON_POST_REQUEST_LOGIN, object,
+                Const.CURRENT_URL, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
