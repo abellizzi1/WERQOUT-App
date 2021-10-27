@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".EditGroupsScreen">
+    tools:context=".CoachGroupsScreen">
 
     <EditText
-        android:id="@+id/groupName_input_edit_groups"
+        android:id="@+id/groupName_input_groups"
         android:layout_width="244dp"
         android:layout_height="56dp"
         android:ems="10"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.826" />
 
     <Button
-        android:id="@+id/create_button_edit_groups"
+        android:id="@+id/create_button_groups"
         android:layout_width="128dp"
         android:layout_height="43dp"
         android:background="#00FFA7"
@@ -42,7 +42,7 @@
         app:layout_constraintVertical_bias="0.819" />
 
     <Button
-        android:id="@+id/back_button_edit_groups"
+        android:id="@+id/back_button_groups"
         android:layout_width="142dp"
         android:layout_height="49dp"
         android:background="#FFFFFF"
@@ -58,10 +58,10 @@
         app:layout_constraintVertical_bias="0.942" />
 
     <TextView
-        android:id="@+id/edit_groups_label"
+        android:id="@+id/groups_label_groups"
         android:layout_width="228dp"
         android:layout_height="52dp"
-        android:text="Edit Groups"
+        android:text="Groups"
         android:textAlignment="center"
         android:textColor="#00FFA7"
         android:textSize="34sp"
@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/createGroup_label_edit_groups"
+        android:id="@+id/createGroup_label_groups"
         android:layout_width="229dp"
         android:layout_height="38dp"
         android:text="Create new group:"
@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <ScrollView
-        android:id="@+id/scrollView_edit_groups"
+        android:id="@+id/scrollView_groups"
         android:layout_width="409dp"
         android:layout_height="400dp"
         android:layout_marginStart="1dp"
@@ -100,11 +100,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_groups_label"
+        app:layout_constraintTop_toBottomOf="@+id/groups_label_groups"
         app:layout_constraintVertical_bias="0.120000005">
 
         <LinearLayout
-            android:id="@+id/scrollLinear_edit_groups"
+            android:id="@+id/scrollLinear_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:showDividers="middle"

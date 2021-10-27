@@ -15,13 +15,16 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".EditGroupScreen"
+            android:exported="false" />
+        <activity
             android:name=".AddDeleteWorkoutScreen"
             android:exported="false" />
         <activity
             android:name=".GroupInfoScreen"
             android:exported="false" />
         <activity
-            android:name=".EditGroupsScreen"
+            android:name=".CoachGroupsScreen"
             android:exported="false" />
         <activity
             android:name=".ProfileScreen"

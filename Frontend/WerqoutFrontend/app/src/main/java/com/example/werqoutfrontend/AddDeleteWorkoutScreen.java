@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 public class AddDeleteWorkoutScreen extends AppCompatActivity {
 
+    private String workoutName;
+    private String workoutDate;
+    private String workoutTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +41,45 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
         EditText workoutNameInput = findViewById(R.id.workoutName_input_add_delete);
         EditText dateInput = findViewById(R.id.date_input_add_delete);
         EditText timeInput = findViewById(R.id.time_input_add_delete);
-        TextView errorMessage = findViewById(R.id.errorMessage_label_add_delete);
         Button addButton = findViewById(R.id.add_button_add_delete);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String errorMsg = "";
+                TextView errorMessage = findViewById(R.id.errorMessage_label_add_delete);
+                errorMessage.setText("");
+                workoutName = workoutNameInput.getText().toString();
+                workoutDate = dateInput.getText().toString();
+                workoutTime = timeInput.getText().toString();
+
+                if (workoutName.length() == 0)
+                {
+                    errorMsg += "Workout name ";
+                }
+                if (!isValidDate(workoutDate))
+                {
+                    errorMsg += "Date ";
+                }
+                if (!isValidTime(workoutTime))
+                {
+                    errorMsg += "Time ";
+                }
+                if (userSpinner.getSelectedItem().toString().equals("Select AM or PM"))
+                {
+                    errorMsg += "Dropdown ";
+                }
+                if (errorMsg.length() > 0)
+                {
+                    errorMsg += "invalid";
+                    errorMessage.setText(errorMsg);
+                }
+                else
+                {
+                    //create new workout and add it to the database
+                }
+            }
+        });
     }
 
     public boolean isValidDate(String date)

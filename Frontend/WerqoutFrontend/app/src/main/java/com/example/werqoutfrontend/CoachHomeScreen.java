@@ -47,7 +47,7 @@ public class CoachHomeScreen extends AppCompatActivity {
         editGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), EditGroupsScreen.class));
+                startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
             }
         });
 

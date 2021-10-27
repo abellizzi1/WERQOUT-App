@@ -3,7 +3,6 @@ package com.example.werqoutfrontend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,12 @@ public class GroupInfoScreen extends AppCompatActivity {
         TextView groupNameLabel = findViewById(R.id.group_name_label_group_info);
         Button backButton = findViewById(R.id.back_button_group_info);
         Button addDeleteButton = findViewById(R.id.addDeleteWorkouts_button_group_info);
-        groupNameLabel.setText(EditGroupsScreen.getSelectedGroup());
+        groupNameLabel.setText(CoachGroupsScreen.getSelectedGroup());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), EditGroupsScreen.class));
+                startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
             }
         });
         addDeleteButton.setOnClickListener(new View.OnClickListener() {
