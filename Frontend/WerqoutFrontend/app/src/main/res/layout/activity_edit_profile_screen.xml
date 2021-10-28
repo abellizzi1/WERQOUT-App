@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".EditProfileScreen">
+
+    <Button
+        android:id="@+id/cancel_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:text="cancel"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/done_button_edit_profile_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile"
+        app:layout_constraintVertical_bias="0.441"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/done_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:backgroundTint="#000000"
+        android:text="Done"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel_button_edit_profile_screen"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile"
+        app:layout_constraintVertical_bias="0.441"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/title_text_edit_profile"
+        android:layout_width="235dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:text="Edit Profile"
+        android:textAlignment="center"
+        android:textColor="#00FFA7"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/user_info_table_edit_profile"
+        android:layout_width="394dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/cell_shape"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_profile_picture_button_edit_profile">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cell_shape">
+
+            <TextView
+                android:id="@+id/username_label_edit_profile_screen"
+                android:layout_width="96dp"
+                android:layout_height="32dp"
+                android:paddingStart="10dp"
+                android:text="Username:"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/edit_text_username_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cell_shape"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/email_label_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:text="Email:"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/edit_email_edit_profilescreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/password_label_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:text="Password:"
+                android:textColor="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/edit_text_password_edit_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+    </TableLayout>
+
+    <Button
+        android:id="@+id/delete_button_edit_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:text="Delete"
+        android:textColor="#B50000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/done_button_edit_profile_screen"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toEndOf="@+id/cancel_button_edit_profile_screen"
+        app:layout_constraintTop_toBottomOf="@+id/user_info_table_edit_profile"
+        app:layout_constraintVertical_bias="0.441"
+        app:strokeColor="#B50000"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/change_profile_picture_button_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#000000"
+        android:text="Edit Profile Picture"
+        android:textColor="#00FFA7"
+        app:circularflow_defaultRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/user_info_table_edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Profile_image_container_edit_profile"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Profile_image_container_edit_profile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/change_profile_picture_button_edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text_edit_profile">
+
+        <ImageView
+            android:id="@+id/profile_picture_edit_profile_screen"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:circularflow_radiusInDP="100dp" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
