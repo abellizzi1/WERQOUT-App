@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -15,7 +18,25 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.List;
 
 @Entity
-public class GymOwner extends User {
+public class GymOwner{
+     /**
+     * User ID
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    /**
+     * username of the gym owner
+     */
+    private String userName;
+    /**
+     * email of the gym owner- will be checked with REGEX
+     */
+    private String email;
+    /**
+     * Password of the gym owner- hashed in DB and will be checked with REGEX
+     */
+    private String password;
     /**
      * Name of the gym that the owner is an owner of
      */
@@ -56,10 +77,38 @@ public class GymOwner extends User {
      * @param groups
      */
     public GymOwner(long id, String userName, String email, String password, String gymName) {
-        super(id, userName, email, password);
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password; 
         this.gymName = gymName;
         this.rating = 0;
         this.numRatings = 0;
+    }
+    
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
     public String getGymName() {
         return gymName;

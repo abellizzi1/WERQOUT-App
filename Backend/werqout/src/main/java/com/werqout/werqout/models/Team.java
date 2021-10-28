@@ -7,11 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-<<<<<<< HEAD
 import javax.persistence.ManyToOne;
-=======
-import javax.persistence.OneToOne;
->>>>>>> 65521aa75abdea957e3a0cdd858638ae01e9cfe5
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
