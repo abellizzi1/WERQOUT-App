@@ -1,13 +1,13 @@
 package com.werqout.werqout.models;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -65,6 +65,13 @@ public class Team {
     @JoinColumn(name = "gym_owwner_id")
     @JsonIgnore
 	private GymOwner gymOwner;
+	/**
+	 * Event that the team is attending
+	 */
+	@ManyToOne
+    @JoinColumn(name = "event_id")
+    @JsonIgnore
+    private Event event;    
 	
 	/**
 	 * Create a new teamand set key parameters

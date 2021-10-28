@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.werqout.werqout.repository.GymOwnerRepository;
@@ -70,7 +68,7 @@ public class GymOwnerController {
     @PostMapping("/{id}/teams/{teamId}")
     public List<Team> addTeam(@PathVariable long id, @PathVariable long teamId) {
     	GymOwner go = gymOwnerRepository.findById(id);
-        Team team = teamRepository.findById(teamId).get();
+        Team team = teamRepository.findById(teamId);
     	go.addTeam(team);
     	gymOwnerRepository.save(go);
     	return gymOwnerRepository.findById(id).getTeams();
@@ -80,7 +78,7 @@ public class GymOwnerController {
     @DeleteMapping("/{id}/teams/{teamId}")
     public String removeTeam(@PathVariable long id, @PathVariable long teamId){
         GymOwner go = gymOwnerRepository.findById(id);
-        Team team = teamRepository.findById(teamId).get();
+        Team team = teamRepository.findById(teamId);
         if (go == null || team == null){
             return "No such gymOwner or team";
         }
@@ -107,5 +105,8 @@ public class GymOwnerController {
         return "Gym Owner: " + user + " deleted successfully";
     }
 
+
+
+    //Event routes
 
 }

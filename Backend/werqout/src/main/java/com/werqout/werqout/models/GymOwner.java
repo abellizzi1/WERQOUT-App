@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,6 +52,14 @@ public class GymOwner{
                 joinColumns = @JoinColumn(name = "gym_owner_id"), 
                 inverseJoinColumns = @JoinColumn(name="team_id"))
     private List<Team> teams = new ArrayList<Team>();
+
+    /**
+     * Event that the gymOwner hosts
+     */
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    @JsonIgnore
+    private Event event;    
 
     /**
 	 * Value represents average rating of the group, based on user reviews
