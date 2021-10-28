@@ -7,6 +7,22 @@
     android:background="#000000"
     tools:context=".CoachHomeScreen">
 
+    <Button
+        android:id="@+id/edit_button_coach_home"
+        android:layout_width="148dp"
+        android:layout_height="40dp"
+        android:background="#00FFA7"
+        android:text="Edit"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:backgroundTint="#00FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/weather_card_coach_home"
         android:layout_width="274dp"
@@ -24,20 +40,20 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/weather_icon_coach_home"
+                android:id="@+id/weather_icon_athlete_home"
                 android:layout_width="103dp"
                 android:layout_height="77dp"
                 android:layout_marginEnd="4dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/weather_textview_coach_home"
+                app:layout_constraintEnd_toStartOf="@+id/weather_textview_athlete_home"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/weather_textview_coach_home"
+                android:id="@+id/weather_textview_athlete_home"
                 android:layout_width="136dp"
                 android:layout_height="42dp"
                 android:text="Weather"
@@ -159,7 +175,7 @@
 
     <TextView
         android:id="@+id/workouts_label_coach_home"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="Upcoming groups"
         android:textAlignment="center"
@@ -167,7 +183,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.434" />

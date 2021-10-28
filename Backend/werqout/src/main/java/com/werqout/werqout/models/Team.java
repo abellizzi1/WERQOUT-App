@@ -37,6 +37,9 @@ public class Team {
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
 	
+	@OneToOne(mappedBy = "managedTeam")
+	private Coach coach;
+	
 	/**
 	 * Object which represents the team's coach
 	 * Foreign key to Athlete table
@@ -107,7 +110,7 @@ public class Team {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -160,6 +163,18 @@ public class Team {
 	
 	public void rate(double rating) {
 		this.rating = (this.rating + rating) / ++numRatings;
+	}
+	
+	public long getNumRatings() {
+		return numRatings;
+	}
+	
+	public Coach getCoach() {
+		return coach;
+	}
+	
+	public void setCoach(Coach coach) {
+		this.coach = coach;
 	}
 
 }
