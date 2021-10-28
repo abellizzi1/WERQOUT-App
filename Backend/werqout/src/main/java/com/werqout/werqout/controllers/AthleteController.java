@@ -1,6 +1,9 @@
 package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +35,8 @@ public class AthleteController {
     }
     //Ta suggested to have this
     @RequestMapping(value="post/{id}/{usr}/{email}/{pwd}/{team}", method=RequestMethod.GET)
-    public Athlete postAthleteByPath(@PathVariable Long id,@PathVariable String usr,@PathVariable String email,@PathVariable String pwd,@PathVariable String team){
-        Athlete athlete = new Athlete(id,usr,email,pwd,team);
+    public Athlete postAthleteByPath(@PathVariable long id,@PathVariable String usr,@PathVariable String email,@PathVariable String pwd){
+        Athlete athlete = new Athlete(id,usr,email,pwd);
         athleteRepository.save(athlete);
         return athlete;
     }    
@@ -41,10 +44,10 @@ public class AthleteController {
 
     @GetMapping("/{id}")
     public Athlete getAthlete(@PathVariable long id) {
-    	return athleteRepository.findById(id).get();
+    	return athleteRepository.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Athlete createAthlete(@RequestBody Athlete newAthlete){
         athleteRepository.save(newAthlete);
         return newAthlete;
@@ -55,7 +58,7 @@ public class AthleteController {
     	if(athleteRepository.findById(id) == null)
     		return null;
     	athleteRepository.save(athlete);
-    	return athleteRepository.findById(id).get();
+    	return athleteRepository.findById(id);
     }
     
     @Transactional
@@ -63,29 +66,34 @@ public class AthleteController {
     public String deleteAthlete(@PathVariable long id) {
     	if(athleteRepository.findById(id) == null)
     		return "No Such Athlete";                       //putting .get() here to resolve cannot convert from optional<>...
-    	String athleteName = athleteRepository.findById(id).get().getUserName();
+    	String athleteName = athleteRepository.findById(id).getUserName();
     	athleteRepository.deleteById(id);
     	return "Athlete: " + athleteName + " Deleted";
     }
 
 
-    
-    @GetMapping("/athletes/{id}/team")
-    public List<Team> getTeams(@PathVariable int id) {
+  
+    @GetMapping("/{id}/teams")
+    public List<Team> getGroups(@PathVariable long id) {
     	return athleteRepository.findById(id).getTeams();
     }
     
-    @PostMapping("/athletes/{id}/teams")
-    public List<Team> addTeam(@PathVariable int id, @RequestBody Team team) {
+    @PostMapping("/{id}/teams")
+    public List<Team> addGroup(@PathVariable long id, @RequestBody Team team) {
+
     	Athlete athlete = athleteRepository.findById(id);
     	athlete.addTeam(team);
     	athleteRepository.save(athlete);
     	return athleteRepository.findById(id).getTeams();
     }
     
-    
+
+    @Transactional
+    @DeleteMapping("/{id}/teams")
     public void removeTeam(@PathVariable int id, @RequestBody Team team) {
-    	athleteRepository.findById(id).removeTeam(team);
+    	Athlete athlete = athleteRepository.findById(id);
+    	athlete.removeTeam(team);
+    	athleteRepository.save(athlete);
     }
     
 }

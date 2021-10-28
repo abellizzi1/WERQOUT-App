@@ -7,7 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+<<<<<<< HEAD
 import javax.persistence.ManyToOne;
+=======
+import javax.persistence.OneToOne;
+>>>>>>> 65521aa75abdea957e3a0cdd858638ae01e9cfe5
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,6 +40,9 @@ public class Team {
 	@ManyToMany(mappedBy = "teams")
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
+	
+	@OneToOne(mappedBy = "managedTeam")
+	private Coach coach;
 	
 	/**
 	 * Object which represents the team's coach
@@ -107,7 +114,7 @@ public class Team {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -160,6 +167,18 @@ public class Team {
 	
 	public void rate(double rating) {
 		this.rating = (this.rating + rating) / ++numRatings;
+	}
+	
+	public long getNumRatings() {
+		return numRatings;
+	}
+	
+	public Coach getCoach() {
+		return coach;
+	}
+	
+	public void setCoach(Coach coach) {
+		this.coach = coach;
 	}
 
 }
