@@ -3,6 +3,7 @@ stages:
   - maventry
   - maventest
   - androidtry
+  - mavenDeploy
 
 maven-build:   #this is a JOB
   stage: maventry
@@ -34,3 +35,14 @@ android-build: #this is another job
   script:
     - cd Frontend/WerqoutFrontend
     - ./gradlew assemble
+
+autoDeploy:
+  stage: mavenDeploy
+  tags:
+    - springboot
+  script:
+    - cd Backend/werqout
+    - mvn package
+    - sudo mv target/*.jar /target/web-demo.jar
+    - sudo systemctl stop system-web-demo
+    - sudo systemctl start system-web-demo
