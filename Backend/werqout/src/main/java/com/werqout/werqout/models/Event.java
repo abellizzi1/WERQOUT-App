@@ -1,6 +1,7 @@
 package com.werqout.werqout.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,7 +34,7 @@ public class Event {
     /**
      * Gym Owner that hosts the workout
      */
-    @OneToMany
+    @OneToOne
     @JsonIgnore
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
@@ -50,22 +52,20 @@ public class Event {
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name="team_id"))
-    private Team team;
+    private List<Team> teams;
     
     /**
      * Creates an event
      * @param id  id of the event
-     * @param date date the event takes place- mm/dd/yyyy 00:00 format
+     * @param date date the event takes place- yyyy/mm/dd 00:00 format
      * @param gymOwner  gymOwner that is hosting the event
      * @param desc  description of the event
      * @param team  team that is attending this particular event
      */
-    public Event(long id, Date date, GymOwner gymOwner, String desc, Team team) {
+    public Event(long id, Date date, String desc) {
         this.id = id;
         this.date = date;
-        this.go = gymOwner;
         this.description = desc;
-        this.team = team;
     }
     /**
      * Default constructor
@@ -92,11 +92,14 @@ public class Event {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Team getTeam() {
-        return team;
+    public List<Team> getTeams() {
+        return teams;
     }
-    public void setTeam(Team team) {
-        this.team = team;
+    public void addTeam(Team team){
+        teams.add(team);
+    }
+    public boolean hasTeam(Team team){
+        return teams.contains(team);
     }
    
    

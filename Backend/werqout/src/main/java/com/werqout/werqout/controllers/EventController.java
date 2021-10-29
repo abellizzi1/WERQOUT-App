@@ -5,6 +5,8 @@ import com.werqout.werqout.models.Team;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.werqout.werqout.models.Event;
 import com.werqout.werqout.repository.GymOwnerRepository;
 import com.werqout.werqout.repository.TeamRepository;
@@ -43,7 +45,7 @@ public class EventController {
      * @return events at the gym
      */
     @GetMapping("/all")
-    public List<Event> getEvents(@PathVariable long GOid){
+    public List<Event> getEvents(){
         return eventRepository.findAll();
     }
 
@@ -62,10 +64,12 @@ public class EventController {
 		return eventRepository.findById(id);
 	}
 
-    @DeleteMapping
+    @Transactional
+    @DeleteMapping("/{id}")
     String deleteEvent(@PathVariable long id){
         Event event = eventRepository.findById(id);
-        String res = (event == null) ? "No such event" : "Event" + event.getId() + " has been deleted";
+        eventRepository.deleteById(id);
+        String res = (event == null) ? "No such event" : "Event " + event.getId() + " has been deleted";
         return res;
     }
 
@@ -82,14 +86,17 @@ public class EventController {
     }
 
     @PostMapping("/{gymID}/event")
-    void createEvent(@PathVariable long gymID, @RequestBody Event e){
+    public Event createEvent(@PathVariable long gymID, @RequestBody Event e){
         GymOwner go = gymOwnerRepository.findById(gymID);
         if(go != null){
             go.addEvent(e);
+            eventRepository.save(e);
+            return eventRepository.findById(e.getId());
         }
         else{
             //No gym owner.
             System.out.println("No such gymOwner");
+            return null;
         }
     }
 
@@ -108,5 +115,6 @@ public class EventController {
     }
 
     //events that have to do with the teams
+
     
 }
