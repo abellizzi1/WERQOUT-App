@@ -104,9 +104,6 @@ public class GymOwnerController {
         gymOwnerRepository.deleteById(id);
         return "Gym Owner: " + user + " deleted successfully";
     }
-
-
-
-    //Event routes
+    
 
 }

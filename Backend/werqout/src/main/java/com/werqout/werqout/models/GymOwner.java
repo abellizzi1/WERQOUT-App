@@ -59,7 +59,7 @@ public class GymOwner{
     @ManyToOne
     @JoinColumn(name = "event_id")
     @JsonIgnore
-    private Event event;    
+    private List<Event> events;    
 
     /**
 	 * Value represents average rating of the group, based on user reviews
@@ -125,6 +125,19 @@ public class GymOwner{
     public void setGymName(String gymName) {
         this.gymName = gymName;
     }
+    public double getRating() {
+        return rating;
+    }
+    /**
+     * Allows a user to rate a coach and stores that in the database
+     * @return rating.
+     */
+    public double rate(){
+        numRatings++;
+        return rating /= numRatings;
+    }
+
+    //team methods
     public List<Team> getTeams() {
         return teams;
     }
@@ -138,16 +151,21 @@ public class GymOwner{
         return teams.contains(team);
     }
     
-    public double getRating() {
-        return rating;
+    //event methods
+    public List<Event> getEvents(){
+        return events;
     }
-    /**
-     * Allows a user to rate a coach and stores that in the database
-     * @return rating.
-     */
-    public double rate(){
-        numRatings++;
-        return rating /= numRatings;
+
+    public void addEvent(Event event){
+        events.add(event);
+    }
+
+    public void removeEvent(Event event){
+        events.remove(event);
+    }
+
+    public boolean hasEvent(Event event){
+        return events.contains(event);
     }
 
     

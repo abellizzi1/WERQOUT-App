@@ -73,6 +73,31 @@ public class Event {
     public Event(){
 
     }
+    // getters and setters
+    public long getId() {
+        return id;
+    }
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    public GymOwner getGymOwner() {
+        return go;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public Team getTeam() {
+        return team;
+    }
+    public void setTeam(Team team) {
+        this.team = team;
+    }
    
    
 }
