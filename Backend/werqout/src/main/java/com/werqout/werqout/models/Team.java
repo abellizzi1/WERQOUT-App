@@ -39,6 +39,7 @@ public class Team {
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "managedTeam")
 	private Coach coach;
 	

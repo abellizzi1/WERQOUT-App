@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "coaches")
 public class Coach {
@@ -16,6 +18,7 @@ public class Coach {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
     
+	@JsonIgnore
     @OneToOne
     @JoinColumn(name = "managedTeam", referencedColumnName = "id")
     private Team managedTeam;
