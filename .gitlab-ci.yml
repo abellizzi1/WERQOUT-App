@@ -37,7 +37,7 @@ android-build: #this is another job
     - ./gradlew assemble
   artifacts:
     paths:
-    - app/build/outputs/
+    - Frontend/WerqoutFrontend/app/build/outputs/
 
 
 android-test:
