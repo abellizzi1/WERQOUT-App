@@ -70,7 +70,7 @@ public class GymOwnerController {
     @PostMapping("/{id}/teams/{teamId}")
     public List<Team> addTeam(@PathVariable long id, @PathVariable long teamId) {
     	GymOwner go = gymOwnerRepository.findById(id);
-        Team team = teamRepository.findById(teamId).get();
+        Team team = teamRepository.findById(teamId);
     	go.addTeam(team);
     	gymOwnerRepository.save(go);
     	return gymOwnerRepository.findById(id).getTeams();
@@ -80,7 +80,7 @@ public class GymOwnerController {
     @DeleteMapping("/{id}/teams/{teamId}")
     public String removeTeam(@PathVariable long id, @PathVariable long teamId){
         GymOwner go = gymOwnerRepository.findById(id);
-        Team team = teamRepository.findById(teamId).get();
+        Team team = teamRepository.findById(teamId);
         if (go == null || team == null){
             return "No such gymOwner or team";
         }
