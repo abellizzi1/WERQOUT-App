@@ -35,7 +35,7 @@ android-build: #this is another job
   script:
     - cd Frontend/WerqoutFrontend
     - ./gradlew assemble
-    
+
 android-test:
   image: javiersantos/android-ci:latest
   stage: androidtest
@@ -43,7 +43,7 @@ android-test:
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/WerqoutFrontend/gradlew
   tags:
-   - android_tag
+   - android 
   script:
     - cd Frontend/WerqoutFrontend
     - ./gradlew test
