@@ -60,7 +60,7 @@ public class Athlete {
     			cascade = CascadeType.PERSIST)
     @JoinTable(name = "team_members",
     		   joinColumns = @JoinColumn(name = "athlete_id"),
-    		   inverseJoinColumns = @JoinColumn(name = "team_id"))
+    		   inverseJoinColumns = @JoinColumn(name = "group_id"))
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
