@@ -35,6 +35,10 @@ android-build: #this is another job
   script:
     - cd Frontend/WerqoutFrontend
     - ./gradlew assemble
+  artifacts:
+    paths:
+    - app/build/outputs/
+
 
 android-test:
   image: javiersantos/android-ci:latest
