@@ -1,8 +1,9 @@
 package com.werqout.werqout.models;
 
+import javax.persistence.CascadeType;
+
 import java.util.ArrayList;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,9 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.List;
 
@@ -57,10 +58,9 @@ public class GymOwner{
     /**
      * Event that the gymOwner hosts
      */
-    @ManyToMany
+    @OneToOne
     @JoinColumn(name = "event_id")
-    @JsonIgnore
-    private List<Event> events;    
+    private Event event;    
 
     /**
 	 * Value represents average rating of the group, based on user reviews
@@ -139,6 +139,7 @@ public class GymOwner{
     }
 
     //team methods
+    @JsonIgnore
     public List<Team> getTeams() {
         return teams;
     }
@@ -153,20 +154,13 @@ public class GymOwner{
     }
     
     //event methods
-    public List<Event> getEvents(){
-        return events;
+    @JsonIgnore
+    public Event getEvent(){
+        return event;
     }
 
-    public void addEvent(Event event){
-        events.add(event);
-    }
-
-    public void removeEvent(Event event){
-        events.remove(event);
-    }
-
-    public boolean hasEvent(Event event){
-        return events.contains(event);
+    public void setEvent(Event event){
+        this.event = event;
     }
 
     

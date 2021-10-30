@@ -83,6 +83,7 @@ public class Event {
     public void setDate(Date date) {
         this.date = date;
     }
+    @JsonIgnore
     public GymOwner getGymOwner() {
         return go;
     }

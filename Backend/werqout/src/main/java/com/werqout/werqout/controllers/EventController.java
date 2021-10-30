@@ -12,6 +12,7 @@ import com.werqout.werqout.repository.GymOwnerRepository;
 import com.werqout.werqout.repository.TeamRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Env;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +52,8 @@ public class EventController {
 
     @PostMapping("/create")
     public Event createEvent(@RequestBody Event event){
-        eventRepository.save(event);
-        return eventRepository.findById(event.getId());
+        Event newEvent = eventRepository.save(event);
+        return eventRepository.findById(newEvent.getId());
     }
 
     @PutMapping("/{id}")
@@ -80,16 +81,16 @@ public class EventController {
      * @return list of events that that gym has
      */
     @GetMapping("/{gymID}/events")
-    List<Event> getEventsAtGym(@PathVariable long gymID){
+    Event getEventsAtGym(@PathVariable long gymID){
         //todo- filter by date
-       return gymOwnerRepository.findById(gymID).getEvents();
+       return gymOwnerRepository.findById(gymID).getEvent();
     }
 
     @PostMapping("/{gymID}/event")
     public Event createEvent(@PathVariable long gymID, @RequestBody Event e){
         GymOwner go = gymOwnerRepository.findById(gymID);
         if(go != null){
-            go.addEvent(e);
+            go.setEvent(e);
             eventRepository.save(e);
             return eventRepository.findById(e.getId());
         }
@@ -99,18 +100,20 @@ public class EventController {
             return null;
         }
     }
-
-    @DeleteMapping("/{gymID}/event")
-    String deleteEvent(@PathVariable long gymID, @RequestBody Event e){
+    @Transactional
+    @DeleteMapping("/{gymID}/{eventID}")
+    String deleteEvent(@PathVariable long gymID, @PathVariable long eventID){
         GymOwner go = gymOwnerRepository.findById(gymID);
-        if (go != null && go.hasEvent(e)){
-            go.removeEvent(e);
-            gymOwnerRepository.save(go);
-            return "Event " + e.getId() + " has been deleted";
+        Event e = eventRepository.findById(eventID);
+        if (go == null || e == null){
+            return "no such gymOwner or event";
         }
         else{
-            return "GymOwner does not exist or doesn't have the event you specified.";
+        go.setEvent(null);
+        gymOwnerRepository.save(go);
+        return "Event " + e.getId() + " has been deleted";
         }
+        
         
     }
 
