@@ -10,7 +10,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.model.Team;
+import com.example.werqoutfrontend.model.Workout;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class GroupInfoScreen extends AppCompatActivity {
+
+    public Team selectedGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,5 +93,17 @@ public class GroupInfoScreen extends AppCompatActivity {
             CoachHomeScreen.setTextSettings(params, timeText);
             timeText.setText("10:00 AM\n");
         }
+    }
+
+    public ArrayList<Workout> getWorkouts(Team t)
+    {
+        //gets workouts from database
+        return null;
+    }
+
+    public ArrayList<Athlete> getAthletes(Team t)
+    {
+        //gets athletes from database
+        return null;
     }
 }

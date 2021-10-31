@@ -4,6 +4,7 @@ public class Athlete {
     private String userName;
     private String email;
     private String password;
+    private Team team;
 
     public Athlete(String email, String password, String userName)
     {
@@ -35,4 +36,8 @@ public class Athlete {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setTeam(Team team) { this.team = team; };
+
+    public Team getTeam() { return team; };
 }
