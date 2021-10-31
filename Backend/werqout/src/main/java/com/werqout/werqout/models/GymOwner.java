@@ -136,9 +136,14 @@ public class GymOwner{
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
      */
-    public double rate(){
+    public double rate(double rating){
         numRatings++;
-        return rating /= numRatings;
+        this.rating += rating;
+        return this.rating / numRatings;
+    }
+    
+    public int getNumRatings() {
+    	return numRatings;
     }
 
     
