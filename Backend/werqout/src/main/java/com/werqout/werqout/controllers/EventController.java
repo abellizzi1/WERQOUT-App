@@ -29,7 +29,7 @@ import com.werqout.werqout.repository.EventRepository;
  * This class is to be used in conjunction with the gymo
  */
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/events")
 public class EventController {
     @Autowired
     GymOwnerRepository gymOwnerRepository;
