@@ -49,5 +49,6 @@ dependencies {
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    implementation group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
 
 }

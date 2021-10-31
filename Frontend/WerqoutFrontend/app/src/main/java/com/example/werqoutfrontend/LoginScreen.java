@@ -124,7 +124,7 @@ public class LoginScreen extends AppCompatActivity {
 
     public void login()
     {
-        if (!userSpinner.getSelectedItem().toString().equals("Select type of user..."))
+        if (!userSpinner.getSelectedItem().toString().equals("Select type of user...") && emailResponse != null)
         {
             if(emailResponse.equalsIgnoreCase(email)
                     && passwordResponse.equals(password))
