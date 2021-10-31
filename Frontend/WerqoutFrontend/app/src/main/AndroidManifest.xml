@@ -17,6 +17,10 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MessagesScreen"
+            android:exported="true"
+            android:theme="@style/Theme.WerqoutFrontend" />
+        <activity
             android:name=".EditProfileScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
