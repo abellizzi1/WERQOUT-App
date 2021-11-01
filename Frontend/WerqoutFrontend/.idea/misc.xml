@@ -10,13 +10,20 @@
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/athlete_home_screen.xml" value="0.22" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/coach_home_screen.xml" value="0.121875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.1796875" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/empty_tall_divider.xml" value="0.2703125" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_coach_home_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_profile_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/add_delete_workout_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/athlete_home_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/coach_home_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/edit_group_screen.xml" value="0.25407608695652173" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/edit_groups_screen.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/group_info_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.264" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/register_screen.xml" value="0.264" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/selected_group_screen.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

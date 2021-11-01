@@ -42,6 +42,14 @@ public class CoachHomeScreen extends AppCompatActivity {
         imageView = findViewById(R.id.weather_icon_athlete_home);
 
         Button profileButton = findViewById(R.id.profile_button_coach_home);
+        Button editGroupButton = findViewById(R.id.edit_button_coach_home);
+
+        editGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
+            }
+        });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,43 +67,27 @@ public class CoachHomeScreen extends AppCompatActivity {
         for (int i = 0; i < 10; i++)
         {
             groupText = new TextView(this);
-            groupText.setText("Group 1");
+            groupText.setText("Group " + (i+1));
             linearScroll.addView(groupText);
             params = groupText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            groupText.setLayoutParams(params);
-            groupText.setTextSize(25);
-            groupText.setTextColor(Color.parseColor("#FFFFFF"));
+            setTextSettings(params, groupText);
 
             liftText = new TextView(this);
             liftText.setText("Chest/Triceps Lift");
             linearScroll.addView(liftText);
             params = liftText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            liftText.setLayoutParams(params);
-            liftText.setTextSize(25);
-            liftText.setTextColor(Color.parseColor("#FFFFFF"));
+            setTextSettings(params, liftText);
 
             dateText = new TextView(this);
             linearScroll.addView(dateText);
             params = dateText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            dateText.setLayoutParams(params);
-            dateText.setTextSize(25);
-            dateText.setTextColor(Color.parseColor("#FFFFFF"));
+            setTextSettings(params, dateText);
             dateText.setText("10/21/21");
 
             timeText = new TextView(this);
             linearScroll.addView(timeText);
             params = timeText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            timeText.setLayoutParams(params);
-            timeText.setTextSize(25);
-            timeText.setTextColor(Color.parseColor("#FFFFFF"));
+            setTextSettings(params, timeText);
             timeText.setText("10:00 AM\n");
         }
 
@@ -135,5 +127,14 @@ public class CoachHomeScreen extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
             }
         }, Const.WEATHER_API);
+    }
+
+    public static void setTextSettings(ViewGroup.LayoutParams params, TextView text)
+    {
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        text.setLayoutParams(params);
+        text.setTextSize(25);
+        text.setTextColor(Color.parseColor("#FFFFFF"));
     }
 }
