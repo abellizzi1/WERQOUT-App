@@ -34,6 +34,7 @@ public class LoginScreen extends AppCompatActivity {
     private String password;
     private Spinner userSpinner;
     private static String firstName;
+    private static int id;
 
     private String TAG = ServerRequest.class.getSimpleName();
     private String tag_json_obj_post = "jobj_req_post";
@@ -108,7 +109,7 @@ public class LoginScreen extends AppCompatActivity {
                             emailResponse = user.get("email").toString();
                             passwordResponse = user.get("password").toString();
                             firstName = user.get("userName").toString();
-                            int id = Integer.valueOf(user.get("id").toString());
+                            id = Integer.valueOf(user.get("id").toString());
                             Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             break;
                         }
@@ -155,4 +156,5 @@ public class LoginScreen extends AppCompatActivity {
 
     public static String getFirstName() { return firstName; }
 
+    public static int getId() { return id; }
 }
