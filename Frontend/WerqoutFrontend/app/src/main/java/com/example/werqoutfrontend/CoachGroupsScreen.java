@@ -58,42 +58,18 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
             groupButton.setOnClickListener(this);
         }
 
-        EditText newGroupName = findViewById(R.id.groupName_input_groups);
-        String newGroup = newGroupName.getText().toString();
-
         Button createGroupButton = findViewById(R.id.create_button_groups);
         createGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("userName", firstName);
-//                params.put("lastName", lastName);
-//                params.put("email", email);
-//                params.put("password", password);
-//
-//                //Send the post request to the server
-//                if (userSpinner.getSelectedItem().toString().equals("Athlete"))
-//                {
-//                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
-//                }
-//                else if (userSpinner.getSelectedItem().toString().equals("Coach"))
-//                {
-//                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
-//                }
-//                else
-//                {
-//                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
-//                }
-//                ServerRequest request = new ServerRequest();
-//                request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-//                startActivity(new Intent(v.getContext(), LoginScreen.class));
-                Map<String, String> params = new HashMap<String, String>();
+                EditText newGroupName = findViewById(R.id.groupName_input_groups);
+                String newGroup = newGroupName.getText().toString();
+                Map params = new HashMap<>();
                 params.put("name", newGroup);
+                params.put("description", "test");
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
                 ServerRequest request = new ServerRequest();
-                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS;
                 request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-                Const.CURRENT_URL += LoginScreen.getId() + "/teams";
-                request.jsonObjectRequest(Const.CURRENT_URL,2, new JSONObject(params));
                 startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
             }
         });

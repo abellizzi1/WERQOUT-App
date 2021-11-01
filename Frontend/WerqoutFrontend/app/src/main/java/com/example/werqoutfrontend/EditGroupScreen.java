@@ -10,10 +10,13 @@ import java.util.ArrayList;
 
 public class EditGroupScreen extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_group_screen);
+
+
     }
 
 
