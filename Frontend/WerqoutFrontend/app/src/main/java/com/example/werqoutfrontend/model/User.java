@@ -7,7 +7,7 @@ public class User {
     private String userType;
     private int id;
     public static User currentUser;
-    private boolean loggedIn = false;
+    private static boolean loggedIn = false;
 
     public User(String username, String email, String password, String userType, int id)
     {

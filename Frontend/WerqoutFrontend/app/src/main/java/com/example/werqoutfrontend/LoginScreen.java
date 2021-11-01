@@ -68,8 +68,8 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
-            //getJsonLoginInfo();
+//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                getJsonLoginInfo();
             }
         });
 
@@ -79,7 +79,7 @@ public class LoginScreen extends AppCompatActivity {
     {
         if (userSpinner.getSelectedItem().toString().equals("Athlete"))
         {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "all";
         }
         else if (userSpinner.getSelectedItem().toString().equals("Coach"))
         {
@@ -127,7 +127,7 @@ public class LoginScreen extends AppCompatActivity {
     {
         if (!userSpinner.getSelectedItem().toString().equals("Select type of user..."))
         {
-            if(emailResponse.equalsIgnoreCase(email)
+            if(emailResponse != null && emailResponse.equalsIgnoreCase(email)
                     && passwordResponse.equals(password))
             {
                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();

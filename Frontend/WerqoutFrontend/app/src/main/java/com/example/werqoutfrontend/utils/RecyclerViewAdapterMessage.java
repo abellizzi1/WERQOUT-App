@@ -21,7 +21,6 @@ import java.util.List;
 public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerViewAdapterMessage.ExampleViewHolder> {
     private ArrayList<RecyclerViewMessage> messageList;
     private OnComponentClickListener mListener;
-    private boolean sender;
 
     public interface OnComponentClickListener{
         void onComponentClick(int position);
@@ -35,11 +34,13 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerVi
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextView1;
         public TextView username;
+        public View colorSidebar;
 
         public ExampleViewHolder(@NonNull View itemView, OnComponentClickListener listener) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.message_text_message_screen);
             username = itemView.findViewById(R.id.username_text_message_screen);
+            colorSidebar = itemView.findViewById(R.id.sidebar_color);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,18 +76,18 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerVi
     //pass vaules to local views here
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         RecyclerViewMessage currentItem = messageList.get(position);
-
-//        holder.mImageView.setImageResource(currentItem.getImageResource());
         holder.mTextView1.setText(currentItem.getMessage());
         holder.username.setText(currentItem.getUsername());
 //        if(currentItem.getUsername().equalsIgnoreCase(User.currentUser.getUsername()))
         if(currentItem.getUsername().equalsIgnoreCase("colin"))
         {
             holder.username.setTextColor(Color.BLUE);
+           // holder.colorSidebar.setBackgroundColor(Color.BLUE);
         }
         else
         {
             holder.username.setTextColor(Color.MAGENTA);
+            holder.colorSidebar.setBackgroundColor(Color.MAGENTA);
         }
     }
 

@@ -22,12 +22,18 @@
             android:id="@+id/message_text_message_screen"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/username_text_message_screen"
             android:layout_centerInParent="true"
             android:layout_marginStart="20dp"
-            android:layout_below="@+id/username_text_message_screen"
             android:minHeight="30dp"
             android:text="Message"
             android:textSize="20dp" />
+
+        <View
+            android:id="@+id/sidebar_color"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/teal_200" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

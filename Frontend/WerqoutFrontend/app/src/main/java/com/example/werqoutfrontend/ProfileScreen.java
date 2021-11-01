@@ -36,6 +36,7 @@ public class ProfileScreen extends AppCompatActivity {
         TextView idText = findViewById(R.id.userID_text_profile_screen);
 
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
+        Button returnHome = findViewById(R.id.return_button_profile_screen);
 
         usernameText.setText(User.currentUser.getUsername());
         idText.setText("User ID: " + User.currentUser.getId());
@@ -57,6 +58,12 @@ public class ProfileScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), EditProfileScreen.class));
+            }
+        });
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
             }
         });
 

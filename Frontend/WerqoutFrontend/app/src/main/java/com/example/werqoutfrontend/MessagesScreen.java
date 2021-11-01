@@ -20,7 +20,8 @@ public class MessagesScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_screen);
-        RecyclerViewMessage test1 = new RecyclerViewMessage("hey bozo","colin");
+        RecyclerViewMessage test1 = new RecyclerViewMessage("hey bozo this " +
+                "sentence is supposed to be long to test the limits of the display","colin");
         RecyclerViewMessage test2 = new RecyclerViewMessage("okay bro","joe");
         messages.add(test1);
         messages.add(test2);
