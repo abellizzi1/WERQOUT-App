@@ -80,7 +80,7 @@ public class EditProfileScreen extends AppCompatActivity {
                     String picture = BitmapStringConversion.getStringFromBitmap(bitmap);
                     params.put("userName", picture);
                 }
-                String url = Const.URL_JSON_REQUEST_ROOTURL + "athletes/" + String.valueOf(User.currentUser.getId());
+                String url = Const.CURRENT_URL + String.valueOf(User.currentUser.getId());
                 JSONObject updatedProfile = new JSONObject(params);
                 update.jsonObjectRequest(url,2,updatedProfile);
 

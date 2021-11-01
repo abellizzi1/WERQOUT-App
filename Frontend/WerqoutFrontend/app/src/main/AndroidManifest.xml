@@ -17,6 +17,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SelectMessageScreen"
+            android:exported="true" />
+        <activity
             android:name=".MessagesScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
