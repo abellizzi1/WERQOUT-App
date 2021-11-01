@@ -62,7 +62,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
         LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_athlete_home);
         ViewGroup.LayoutParams params;
         TextView liftText;
-
         TextView dateText;
         TextView timeText;
         for (int i = 0; i < 10; i++)
@@ -71,30 +70,18 @@ public class AthleteHomeScreen extends AppCompatActivity {
             liftText.setText("Chest/Triceps Lift");
             linearScroll.addView(liftText);
             params = liftText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            liftText.setLayoutParams(params);
-            liftText.setTextSize(25);
-            liftText.setTextColor(Color.parseColor("#FFFFFF"));
+            CoachHomeScreen.setTextSettings(params, liftText);
 
             dateText = new TextView(this);
             linearScroll.addView(dateText);
             params = dateText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            dateText.setLayoutParams(params);
-            dateText.setTextSize(25);
-            dateText.setTextColor(Color.parseColor("#FFFFFF"));
+            CoachHomeScreen.setTextSettings(params, dateText);
             dateText.setText("10/21/21");
 
             timeText = new TextView(this);
             linearScroll.addView(timeText);
             params = timeText.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            timeText.setLayoutParams(params);
-            timeText.setTextSize(25);
-            timeText.setTextColor(Color.parseColor("#FFFFFF"));
+            CoachHomeScreen.setTextSettings(params, timeText);
             timeText.setText("10:00 AM\n");
         }
 

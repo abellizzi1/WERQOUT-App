@@ -21,6 +21,18 @@
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
         <activity
+            android:name=".EditGroupScreen"
+            android:exported="false" />
+        <activity
+            android:name=".AddDeleteWorkoutScreen"
+            android:exported="false" />
+        <activity
+            android:name=".GroupInfoScreen"
+            android:exported="false" />
+        <activity
+            android:name=".CoachGroupsScreen"
+            android:exported="false" />
+        <activity
             android:name=".ProfileScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />

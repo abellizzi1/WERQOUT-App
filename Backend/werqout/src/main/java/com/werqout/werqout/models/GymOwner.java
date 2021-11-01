@@ -1,8 +1,9 @@
 package com.werqout.werqout.models;
 
+import javax.persistence.CascadeType;
+
 import java.util.ArrayList;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.List;
 
@@ -51,6 +54,13 @@ public class GymOwner{
                 joinColumns = @JoinColumn(name = "gym_owner_id"), 
                 inverseJoinColumns = @JoinColumn(name="team_id"))
     private List<Team> teams = new ArrayList<Team>();
+
+    /**
+     * Event that the gymOwner hosts
+     */
+    @OneToOne
+    @JoinColumn(name = "event_id")
+    private Event event;    
 
     /**
 	 * Value represents average rating of the group, based on user reviews
@@ -116,6 +126,20 @@ public class GymOwner{
     public void setGymName(String gymName) {
         this.gymName = gymName;
     }
+    public double getRating() {
+        return rating;
+    }
+    /**
+     * Allows a user to rate a coach and stores that in the database
+     * @return rating.
+     */
+    public double rate(){
+        numRatings++;
+        return rating /= numRatings;
+    }
+
+    //team methods
+    @JsonIgnore
     public List<Team> getTeams() {
         return teams;
     }
@@ -129,9 +153,12 @@ public class GymOwner{
         return teams.contains(team);
     }
     
-    public double getRating() {
-        return rating;
+    //event methods
+    @JsonIgnore
+    public Event getEvent(){
+        return event;
     }
+    
     /**
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
@@ -144,6 +171,10 @@ public class GymOwner{
     
     public int getNumRatings() {
     	return numRatings;
+    }
+
+    public void setEvent(Event event){
+        this.event = event;
     }
 
     
