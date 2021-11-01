@@ -18,9 +18,9 @@ public class Coach {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
     
-	@JsonIgnore
     @OneToOne
     @JoinColumn(name = "managedTeam", referencedColumnName = "id")
+    @JsonIgnore
     private Team managedTeam;
     
     private String userName;

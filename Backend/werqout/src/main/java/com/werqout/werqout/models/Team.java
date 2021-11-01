@@ -37,8 +37,8 @@ public class Team {
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
 	
-	@JsonIgnore
 	@OneToOne(mappedBy = "managedTeam")
+	@JsonIgnore
 	private Coach coach;
 	
 	/**

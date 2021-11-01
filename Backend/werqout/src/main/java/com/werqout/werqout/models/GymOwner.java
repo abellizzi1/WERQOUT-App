@@ -50,6 +50,7 @@ public class GymOwner{
      * Groups that go to the gym. Foreign key to groups table. 
      */
     @OneToMany
+    @JsonIgnore
     @JoinTable(name="gym_teams",
                 joinColumns = @JoinColumn(name = "gym_owner_id"), 
                 inverseJoinColumns = @JoinColumn(name="team_id"))
