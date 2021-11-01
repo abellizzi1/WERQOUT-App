@@ -1,5 +1,6 @@
 package com.werqout.werqout.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class Event {
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name="team_id"))
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<Team>();
     
     /**
      * Creates an event
@@ -101,6 +102,9 @@ public class Event {
     }
     public boolean hasTeam(Team team){
         return teams.contains(team);
+    }
+    public void removeTeam(Team team) {
+        teams.remove(team);
     }
    
    
