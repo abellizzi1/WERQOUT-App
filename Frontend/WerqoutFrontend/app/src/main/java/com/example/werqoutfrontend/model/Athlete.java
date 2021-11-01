@@ -1,15 +1,14 @@
 package com.example.werqoutfrontend.model;
 
-public class Athlete {
+public class Athlete extends User{
     private String userName;
     private String email;
     private String password;
+    private Team team;
 
-    public Athlete(String email, String password, String userName)
+    public Athlete(String email, String password, String username, int id)
     {
-        this.email = email;
-        this.password = password;
-        this.userName = userName;
+        super(username, email, password, "Athlete", id);
     }
 
     public String getUserName() {
@@ -35,4 +34,8 @@ public class Athlete {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setTeam(Team team) { this.team = team; };
+
+    public Team getTeam() { return team; };
 }

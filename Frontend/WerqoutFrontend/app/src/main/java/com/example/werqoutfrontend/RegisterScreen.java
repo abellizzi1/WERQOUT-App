@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.example.werqoutfrontend.network.ServerRequest;
+import com.example.werqoutfrontend.utils.Const;
 
 import org.json.JSONObject;
 
@@ -97,8 +98,20 @@ public class RegisterScreen extends AppCompatActivity {
                     params.put("password", password);
 
                     //Send the post request to the server
+                    if (userSpinner.getSelectedItem().toString().equals("Athlete"))
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
+                    }
+                    else if (userSpinner.getSelectedItem().toString().equals("Coach"))
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
+                    }
+                    else
+                    {
+                        Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
+                    }
                     ServerRequest request = new ServerRequest();
-                    request.jsonPostRequest(new JSONObject(params));
+                    request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
                     startActivity(new Intent(v.getContext(), LoginScreen.class));
                 }
             }

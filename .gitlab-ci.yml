@@ -1,7 +1,11 @@
 # Example  .gitlab-ci.yml file
 stages:
   - maventry
+  - maventest
   - androidtry
+  - androidtest
+  - mavenDeploy
+
 
 maven-build:   #this is a JOB
   stage: maventry
@@ -11,6 +15,17 @@ maven-build:   #this is a JOB
     - cd Backend/werqout
     - mvn package
 
+maven-test:
+    stage: maventest
+    tags:
+      - springboot
+    script:
+      - cd Backend/werqout
+      - mvn test
+    artifacts:
+      paths:
+        - Backend/target/*.jar
+
 android-build: #this is another job
   image: javiersantos/android-ci:latest      # this is a directive to DOCKER
   stage: androidtry
@@ -18,7 +33,38 @@ android-build: #this is another job
    - android         #this is LINK to the docker runner on the remote-server        
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    - chmod +x ./Frontend/gradlew
+    - chmod +x ./Frontend/WerqoutFrontend/gradlew
   script:
-    - cd Frontend
+    - cd Frontend/WerqoutFrontend
     - ./gradlew assemble
+
+  artifacts:
+    paths:
+    - Frontend/WerqoutFrontend/app/build/outputs/
+
+
+android-test:
+  image: javiersantos/android-ci:latest
+  stage: androidtest
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./Frontend/WerqoutFrontend/gradlew
+  tags:
+   - android 
+  script:
+    - cd Frontend/WerqoutFrontend
+    - ./gradlew test
+
+autoDeploy:
+  stage: mavenDeploy
+  tags:
+    - springboot
+  script:
+    - cd Backend/werqout
+    - mvn package
+    - sudo mv target/*.jar /target/web-demo.jar
+    - sudo systemctl stop system-web-demo
+    - sudo systemctl start system-web-demo
+  only:
+    - main
+
