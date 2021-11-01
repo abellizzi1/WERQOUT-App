@@ -2,6 +2,7 @@ package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +14,10 @@ import android.widget.LinearLayout;
 
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -29,6 +33,8 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coach_groups_screen);
 
+        Context context = this;
+
         Button backButton = findViewById(R.id.back_button_groups);
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_groups);
 
@@ -42,9 +48,44 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         Button groupButton;
         ViewGroup.LayoutParams params;
 
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/1/teams";
+        ServerRequest displayAllGroups = new ServerRequest();
+        displayAllGroups.jsonArrayRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+
+            @Override
+            public void onSuccess(JSONArray users) {
+                for(int i = 0; i < users.length(); i++)
+                {
+                    try {
+                        JSONObject user = users.getJSONObject(i);
+                        Button groupButton = new Button (context);
+                        groupButton.setText(user.get("name").toString());
+                        linearScroll.addView(groupButton);
+                        ViewGroup.LayoutParams params;
+                        params = groupButton.getLayoutParams();
+                        params.height = 300;
+                        params.width = 1409;
+                        groupButton.setLayoutParams(params);
+                        groupButton.setTextSize(30);
+                        groupButton.setTextColor(Color.parseColor("#000000"));
+                        groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
+                        groupButton.setId(i);
+                        groupButton.setOnClickListener((View.OnClickListener) context);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },Const.CURRENT_URL);
+
         for (int i = 0; i < 10; i++)
         {
-            groupButton = new Button(this);
+            groupButton = new Button(context);
             groupButton.setText("Group " + (i+1));
             linearScroll.addView(groupButton);
             params = groupButton.getLayoutParams();

@@ -31,55 +31,6 @@ public class GroupInfoScreen extends AppCompatActivity {
     private String tag_json_obj_post = "jobj_req_post";
     public Team selectedGroup;
 
-    /*
-    public void getJsonLoginInfo()
-    {
-        if (userSpinner.getSelectedItem().toString().equals("Athlete"))
-        {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
-        }
-        else if (userSpinner.getSelectedItem().toString().equals("Coach"))
-        {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
-        }
-        else
-        {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
-        }
-
-        ServerRequest userLogin = new ServerRequest();
-        userLogin.jsonArrayRequest(new VolleyCallback() {
-            //Is there a way that I don't need to include this method?
-            @Override
-            public void onSuccess(JSONObject result) {
-            }
-
-            @Override
-            public void onSuccess(JSONArray users) {
-                for(int i = 0; i < users.length(); i++)
-                {
-                    try {
-                        JSONObject user = users.getJSONObject(i);
-                        if(user.get("email").toString().equals(email))
-                        {
-
-                            emailResponse = user.get("email").toString();
-                            passwordResponse = user.get("password").toString();
-                            firstName = user.get("userName").toString();
-                            id = Integer.valueOf(user.get("id").toString());
-                            Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
-                            break;
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                login();
-            }
-        },Const.CURRENT_URL);
-    }
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +39,7 @@ public class GroupInfoScreen extends AppCompatActivity {
         TextView groupNameLabel = findViewById(R.id.group_name_label_group_info);
         Button backButton = findViewById(R.id.back_button_group_info);
         Button addDeleteButton = findViewById(R.id.addDeleteWorkouts_button_group_info);
+        Button editGroupButton = findViewById(R.id.editGroup_button_group_info);
         groupNameLabel.setText(CoachGroupsScreen.getSelectedGroup());
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +52,12 @@ public class GroupInfoScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+            }
+        });
+        editGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), EditGroupScreen.class));
             }
         });
 

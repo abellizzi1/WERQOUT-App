@@ -16,7 +16,7 @@ public class EditGroupScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_group_screen);
 
-
+        
     }
 
 
