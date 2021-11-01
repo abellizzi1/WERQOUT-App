@@ -66,7 +66,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             public void onSuccess(Bitmap response) {
                 profilePicture.setImageBitmap(response);
             }
-        }, Const.HALLOWEEN);
+        }, Const.DEFAULT_PROFILE_PICTURE);
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

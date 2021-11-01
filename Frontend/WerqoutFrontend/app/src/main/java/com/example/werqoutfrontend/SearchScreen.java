@@ -44,7 +44,7 @@ public class SearchScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentFilter = 0;
-                getSearchResults(Const.URL_JSON_REQUEST_ATHLETES);
+                getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all");
             }
         });
         filterCoaches.setOnClickListener(new View.OnClickListener() {
