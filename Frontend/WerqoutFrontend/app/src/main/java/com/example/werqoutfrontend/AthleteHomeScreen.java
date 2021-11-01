@@ -55,7 +55,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(view.getContext(), MessagesScreen.class));
             }
         });
 

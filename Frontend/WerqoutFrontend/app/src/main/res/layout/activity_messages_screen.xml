@@ -4,49 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/black"
     tools:context=".MessagesScreen">
-
-    <Button
-        android:id="@+id/all_messages_button_messages_screen"
-        android:layout_width="140dp"
-        android:layout_height="49dp"
-        android:text="All"
-        app:layout_constraintBottom_toBottomOf="@+id/group_messages_messages_screen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/group_messages_messages_screen"
-        android:layout_width="140dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="2dp"
-        android:text="Groups"
-        app:layout_constraintBottom_toTopOf="@+id/message_view_message_screen"
-        app:layout_constraintEnd_toStartOf="@+id/direct_messages_message_screen"
-        app:layout_constraintStart_toEndOf="@+id/all_messages_button_messages_screen"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/direct_messages_message_screen"
-        android:layout_width="140dp"
-        android:layout_height="49dp"
-        android:text="Direct"
-        app:layout_constraintBottom_toBottomOf="@+id/group_messages_messages_screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/group_messages_messages_screen"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/message_view_message_screen"
         android:layout_width="409dp"
         android:layout_height="680dp"
-        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_messages_button_messages_screen" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

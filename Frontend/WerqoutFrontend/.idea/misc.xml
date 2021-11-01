@@ -8,7 +8,7 @@
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_default_account_box.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/profile_window.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_edit_profile_screen.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_messages_screen.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_messages_screen.xml" value="0.28907563025210087" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_profile_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_recycler_view_component.xml" value="0.353125" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_search_screen.xml" value="0.3333333333333333" />
@@ -17,8 +17,8 @@
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/message_layout_user.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_component.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_message.xml" value="0.1796875" />
-        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_message_component.xml" value="0.7333333333333334" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_message.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_message_component.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recyclerviewcomponent.xml" value="0.3671875" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_coach_home_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_main.xml" value="0.264" />
