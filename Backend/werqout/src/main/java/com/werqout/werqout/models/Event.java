@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * This class is to represent an event. It has a time it takes place, a group, and a gym owner that hosts it. Ideally the gym owner posts the event time and the coach selects that time with a specific group
  */
@@ -27,10 +29,12 @@ public class Event {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Id of the Athlete",name="id",required=true,value="1")
 	private long id;
     /**
      * Date that the event takes place
      */
+    @ApiModelProperty(notes = "Date the event takes place",name="date",required=true,value="12-12-2021:00:00")
     private Date date;
     /**
      * Gym Owner that hosts the workout
@@ -40,10 +44,12 @@ public class Event {
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name="gym_owner_id"))
+    @ApiModelProperty(notes = "Owner of the gym that the event takes place",name="go",required=true,value="Gym 01")
     private GymOwner go;
     /**
      * Description of the event- what the group is going to do.
      */
+    @ApiModelProperty(notes = "Description of the event",name="description",required=true,value="Push Pull Legs week 1 day 3")
     private String description;
     /**
      * Team at this specific time 
@@ -53,6 +59,7 @@ public class Event {
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name="team_id"))
+    @ApiModelProperty(notes = "Teams that are attending the event",name="teams",required=false,value="Team1, Team2")
     private List<Team> teams = new ArrayList<Team>();
     
     /**

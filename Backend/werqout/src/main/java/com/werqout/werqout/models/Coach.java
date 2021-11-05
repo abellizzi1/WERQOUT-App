@@ -10,29 +10,38 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "coaches")
 public class Coach {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Id of the Coach",name="id",required=true,value="1")
 	private long id;
     
     @OneToOne
     @JoinColumn(name = "managedTeam", referencedColumnName = "id")
     @JsonIgnore
+    @ApiModelProperty(notes = "Managed Team of the Athlete",name="managedTeam",required=false,value="team1")
     private Team managedTeam;
     
+    @ApiModelProperty(notes = "Username of the Coach",name="userName",required=true,value="testUserName")
     private String userName;
-    
+
+    @ApiModelProperty(notes = "Email of the Coach",name="email",required=true,value="email@example.com")
     private String email;
     
+    @ApiModelProperty(notes = "Password of the Coach",name="password",required=true,value="password")
     private String password;
 
     /**
 	 * Value represents average rating of the group, based on user reviews
 	 */
+    @ApiModelProperty(notes = "Rating of the Coach (out of five stars)",name="rating",required=false,value="5.0")
 	private double rating;
+    @ApiModelProperty(notes = "Number of ratings the Coach has recieved",name="numRatings",required=false,value="111")
 	private int numRatings;
 	
 	// Constructors ==========================================================================================

@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.JoinColumn;
 
 import java.util.List;
@@ -30,18 +32,22 @@ public class Athlete {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Id of the Athlete",name="id",required=true,value="1")
     private long id;
     /**
      * username of the athlete
      */
+    @ApiModelProperty(notes = "Username of the Athlete",name="userName",required=true,value="testUserName")
     private String userName;
     /**
      * email of the athelete- will be checked with REGEX
      */
+    @ApiModelProperty(notes = "Email of the Athlete",name="email",required=true,value="email@example.com")
     private String email;
     /**
      * Password of the athlete- hashed in DB and will be checked with REGEX
      */
+    @ApiModelProperty(notes = "Password of the Athlete",name="password",required=true,value="testpassword")
     private String password;
     /**
      * Constructs an athlete
