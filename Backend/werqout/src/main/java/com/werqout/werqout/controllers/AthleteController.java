@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
+
+import io.swagger.annotations.Api;
+
 import com.werqout.werqout.models.Athlete;
 import com.werqout.werqout.models.Team;
 
 import java.util.List;
 
-
+@Api(value = "AthleteController", tags = {"Athlete"})
 @RestController
 @RequestMapping("/athletes")
 public class AthleteController {
