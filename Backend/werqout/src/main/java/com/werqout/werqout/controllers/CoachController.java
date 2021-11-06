@@ -29,7 +29,7 @@ public class CoachController {
 	CoachRepository coachRepository;
 	
 	@GetMapping("/")
-	@ApiOperation(value = "Get list of Coaches in the Database", response = Iterable.class, tags = "getAllCoaches")
+	@ApiOperation(value = "Get list of Coaches in the database", response = Iterable.class, tags = "getAllCoaches")
 	public List<Coach> getAllCoaches(){
 		return coachRepository.findAll();
 	}

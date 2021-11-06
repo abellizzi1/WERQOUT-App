@@ -47,7 +47,7 @@ public class EventController {
      * @return events at the gym
      */
     @GetMapping("/all")
-    @ApiOperation(value = "Get list of Events in the Database", response = Iterable.class, tags = "getEvents")
+    @ApiOperation(value = "Get list of Events in the database", response = Iterable.class, tags = "getEvents")
     public List<Event> getEvents(){
         return eventRepository.findAll();
     }

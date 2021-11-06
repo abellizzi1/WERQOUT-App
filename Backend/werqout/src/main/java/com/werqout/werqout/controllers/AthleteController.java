@@ -33,7 +33,7 @@ public class AthleteController {
     AthleteRepository athleteRepository;
     //Ta suggested to have this
     @RequestMapping(value="/all", method=RequestMethod.GET)
-    @ApiOperation(value = "Get list of Athletes in the Database", response = Iterable.class, tags = "getAllAthletes")
+    @ApiOperation(value = "Get list of Athletes in the database", response = Iterable.class, tags = "getAllAthletes")
     public List<Athlete> getAllAthletes(){
         return athleteRepository.findAll();
     }
