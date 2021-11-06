@@ -4,12 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/cell_shape.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_baseline_coach_24.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_default_account_box.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/profile_window.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_edit_profile_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_profile_screen.xml" value="0.1796875" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_recycler_view_component.xml" value="0.353125" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_search_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/athlete_home_screen.xml" value="0.22" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/coach_home_screen.xml" value="0.121875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.1796875" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/message_layout_user.xml" value="0.1796875" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_component.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recyclerviewcomponent.xml" value="0.3671875" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/empty_tall_divider.xml" value="0.2703125" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_coach_home_screen.xml" value="0.25416666666666665" />

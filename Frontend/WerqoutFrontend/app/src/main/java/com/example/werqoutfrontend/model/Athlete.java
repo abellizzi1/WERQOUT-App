@@ -1,6 +1,10 @@
 package com.example.werqoutfrontend.model;
 
-public class Athlete extends User{
+
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Athlete extends User implements Serializable {
     private String userName;
     private String email;
     private String password;
