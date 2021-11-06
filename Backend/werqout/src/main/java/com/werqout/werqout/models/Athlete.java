@@ -8,8 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.JoinColumn;
 
@@ -21,30 +24,30 @@ import java.util.ArrayList;
  * @author JJ SchraderBachar
  */
 
-/*
- * @Inheritance tag specifies that this superclass and its subclasses will be mapped in the same table.
- * Because of this, we need a way to tell which type we are working with. This will add a column named
- * DTYPE by default which will hold the value designated by @DiscriminatorValue.
- */
 @Entity
-public class Athlete extends User {
+@Table(name = "athletes")
+public class Athlete {
     /**
      * User ID
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @ApiModelProperty(notes = "Id of the Athlete",name="id",required=true,value="1")
+    private long id;
     /**
      * username of the athlete
      */
+    @ApiModelProperty(notes = "Username of the Athlete",name="userName",required=true,value="testUserName")
     private String userName;
     /**
      * email of the athelete- will be checked with REGEX
      */
+    @ApiModelProperty(notes = "Email of the Athlete",name="email",required=true,value="email@example.com")
     private String email;
     /**
      * Password of the athlete- hashed in DB and will be checked with REGEX
      */
+    @ApiModelProperty(notes = "Password of the Athlete",name="password",required=true,value="testpassword")
     private String password;
     /**
      * Constructs an athlete
@@ -55,56 +58,68 @@ public class Athlete extends User {
      */
     
     /**
-     * Name of the group the athlete is in. Foreign Key to groups table
+     * ArrayList which contains all teams athlete is a memeber of
+     * Within database, represented simply as an athlete id and a team id in a table
      */
-     public String teamName;
      
     @ManyToMany(fetch = FetchType.LAZY,
     			cascade = CascadeType.PERSIST)
-    @JoinTable(name = "group_members",
+    @JoinTable(name = "team_members",
     		   joinColumns = @JoinColumn(name = "athlete_id"),
     		   inverseJoinColumns = @JoinColumn(name = "group_id"))
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
+    // Constructors ==========================================================================================
 
-
+    
     public Athlete(){
         
     }
     
-    public Athlete(long id,String userName, String email, String password, String teamName) {
-        super(id, userName, email, password);
-        this.teamName = teamName;
+    public Athlete(long id,String userName, String email, String password) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
     }
 
-    public String getTeamName() {
-        return teamName;
-    }
+    // Basic Getters/Setters =================================================================================
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
 
-    @Override
     public long getId() {
-        return super.getId();
+        return id;
     }
 
-    @Override
     public void setId(long id) {
-        super.setId(id);
+        this.id = id;
     }
 
-    @Override
     public String getUserName() {
-        return super.getUserName();
+        return userName;
     }
     
-    @Override
     public void setUserName(String userName) {
-        super.setUserName(userName);
+        this.userName = userName;
     }
+    
+    public String getEmail() {
+    	return email;
+    }
+    
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    public String getPassword() {
+    	return password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    
+    // Manage teams list =====================================================================================
 
     public List<Team> getTeams() {
     	return teams;

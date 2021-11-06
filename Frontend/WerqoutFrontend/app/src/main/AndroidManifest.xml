@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.werqoutfrontend" >
+    package="com.example.werqoutfrontend">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,15 +17,28 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true" >
         <activity
+
             android:name=".SearchScreen"
-            android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend"/>
-        <activity
-            android:name=".ProfileScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
         <activity
             android:name=".EditProfileScreen"
+            android:exported="true"
+            android:theme="@style/Theme.WerqoutFrontend" />
+        <activity
+            android:name=".EditGroupScreen"
+            android:exported="false" />
+        <activity
+            android:name=".AddDeleteWorkoutScreen"
+            android:exported="false" />
+        <activity
+            android:name=".GroupInfoScreen"
+            android:exported="false" />
+        <activity
+            android:name=".CoachGroupsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
         <activity
@@ -39,7 +52,7 @@
             android:exported="true" />
         <activity
             android:name=".LoginScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
