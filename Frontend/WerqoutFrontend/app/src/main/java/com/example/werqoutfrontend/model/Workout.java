@@ -1,9 +1,9 @@
 package com.example.werqoutfrontend.model;
 
 /**
- * @author Angelo Bellizzi
  * Model for the Workout object. Stores data for the workout name, date, and time.
  * Also includes methods to create a new workout and set the name, date, and time.
+ * @author Angelo Bellizzi
  */
 public class Workout {
     /**

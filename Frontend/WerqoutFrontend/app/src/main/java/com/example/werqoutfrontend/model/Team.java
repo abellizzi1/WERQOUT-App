@@ -3,9 +3,9 @@ package com.example.werqoutfrontend.model;
 import java.util.ArrayList;
 
 /**
- * @author Angelo Bellizzi
  * Model for a Team object. Contains data for the athletes and workouts.
  * Includes methods needed to manage a team.
+ * @author Angelo Bellizzi
  */
 public class Team {
     /**

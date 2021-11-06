@@ -13,10 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
- * @author Angelo Bellizzi
  * The AddDeleteWorkoutScreen class gives functionality to the add_delete_workout_screen.xml screen.
  * It includes methods that verify if the created workout is valid, and also gives the user the option
  * to delete a selected workout.
+ * @author Angelo Bellizzi
  */
 public class AddDeleteWorkoutScreen extends AppCompatActivity {
 
@@ -115,7 +115,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
     }
 
     /**
-     * Checks if the parameter is a valid date for the workout.
+     * Checks if the parameter is a valid date for the workout. (must be in the format: mm/dd/yy)
      * @param date
      * the inputted date that needs verification
      * @return
@@ -136,7 +136,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
     }
 
     /**
-     * Checks if the parameter is a valid time for the workout.
+     * Checks if the parameter is a valid time for the workout. (must be in the format: 00:00)
      * @param time
      * the inputted time that needs verification
      * @return

@@ -24,11 +24,29 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The CoachGroupsScreen class gives functionality to the coach_groups_screen.xml screen. It includes a
+ * Scroll View of the Coach's teams and allows the Coach to select one of these teams. Also, the Coach
+ * can create a new Team on this screen.
+ * @author Angelo Bellizzi
+ */
 public class CoachGroupsScreen extends AppCompatActivity implements View.OnClickListener {
 
+    /**
+     * Stores the name of the selected group.
+     */
     private static String selectedGroup = "";
+
+    /**
+     * The linear layout within the Scroll View in coach_groups_screen.xml
+     */
     private LinearLayout linearScroll;
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to coach_groups_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +57,11 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         Button backButton = findViewById(R.id.back_button_groups);
 
         backButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Coach Home Screen when the "back"
+             * button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), CoachHomeScreen.class));
@@ -126,6 +149,11 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
 
         Button createGroupButton = findViewById(R.id.create_button_groups);
         createGroupButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function posts a new team to the database and puts the team in the
+             * current coach's path when the "create" button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 EditText newGroupName = findViewById(R.id.groupName_input_groups);
@@ -143,12 +171,22 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         });
     }
 
+    /**
+     * This onClick function directs the user to the Group Info Screen and displays the information
+     * for the group that was clicked on.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         selectedGroup = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
         startActivity(new Intent(v.getContext(), GroupInfoScreen.class));
     }
 
+    /**
+     * Gets the selected group that was clicked on.
+     * @return
+     * returns the selected group
+     */
     public static String getSelectedGroup()
     {
         return selectedGroup;

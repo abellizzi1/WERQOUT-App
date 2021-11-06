@@ -25,11 +25,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The EditGroupScreen class gives functionality to the edit_group_screen.xml screen. It includes a
+ * scroll view that includes all of the Team's members, and these members can be selected and deleted
+ * from the team. Also, the Team name can be edited and a group member can be added to the Team from
+ * this screen.
+ * @author Angelo Bellizzi
+ */
 public class EditGroupScreen extends AppCompatActivity implements View.OnClickListener{
 
+    /**
+     * The linear layout within the Scroll View that contains the Team's members.
+     */
     private LinearLayout linearScroll;
+
+    /**
+     * A string that contains the selected member from the Scroll View.
+     */
     private static String selectedMember = "";
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to edit_group_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +56,11 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
         Button backButton = findViewById(R.id.back_button_edit_group);
         backButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Group Info Screen when the "back"
+             * button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), GroupInfoScreen.class));
@@ -84,6 +108,12 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
         Button addAthleteButton = findViewById(R.id.add_button_edit_group);
         addAthleteButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function puts an athlete in the current Team when the "add" button
+             * is clicked. The athlete that is put into the team is found when the Coach enters
+             * the athlete's email.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
 
@@ -100,6 +130,11 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    /**
+     * This onClick function keeps track of the selected member. Once a member is selected,
+     * they can be deleted from the team.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         selectedMember = ((Button)linearScroll.findViewById(v.getId())).getText().toString();

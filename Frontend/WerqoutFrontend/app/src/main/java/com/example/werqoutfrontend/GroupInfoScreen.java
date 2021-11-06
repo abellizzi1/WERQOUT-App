@@ -25,12 +25,27 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * The GroupInfoScreen class gives functionality to the group_info_screen.xml screen. This screen
+ * includes a Scroll View containing the team's members and upcoming workouts. It also gives the
+ * Coach the option to go to the Add/Delete workout screen or the Edit Group screen.
+ * @author Angelo Bellizzi
+ */
 public class GroupInfoScreen extends AppCompatActivity {
 
     private String TAG = ServerRequest.class.getSimpleName();
     private String tag_json_obj_post = "jobj_req_post";
+
+    /**
+     * The selected team.
+     */
     public Team selectedGroup;
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to group_info_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +58,33 @@ public class GroupInfoScreen extends AppCompatActivity {
         groupNameLabel.setText(CoachGroupsScreen.getSelectedGroup());
 
         backButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Coach Groups Screen when the
+             * "back" button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
             }
         });
         addDeleteButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Add/Delete Workout Screen when the
+             * "add/delete workout" button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
             }
         });
         editGroupButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Edit Group Screen when the "edit group"
+             * button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), EditGroupScreen.class));
@@ -74,7 +104,6 @@ public class GroupInfoScreen extends AppCompatActivity {
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
         ServerRequest displayMembers = new ServerRequest();
         displayMembers.jsonArrayRequest(new VolleyCallback() {
-            //Is there a way that I don't need to include this method?
             @Override
             public void onSuccess(JSONObject result) {
             }
@@ -140,12 +169,26 @@ public class GroupInfoScreen extends AppCompatActivity {
 //        }
     }
 
+    /**
+     * Gets the team's workouts from the database.
+     * @param t
+     * the team that you want to get the workouts for
+     * @return
+     * returns an ArrayList of the team's workouts
+     */
     public ArrayList<Workout> getWorkouts(Team t)
     {
         //gets workouts from database
         return null;
     }
 
+    /**
+     * Gets the team's athletes from the database.
+     * @param t
+     * the team that you want to get the athletes for
+     * @return
+     * returns an ArrayList of the team's athletes
+     */
     public ArrayList<Athlete> getAthletes(Team t)
     {
         //gets athletes from database

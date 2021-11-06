@@ -22,12 +22,23 @@ import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
+/**
+ * The CoachHomeScreen class gives functionality to the coach_home_screen.xml screen. It includes a weather
+ * api that displays the weather in the user's area. This screen also displays the upcoming workouts for
+ * the coach's teams in a Scroll View.
+ * @author Angelo Bellizzi
+ * @author Colin Brenizer
+ */
 public class CoachHomeScreen extends AppCompatActivity {
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
 
-
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to coach_home_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +56,11 @@ public class CoachHomeScreen extends AppCompatActivity {
         Button editGroupButton = findViewById(R.id.edit_button_coach_home);
 
         editGroupButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Coach Groups Screen when the
+             * "edit" button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
@@ -52,6 +68,11 @@ public class CoachHomeScreen extends AppCompatActivity {
         });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Profile Screen when the "Profile" button is
+             * clicked on the bottom taskbar.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), ProfileScreen.class));
@@ -129,6 +150,14 @@ public class CoachHomeScreen extends AppCompatActivity {
         }, Const.WEATHER_API);
     }
 
+    /**
+     * Sets the text settings such as font, text color, and other params. This sets up
+     * the text to be added to the Scroll View.
+     * @param params
+     * the params for the layout for the text
+     * @param text
+     * the text to be edited
+     */
     public static void setTextSettings(ViewGroup.LayoutParams params, TextView text)
     {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
