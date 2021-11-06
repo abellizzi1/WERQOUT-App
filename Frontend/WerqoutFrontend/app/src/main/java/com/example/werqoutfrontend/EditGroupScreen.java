@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditGroupScreen extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,12 +39,13 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), CoachHomeScreen.class));
+                startActivity(new Intent(view.getContext(), GroupInfoScreen.class));
             }
         });
 
-        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_groups);
         Context context = this;
+
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_group);
 
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
         ServerRequest displayAllGroups = new ServerRequest();
@@ -62,7 +65,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                         linearScroll.addView(groupButton);
                         ViewGroup.LayoutParams params;
                         params = groupButton.getLayoutParams();
-                        params.height = 300;
+                        params.height = 200;
                         params.width = 1409;
                         groupButton.setLayoutParams(params);
                         groupButton.setTextSize(30);
@@ -78,6 +81,23 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 }
             }
         },Const.CURRENT_URL);
+
+        Button addAthleteButton = findViewById(R.id.add_button_edit_group);
+        addAthleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Map params = new HashMap<>();
+                params.put("userName", "test1");
+                params.put("lastName", "test1lastname");
+                params.put("email", "test1@iastate.edu");
+                params.put("password", "Testtest1");
+                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
+                ServerRequest request = new ServerRequest();
+                request.jsonObjectRequest(Const.CURRENT_URL,2, new JSONObject(params));
+                startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+            }
+        });
     }
 
     @Override

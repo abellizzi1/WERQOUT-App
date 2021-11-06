@@ -97,7 +97,6 @@ public class GroupInfoScreen extends AppCompatActivity {
 
             }
         }, Const.CURRENT_URL);
-    }
 //
 //        for (int i = 0; i < 4; i++)
 //        {
@@ -139,7 +138,7 @@ public class GroupInfoScreen extends AppCompatActivity {
 //            CoachHomeScreen.setTextSettings(params, timeText);
 //            timeText.setText("10:00 AM\n");
 //        }
-//    }
+    }
 
     public ArrayList<Workout> getWorkouts(Team t)
     {

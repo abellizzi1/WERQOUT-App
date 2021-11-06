@@ -109,7 +109,7 @@ public class LoginScreen extends AppCompatActivity {
                             emailResponse = user.get("email").toString();
                             passwordResponse = user.get("password").toString();
                             firstName = user.get("userName").toString();
-                            id = Integer.valueOf(user.get("id").toString());
+                            id = ((int)user.get("id"));
                             Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             break;
                         }
