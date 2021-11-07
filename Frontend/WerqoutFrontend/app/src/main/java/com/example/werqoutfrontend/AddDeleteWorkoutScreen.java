@@ -12,12 +12,34 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * The AddDeleteWorkoutScreen class gives functionality to the add_delete_workout_screen.xml screen.
+ * It includes methods that verify if the created workout is valid, and also gives the user the option
+ * to delete a selected workout.
+ * @author Angelo Bellizzi
+ */
 public class AddDeleteWorkoutScreen extends AppCompatActivity {
 
+    /**
+     * The name of the workout to be added.
+     */
     private String workoutName;
+
+    /**
+     * The date of the workout to be added.
+     */
     private String workoutDate;
+
+    /**
+     * The time of the workout to be added.
+     */
     private String workoutTime;
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to add_delete_workout_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +54,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.back_button_add_delete);
         backButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Group Info Screen when the "back" button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), GroupInfoScreen.class));
@@ -44,6 +70,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
         Button addButton = findViewById(R.id.add_button_add_delete);
 
         addButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function adds a workout to a Team when the "add" button is clicked.
+             * If the information for the new workout is invalid, an error message appears when the "add"
+             * button is clicked.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 String errorMsg = "";
@@ -82,6 +114,13 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if the parameter is a valid date for the workout. (must be in the format: mm/dd/yy)
+     * @param date
+     * the inputted date that needs verification
+     * @return
+     * if the parameter is a valid date, it will return true, else false.
+     */
     public boolean isValidDate(String date)
     {
         String[] dateSplit = date.split("/");
@@ -96,6 +135,13 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Checks if the parameter is a valid time for the workout. (must be in the format: 00:00)
+     * @param time
+     * the inputted time that needs verification
+     * @return
+     * if the parameter is a valid time, it will return true, else false.
+     */
     public boolean isValidTime(String time)
     {
         String[] timeSplit = time.split(":");

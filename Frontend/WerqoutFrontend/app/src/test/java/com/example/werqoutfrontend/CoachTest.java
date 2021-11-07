@@ -33,7 +33,6 @@ when coach deletes workout:
 check if workout is deleted
  */
 public class CoachTest {
-    CoachHomeScreen c = mock(CoachHomeScreen.class);
 
     GroupInfoScreen gfs = mock(GroupInfoScreen.class);
     ArrayList<Athlete> testAthletesList = new ArrayList<Athlete>();
