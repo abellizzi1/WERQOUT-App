@@ -23,6 +23,7 @@ import org.json.JSONObject;
 /**
  * This class displays all of the people that the user can message. By clicking on a another user,
  * you can view your messages with them.
+ * @author Colin
  */
 public class SelectMessageScreen extends AppCompatActivity {
     /**

@@ -28,6 +28,8 @@ import java.util.Map;
  * This class contains the logic necessary for the profile screen to function. It basically checks
  * the email and the password that the user enters to login to see whether or not the user has
  * provided a valid login. If the user enters a valid login they are navigated to the home screen
+ * @author Angelo
+ * @author Colin
  */
 public class LoginScreen extends AppCompatActivity {
     /**

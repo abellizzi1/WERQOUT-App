@@ -7,7 +7,9 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 /**
- * This utility class allows converts a string to a bitmap and vice versa
+ * This utility class allows conversion between a string and bitmap and vice versa. Used to store
+ * images as string on the backend.
+ * @author Colin
  */
 public final class BitmapStringConversion {
 

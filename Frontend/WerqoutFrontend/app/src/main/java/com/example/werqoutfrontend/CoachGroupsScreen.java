@@ -147,7 +147,8 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                 Map params = new HashMap<>();
                 params.put("name", newGroup);
                 params.put("description", "Coach id: " + LoginScreen.getId());
-                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
+                //TODO: Add this url to the const class
+//                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
                 ServerRequest request = new ServerRequest();
                 request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
                 Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";

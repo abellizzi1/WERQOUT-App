@@ -27,6 +27,7 @@ import java.util.ArrayList;
  * This class contains the logic necessary for the search screen. The user can enter their search
  * and a list of results will be filtered and displayed based upon what is entered. User's can also
  * click on search results to have information about the search result to be displayed.
+ * @author Colin
  */
 
 public class SearchScreen extends AppCompatActivity {

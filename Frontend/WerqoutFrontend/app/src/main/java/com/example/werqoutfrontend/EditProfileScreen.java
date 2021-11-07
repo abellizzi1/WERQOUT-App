@@ -32,6 +32,7 @@ import java.util.Map;
  * This class is used to handle basic account management functionality. Users can choose to update
  * basic information such as their username, email, profile picture, and password. The user can also
  * choose to delete their account on this page
+ * @author Colin
  */
 public class EditProfileScreen extends AppCompatActivity {
     /**

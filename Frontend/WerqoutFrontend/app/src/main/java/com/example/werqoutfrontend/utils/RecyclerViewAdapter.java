@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * This class encapsulates a Recycler View Adapter with filterable functionality.
+ * @author Colin
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.ExampleViewHolder> implements Filterable {
     /**

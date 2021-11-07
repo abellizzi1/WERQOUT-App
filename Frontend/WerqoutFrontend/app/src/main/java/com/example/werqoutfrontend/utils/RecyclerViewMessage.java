@@ -1,37 +1,48 @@
 package com.example.werqoutfrontend.utils;
 
+/**
+ * A class that represents the message components that will be displayed within the messages recycler
+ * view.
+ * @author Colin
+ */
 public class RecyclerViewMessage {
+    /**
+     * The message
+     */
     private String message;
+    /**
+     * The username of who sent the message
+     */
     private String username;
-    private boolean sender;
 
+    /**
+     *  Creates a new component to be displayed within the messages recycler view
+     * @param message
+     *  The message being sent
+     * @param username
+     *  The username of who sent the message
+     */
     public RecyclerViewMessage (String message, String username)
     {
         this.message = message;
         this.username = username;
     }
 
+    /**
+     * Returns the message that was sent
+     * @return
+     *  The message
+     */
     public String getMessage() {
         return message;
     }
 
-    public boolean isSender() {
-        return sender;
-    }
-
-    public void setSender(boolean sender) {
-        this.sender = sender;
-    }
-
+    /**
+     * Returns the username of who sent the message
+     * @return
+     *  The username of the sender
+     */
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }
