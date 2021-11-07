@@ -37,8 +37,8 @@ public class Team {
 	@JsonIgnore
 	private List<Athlete> members = new ArrayList<Athlete>();
 	
-	@JsonIgnore
 	@OneToOne(mappedBy = "managedTeam")
+	@JsonIgnore
 	private Coach coach;
 	
 	/**
@@ -90,7 +90,8 @@ public class Team {
 	 * 		String description:	: String to be team's general description
 	 */
 
-	public Team(String name, String description) {
+	public Team(long id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		
 		// Iterate through members argument, add each member to members ArrayList
@@ -98,7 +99,7 @@ public class Team {
 		this.description = description;
 		
 		// Set rating to 0, numRatings to 0 by default
-		//rating = 0;
+		rating = 0;
 		numRatings = 0;
 	}
 	
@@ -183,6 +184,10 @@ public class Team {
 	
 	public void setCoach(Coach coach) {
 		this.coach = coach;
+	}
+	
+	public void removeCoach() {
+		this.coach = null;
 	}
 
 }

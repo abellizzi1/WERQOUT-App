@@ -1,7 +1,6 @@
 package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -56,6 +55,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.profile_button_athlete_home);
         Button messageButton = findViewById(R.id.messages_button_athlete_home);
+        Button searchButton = findViewById(R.id.search_button_athlete_home);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -78,6 +78,13 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SearchScreen.class));
             }
         });
 

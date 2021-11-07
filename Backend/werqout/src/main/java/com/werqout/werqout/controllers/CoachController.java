@@ -1,6 +1,10 @@
 package com.werqout.werqout.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,7 @@ import com.werqout.werqout.repository.CoachRepository;
 import com.werqout.werqout.models.Coach;
 import com.werqout.werqout.models.Team;
 
+@Api(value = "AthleteController", tags = {"Coach"}, description = "REST APIs related to Coach Entity")
 @RestController
 @RequestMapping("/coaches")
 public class CoachController {
@@ -24,22 +29,26 @@ public class CoachController {
 	CoachRepository coachRepository;
 	
 	@GetMapping("/")
+	@ApiOperation(value = "Get list of Coaches in the database", response = Iterable.class, tags = "getAllCoaches")
 	public List<Coach> getAllCoaches(){
 		return coachRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation(value = "Get a Coach by their ID", response = Iterable.class, tags = "getCoach")
 	public Coach getCoach(@PathVariable int id) {
 		return coachRepository.findById(id);
 	}
 	
 	@PostMapping("/")
+	@ApiOperation(value = "Creates a Coach in the database", response = Iterable.class, tags = "createCoach")
 	public Coach createCoach(@RequestBody Coach coach) {
 		coachRepository.save(coach);
 		return coachRepository.findById(coach.getId());
 	}
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value = "Updates a Coach by their ID", response = Iterable.class, tags = "updateCoach")
 	public Coach updateCoach(@PathVariable long id, @RequestBody Coach coach) {
 		if(coachRepository.findById(id) == null)
 			return null;
@@ -49,7 +58,8 @@ public class CoachController {
 	
 	@Transactional
 	@DeleteMapping("/{id}")
-	public String deleteAthlete(@PathVariable int id) {
+	@ApiOperation(value = "Deletes a Coach from the database by their ID", response = Iterable.class, tags = "deleteCoach")
+	public String deleteCoach(@PathVariable int id) {
 		if(coachRepository.findById(id) == null)
 			return "No Such Coach";
 		String coachName = coachRepository.findById(id).getUserName();
@@ -61,11 +71,13 @@ public class CoachController {
 	 */
 	
 	@GetMapping("/{id}/teams")
+	@ApiOperation(value = "Gets the teams the Coach belongs to", response = Iterable.class, tags = "getManagedTeam")
 	public Team getManagedTeam(@PathVariable int id) {
 		return coachRepository.findById(id).getManagedTeam();
 	}
 	
 	@PutMapping("/{id}/teams")
+	@ApiOperation(value = "Adds the Coach to a Team", response = Iterable.class, tags = "setManageTeam")
 	public Team setManagedTeam(@PathVariable int id, @RequestBody Team team) {
 		Coach coach = coachRepository.findById(id);
 		if(coach == null)
@@ -77,6 +89,7 @@ public class CoachController {
 	
 	@Transactional
 	@DeleteMapping("/{id}/teams")
+	@ApiOperation(value = "Deletes the Coach from a team", response = Iterable.class, tags = "removeManagedTeam")
 	public boolean removeManagedTeam(@PathVariable long id) {
 		Coach coach = coachRepository.findById(id);
 		if(coach == null)
