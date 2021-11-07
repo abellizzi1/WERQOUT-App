@@ -1,19 +1,20 @@
 package com.werqout.werqout.models;
 
+
 import java.util.ArrayList;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
@@ -24,14 +25,17 @@ public class GymOwner{
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Id of the Athlete",name="id",required=true,value="1")
     private long id;
     /**
      * username of the gym owner
      */
+    @ApiModelProperty(notes = "Username of the Athlete",name="userName",required=true,value="testUserName")
     private String userName;
     /**
      * email of the gym owner- will be checked with REGEX
      */
+    @ApiModelProperty(notes = "Email of the Athlete",name="email",required=true,value="email@example.com")
     private String email;
     /**
      * Password of the gym owner- hashed in DB and will be checked with REGEX
@@ -40,6 +44,7 @@ public class GymOwner{
     /**
      * Name of the gym that the owner is an owner of
      */
+    @ApiModelProperty(notes = "Password of the Athlete",name="password",required=true,value="testpassword")
     private String gymName;
 
     //todo have an event that a gym owner can create and then make joinable by coaches and their teams
@@ -47,18 +52,30 @@ public class GymOwner{
      * Groups that go to the gym. Foreign key to groups table. 
      */
     @OneToMany
+    @JsonIgnore
     @JoinTable(name="gym_teams",
                 joinColumns = @JoinColumn(name = "gym_owner_id"), 
                 inverseJoinColumns = @JoinColumn(name="team_id"))
+                @ApiModelProperty(notes = "Teams that are train at this gym",name="teams",required=false,value="Team1, Team2")            
     private List<Team> teams = new ArrayList<Team>();
+
+    /**
+     * Event that the gymOwner hosts
+     */
+    @OneToOne
+    @JoinColumn(name = "event_id")
+    @ApiModelProperty(notes = "Event that is taking place at this gym",name="event",required=false,value="Event 1")
+    private Event event;    
 
     /**
 	 * Value represents average rating of the group, based on user reviews
 	 */
+    @ApiModelProperty(notes = "Rating of the Gym (out of five stars)",name="rating",required=false,value="5.0")
 	private double rating;
     /**
      * number of ratings gymOwner has recieved (will show up as gym)
      */
+    @ApiModelProperty(notes = "Number of ratings the Coach has recieved",name="numRatings",required=false,value="111")
 	private int numRatings;
     /**
      * Default constructor
@@ -116,6 +133,20 @@ public class GymOwner{
     public void setGymName(String gymName) {
         this.gymName = gymName;
     }
+    public double getRating() {
+        return rating;
+    }
+    /**
+     * Allows a user to rate a coach and stores that in the database
+     * @return rating.
+     */
+    public double rate(){
+        numRatings++;
+        return rating /= numRatings;
+    }
+
+    //team methods
+    @JsonIgnore
     public List<Team> getTeams() {
         return teams;
     }
@@ -129,16 +160,28 @@ public class GymOwner{
         return teams.contains(team);
     }
     
-    public double getRating() {
-        return rating;
+    //event methods
+    @JsonIgnore
+    public Event getEvent(){
+        return event;
     }
+    
     /**
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
      */
-    public double rate(){
+    public double rate(double rating){
         numRatings++;
-        return rating /= numRatings;
+        this.rating += rating;
+        return this.rating / numRatings;
+    }
+    
+    public int getNumRatings() {
+    	return numRatings;
+    }
+
+    public void setEvent(Event event){
+        this.event = event;
     }
 
     

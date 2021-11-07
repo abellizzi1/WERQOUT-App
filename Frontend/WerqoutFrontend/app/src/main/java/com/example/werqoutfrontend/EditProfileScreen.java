@@ -28,10 +28,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to handle basic account management functionality. Users can choose to update
+ * basic information such as their username, email, profile picture, and password. The user can also
+ * choose to delete their account on this page
+ */
 public class EditProfileScreen extends AppCompatActivity {
-
-    private final int IMAGE_REQUEST = 1;
+    /**
+     * An image view used for displaying a user's profile picture
+     */
     private ImageView profilePic;
+    /**
+     * A bitmap used to represent a newly selected profile picture. If the user choose to confirm their
+     * changes, then this bitmap becomes the user's new profile picture
+     */
     private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +78,12 @@ public class EditProfileScreen extends AppCompatActivity {
          */
         done.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onClick is used to handle sending a put request and updating the users information]
+             * on the backend
+             */
             public void onClick(View view) {
-
+                //Update information on the backend
                 ServerRequest update = new ServerRequest();
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", String.valueOf(User.currentUser.getId()));
@@ -84,6 +98,7 @@ public class EditProfileScreen extends AppCompatActivity {
                 JSONObject updatedProfile = new JSONObject(params);
                 update.jsonObjectRequest(url,2,updatedProfile);
 
+                //Update information locally as well
                 User.currentUser.setUsername(username.getText().toString());
                 User.currentUser.setEmail(email.getText().toString());
                 User.currentUser.setPassword(password.getText().toString());
@@ -96,6 +111,10 @@ public class EditProfileScreen extends AppCompatActivity {
          */
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onclick abandons changes made by the user and sends them back to their profile
+             * screen
+             */
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ProfileScreen.class));
             }
@@ -106,6 +125,11 @@ public class EditProfileScreen extends AppCompatActivity {
          */
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onclick listener is used to delete the users account. A pop up will appear asking
+             * for confirmation, at which point the user can confirm the delete and they will be taken
+             * back to the login screen
+             */
             public void onClick(View view) {
                 androidx.appcompat.app.AlertDialog.Builder builder =
                         new androidx.appcompat.app.AlertDialog.Builder(EditProfileScreen.this);
@@ -139,7 +163,7 @@ public class EditProfileScreen extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, IMAGE_REQUEST);
+                startActivityForResult(intent, 1);
             }
         }));
     }
@@ -159,7 +183,7 @@ public class EditProfileScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data!=null)
+        if(requestCode == 1 && resultCode == RESULT_OK && data!=null)
         {
             Uri path = data.getData();
             try {

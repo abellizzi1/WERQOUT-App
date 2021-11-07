@@ -1,4 +1,4 @@
-package com.werqout.werqout;
+package com.werqout.werqout.tests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
