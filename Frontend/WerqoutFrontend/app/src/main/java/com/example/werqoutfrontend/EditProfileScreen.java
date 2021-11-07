@@ -35,11 +35,11 @@ import java.util.Map;
  */
 public class EditProfileScreen extends AppCompatActivity {
     /**
-     * An inmage view used for displaying a user's profile picture
+     * An image view used for displaying a user's profile picture
      */
     private ImageView profilePic;
     /**
-     * A bitmap used to represnt a newly selected profile picture. If the user choose to confirm their
+     * A bitmap used to represent a newly selected profile picture. If the user choose to confirm their
      * changes, then this bitmap becomes the user's new profile picture
      */
     private Bitmap bitmap;

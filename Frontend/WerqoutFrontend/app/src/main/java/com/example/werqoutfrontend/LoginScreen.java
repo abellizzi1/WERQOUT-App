@@ -24,16 +24,48 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class contains the logic necessary for the profile screen to function. It basically checks
+ * the email and the password that the user enters to login to see whether or not the user has
+ * provided a valid login. If the user enters a valid login they are navigated to the home screen
+ */
 public class LoginScreen extends AppCompatActivity {
+    /**
+     * The textview where the user inputs their email
+     */
     private TextView emailInput;
+    /**
+     * The textview where the user inputs their password
+     */
     private TextView passwordInput;
-
+    /**
+     * The email received from the backend
+     */
     private String emailResponse;
+    /**
+     * The password recieved from the backend
+     */
     private String passwordResponse;
+    /**
+     * The text retrieved from the emailInput text view
+     */
     private String email;
+    /**
+     * The password retrieved from the passwordInput text view
+     */
     private String password;
+    /**
+     * Provides a drop down menu from which the user can select which type of user to login as
+     * (Athlete, Coach, or Gym Owner)
+     */
     private Spinner userSpinner;
+    /**
+     * The username of the user
+     */
     private static String firstName;
+    /**
+     * The id of the user
+     */
     private static int id;
 
     private String TAG = ServerRequest.class.getSimpleName();
@@ -58,6 +90,9 @@ public class LoginScreen extends AppCompatActivity {
 
         registerButton_login.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * Takes the user to the register screen when clicked
+             */
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), CoachGroupsScreen.class));
             }
@@ -66,6 +101,9 @@ public class LoginScreen extends AppCompatActivity {
 
         submitButton_login.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * Validates the user's login information on click
+             */
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
@@ -75,7 +113,7 @@ public class LoginScreen extends AppCompatActivity {
 
     }
 
-    public void getJsonLoginInfo()
+    private void getJsonLoginInfo()
     {
         if (userSpinner.getSelectedItem().toString().equals("Athlete"))
         {
@@ -102,6 +140,8 @@ public class LoginScreen extends AppCompatActivity {
                 for(int i = 0; i < users.length(); i++)
                 {
                     try {
+                        //Check to see if the credentials entered match
+                        //any existing users
                         JSONObject user = users.getJSONObject(i);
                         if(user.get("email").toString().equals(email))
                         {
@@ -123,7 +163,7 @@ public class LoginScreen extends AppCompatActivity {
         },Const.CURRENT_URL);
     }
 
-    public void login()
+    private void login()
     {
         if (!userSpinner.getSelectedItem().toString().equals("Select type of user...") && emailResponse != null)
         {
@@ -155,7 +195,17 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns the first name of the user
+     * @return
+     *  The first name of the user
+     */
     public static String getFirstName() { return firstName; }
 
+    /**
+     * Returns the id of the user
+     * @return
+     *  The id of the user
+     */
     public static int getId() { return id; }
 }
