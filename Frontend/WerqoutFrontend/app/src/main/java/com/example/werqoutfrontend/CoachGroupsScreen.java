@@ -69,15 +69,13 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         });
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_groups);
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
 
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/1/teams";
-        //Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
         ServerRequest displayAllGroups = new ServerRequest();
-        displayAllGroups.jsonArrayRequest(new VolleyCallback() {
+        displayAllGroups.jsonGetRequest(new VolleyCallback() {
+            int bId = 0;
             @Override
             public void onSuccess(JSONObject result) {
-                //                for(int i = 0; i < users.length(); i++)
-//                {
                 try {
                     Button groupButton = new Button (context);
                     groupButton.setText(result.get("name").toString());
@@ -90,17 +88,28 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                     groupButton.setTextSize(30);
                     groupButton.setTextColor(Color.parseColor("#000000"));
                     groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
-                    groupButton.setOnClickListener((View.OnClickListener) context);
+                    groupButton.setId(bId);
+                    bId++;
+                    groupButton.setOnClickListener(CoachGroupsScreen.this);
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                // }
             }
 
             @Override
             public void onSuccess(JSONArray result) {
+
+            }
+        }, Const.CURRENT_URL);
+//        displayAllGroups.jsonArrayRequest(new VolleyCallback() {
+//            @Override
+//            public void onSuccess(JSONObject result) {
+//            }
+//
+//            @Override
+//            public void onSuccess(JSONArray result) {
 //                for (int i = 0; i < result.length(); i++)
 //                {
 //                    try {
@@ -121,31 +130,8 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
 //                        e.printStackTrace();
 //                    }
 //                }
-            }
-        },Const.CURRENT_URL);
-
-
-
-
-
-
-        Button groupButton;
-        ViewGroup.LayoutParams params;
-//        for (int i = 0; i < 10; i++)
-//        {
-//            groupButton = new Button(context);
-//            groupButton.setText("Group " + (i+1));
-//            linearScroll.addView(groupButton);
-//            params = groupButton.getLayoutParams();
-//            params.height = 300;
-//            params.width = 1409;
-//            groupButton.setLayoutParams(params);
-//            groupButton.setTextSize(30);
-//            groupButton.setTextColor(Color.parseColor("#000000"));
-//            groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
-//            groupButton.setId(i);
-//            groupButton.setOnClickListener(this);
-//        }
+//            }
+//        },Const.CURRENT_URL);
 
         Button createGroupButton = findViewById(R.id.create_button_groups);
         createGroupButton.setOnClickListener(new View.OnClickListener() {
