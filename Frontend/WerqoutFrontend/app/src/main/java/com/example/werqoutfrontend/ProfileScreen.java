@@ -1,11 +1,4 @@
 package com.example.werqoutfrontend;
-/**
- * This class contains the logic necessary for the profile screen to function. It basically
- * allows a user to view their current account information and other user related statistics depending
- * on the type of user.
- *
- * @author colin
- */
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +17,13 @@ import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 import java.io.Serializable;
-
+/**
+ * This class contains the logic necessary for the profile screen to function. It basically
+ * allows a user to view their current account information and other user related statistics depending
+ * on the type of user.
+ *
+ * @author colin
+ */
 
 public class ProfileScreen extends AppCompatActivity implements Serializable {
     /**

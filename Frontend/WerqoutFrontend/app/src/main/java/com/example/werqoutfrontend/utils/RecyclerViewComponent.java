@@ -2,6 +2,7 @@ package com.example.werqoutfrontend.utils;
 
 /**
  * A class that represents the components that are displayed in the recycler view
+ * @author Colin
  */
 public class RecyclerViewComponent {
     /**

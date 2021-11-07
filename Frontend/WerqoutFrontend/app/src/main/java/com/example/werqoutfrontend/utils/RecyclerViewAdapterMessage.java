@@ -22,6 +22,7 @@ import java.util.List;
  * This class provides functionality to the recycler view that is used on the messages screen.
  * All that it really does is format the messages within the recycler view and manage the entry
  * of new messages.
+ * @Author Colin
  */
 
 public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerViewAdapterMessage.ExampleViewHolder> {

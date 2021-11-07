@@ -1,5 +1,10 @@
 package com.example.werqoutfrontend.utils;
 
+/**
+ * This class stores all of the urls necessary to make requests to the controllers on the backend
+ * @author Colin
+ * @author Angelo
+ */
 public class Const {
     /**
      * The url used for requesting information about an athlete
