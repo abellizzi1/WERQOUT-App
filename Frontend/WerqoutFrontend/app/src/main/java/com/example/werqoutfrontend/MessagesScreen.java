@@ -1,10 +1,4 @@
 package com.example.werqoutfrontend;
-/**
- * This class contains all of the logic needed for displaying messages between users. You basically
- * get the message log from the server and then you create a recycler view to display all of the messages
- * in. The screen also allows the user to input a message and send it to another user.
- * @author Colin
- */
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +25,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * This class contains all of the logic needed for displaying messages between users. You basically
+ * get the message log from the server and then you create a recycler view to display all of the messages
+ * in. The screen also allows the user to input a message and send it to another user.
+ * @author Colin
+ */
 public class MessagesScreen extends AppCompatActivity implements Serializable {
     /**
      * The recycler view for which the messages will be displayed in

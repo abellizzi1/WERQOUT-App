@@ -32,6 +32,7 @@ task createJavaDocs (type: Javadoc){
     source = project.android.sourceSets.main.java.srcDirs
     options.linkSource true
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError = false
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
