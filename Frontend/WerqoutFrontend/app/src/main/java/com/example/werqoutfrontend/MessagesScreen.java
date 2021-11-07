@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,14 +26,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MessagesScreen extends AppCompatActivity implements Serializable {
+    /**
+     * The recycler view for which the messages will be displayed in
+     */
     private RecyclerView mRecyclerView;
+    /**
+     * The adapter that will handle functionalities associated with the recycler view
+     */
     private RecyclerViewAdapterMessage mAdapter;
+    /**
+     * The layout manager that will handle how views are displayed within the recycler view
+     */
     private RecyclerView.LayoutManager mLayoutManager;
+
+    /**
+     * An array list containing messages between users
+     */
     private ArrayList<RecyclerViewMessage> messages = new ArrayList<>();
 
+    /**
+     * A textview where a user can enter a message they wish to send
+     */
     private TextView enterMessage;
+    /**
+     * When the send icon is clicked it will send the message
+     */
     private ImageView sendIcon;
+    /**
+     * The username of the person that you are messaging
+     */
     private TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +70,9 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
 
         sendIcon.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * Send the message in the input text box when clicked
+             */
             public void onClick(View view) {
                 String textMessage = enterMessage.getText().toString();
                 if(!textMessage.equals(""))
@@ -65,7 +90,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
             }
         });
     }
-    public void createList()
+    private void createList()
     {
         ServerRequest serverRequest= new ServerRequest();
         serverRequest.jsonArrayRequest(new VolleyCallback() {
@@ -91,7 +116,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         }, Const.POSTMAN_TEST_URL + "messages/" + title.getText().toString());
     }
 
-    public void buildRecyclerView()
+    private void buildRecyclerView()
     {
         mRecyclerView = findViewById(R.id.message_view_message_screen);
         mRecyclerView.setHasFixedSize(true);
@@ -100,7 +125,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-    public void addMessage(String textMessage){
+    private void addMessage(String textMessage){
         messages.add(new RecyclerViewMessage(textMessage, User.currentUser.getUsername()));
 //        messages.add(new RecyclerViewMessage(textMessage, "colin"));
         mAdapter.notifyItemInserted(messages.size());

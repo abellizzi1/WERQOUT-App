@@ -18,44 +18,44 @@ import com.example.werqoutfrontend.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class provides functionality to the recycler view that is used on the messages screen.
+ * All that it really does is format the messages within the recycler view and manage the entry
+ * of new messages.
+ */
+
 public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerViewAdapterMessage.ExampleViewHolder> {
     private ArrayList<RecyclerViewMessage> messageList;
-    private OnComponentClickListener mListener;
 
-    public interface OnComponentClickListener{
-        void onComponentClick(int position);
-    }
-
-    public void setOnComponentClickListener(OnComponentClickListener listener)
-    {
-        mListener = listener;
-    }
-
+    /**
+     * Represents the information that will be displayed in each component of the messages
+     * recycler view. mTextView1 will contain the message, the username textview will display
+     * who sent the message, and color sidebar helps differentiate who sent the messages.
+     */
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextView1;
         public TextView username;
         public View colorSidebar;
 
-        public ExampleViewHolder(@NonNull View itemView, OnComponentClickListener listener) {
+        /**
+         * A constructor for the view holder that will display all of the information associated
+         * with a message, being who sent it and the message itself
+         * @param itemView
+         *  The item view that will be displayed in the recycler view
+         */
+        public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.message_text_message_screen);
             username = itemView.findViewById(R.id.username_text_message_screen);
             colorSidebar = itemView.findViewById(R.id.sidebar_color);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(listener != null)
-                    {
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION)
-                        {
-                            listener.onComponentClick(position);
-                        }
-                    }
-                }
-            });
         }
     }
+
+    /**
+     * Constructs a recycler view adapter for the messaging recycler view
+     * @param list
+     *  The list of messages to be displayed
+     */
     public RecyclerViewAdapterMessage(ArrayList<RecyclerViewMessage> list)
     {
         messageList = list;
@@ -63,17 +63,24 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerVi
 
     @NonNull
     @Override
-    //pass layout of cards to the adapter here
+    /**
+     * This method passes the layout of the cards that will display the messages within the recycler
+     * view to the adapter
+     */
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_message,
                 parent, false);
-        ExampleViewHolder evh = new ExampleViewHolder(v, mListener);
+        ExampleViewHolder evh = new ExampleViewHolder(v);
         return evh;
     }
 
     @Override
     //pass vaules to local views here
+    /**
+     * This method receives the values of the local views and makes a few adjustments
+     * before making displaying each message component in the recycler view.
+     */
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         RecyclerViewMessage currentItem = messageList.get(position);
         holder.mTextView1.setText(currentItem.getMessage());
@@ -92,6 +99,9 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerVi
     }
 
     @Override
+    /**
+     * Returns the size of the message list
+     */
     public int getItemCount() {
         return messageList.size();
     }

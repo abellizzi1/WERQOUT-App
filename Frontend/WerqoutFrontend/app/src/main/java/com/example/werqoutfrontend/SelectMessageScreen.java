@@ -20,9 +20,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class displays all of the people that the user can message. By clicking on a another user,
+ * you can view your messages with them.
+ */
 public class SelectMessageScreen extends AppCompatActivity {
+    /**
+     * An array of other users that the current user can message
+     */
     private JSONArray messages;
-    private TableLayout table;
+    /**
+     * A layout to format all of the other users into
+     */
     private LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
