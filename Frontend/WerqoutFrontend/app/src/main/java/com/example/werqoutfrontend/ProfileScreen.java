@@ -60,6 +60,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         TextView idText = findViewById(R.id.userID_text_profile_screen);
 
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
+        Button returnHome = findViewById(R.id.return_button_profile_screen);
 
         //If the profile screen is accessed from the search screen, display the profile image of the
         //selected user here
@@ -101,6 +102,12 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
              */
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), EditProfileScreen.class));
+            }
+        });
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
             }
         });
 

@@ -107,7 +107,8 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-            getJsonLoginInfo();
+//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                getJsonLoginInfo();
             }
         });
 
