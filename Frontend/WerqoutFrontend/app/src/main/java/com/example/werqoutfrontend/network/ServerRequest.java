@@ -25,10 +25,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServerRequest{
+    /**
+     * A tag to be used while debugging an error
+     */
     private String TAG = ServerRequest.class.getSimpleName();
+    /**
+     * A tag to be used while debugging an error with JSON object requests
+     */
     private String tag_json_obj_post = "jobj_req_post";
+    /**
+     * A tag to be used while debugging an error with image requests
+     */
     private String tag_image_request = "image_request";
 
+    /**
+     * Sends a JSON object as a post request to the server
+     * @param object
+     *  The JSON object that is being posted to the server
+     */
     public void jsonPostRequest(JSONObject object)
     {
         JsonObjectRequest jsonLogin = new JsonObjectRequest(Request.Method.POST,
@@ -57,6 +71,14 @@ public class ServerRequest{
                 tag_json_obj_post);
     }
 
+    /**
+     * Gets a JSON object from the server
+     * @param callback
+     *  The callback interface allows for the received object to be worked with
+     *  once the object is returned from the server
+     * @param url
+     *  The url path used for making the get request
+     */
     public void jsonGetRequest(VolleyCallback callback, String url)
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
@@ -91,6 +113,14 @@ public class ServerRequest{
                 tag_json_obj_post);
     }
 
+    /**
+     * Used to get a JSON array from the server
+     * @param callback
+     *  The callback interface allows for the received object to be worked with
+     *  once the object is returned from the server
+     * @param url
+     *  The url path used for making the get request
+     */
     public void jsonArrayRequest(VolleyCallback callback, String url)
     {
         JsonArrayRequest jsonLogin = new JsonArrayRequest(Request.Method.GET,
@@ -119,7 +149,14 @@ public class ServerRequest{
         AppController.getInstance().addToRequestQueue(jsonLogin,
                 tag_json_obj_post);
     }
-
+    /**
+     * Used to get a image from the server or anywhere else online
+     * @param callback
+     *  The callback interface allows for the received object to be worked with
+     *  once the object is returned from the server
+     * @param url
+     *  The url path used for making the get request
+     */
     public void imageRequest(VolleyCallbackImage callback, String url)
     {
         ImageRequest image = new ImageRequest(url, new Response.Listener<Bitmap>() {
@@ -138,6 +175,18 @@ public class ServerRequest{
         AppController.getInstance().addToRequestQueue(image, tag_image_request);
     }
 
+    /**
+     * A method that allows for multiple different types of JSON Object request to be made. The request
+     * type is specified through the requestType int, 0 for a GET, 1 for a POST, 2 for a PUT, and 3
+     * for a DELETE request.
+     * @param url
+     *  The url path that is used for making the object request
+     * @param requestType
+     *  The type of JSON object request, 0 for a GET, 1 for a POST, 2 for a PUT, and 3
+     *      * for a DELETE request.
+     * @param object
+     *  The JSON object that is used during the request
+     */
     public void jsonObjectRequest(String url, int requestType, JSONObject object)
     {
         //GET = 0, POST = 1, PUT = 2, and DELETE = 3

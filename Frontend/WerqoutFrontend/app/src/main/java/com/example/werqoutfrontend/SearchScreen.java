@@ -23,13 +23,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+/**
+ * This class contains the logic necessary for the search screen. The user can enter their search
+ * and a list of results will be filtered and displayed based upon what is entered. User's can also
+ * click on search results to have information about the search result to be displayed.
+ */
 
 public class SearchScreen extends AppCompatActivity {
+    /**
+     * The Recycler View that is used to display the search results
+     */
     private RecyclerView mRecyclerView;
+    /**
+     * The Adapter that is used to handle various functionality associated with the recycler view
+     */
     private RecyclerViewAdapter mAdapter;
+    /**
+     * A Layout Manager used to handling the layout of views within the recycler component
+     */
     private RecyclerView.LayoutManager mLayoutManager;
+    /**
+     * An array list that contains Recycler View Components that will be displayed within the
+     * recycler view
+     */
     private ArrayList<RecyclerViewComponent> searchResults;
+    /**
+     * A JSON array containing all of the search results
+     */
     private JSONArray jsonArray;
+    /**
+     * The filter that is currently being applied to the search results
+     */
     private int currentFilter = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +66,9 @@ public class SearchScreen extends AppCompatActivity {
 
         filterAthletes.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onclick method filters the search results by athletes
+             */
             public void onClick(View view) {
                 currentFilter = 0;
                 getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all");
@@ -49,6 +76,9 @@ public class SearchScreen extends AppCompatActivity {
         });
         filterCoaches.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onclick method filters the search results by coaches
+             */
             public void onClick(View view) {
                 currentFilter = 1;
 //                getSearchResults(Const.URL_JSON_REQUEST_COACHES);
@@ -57,6 +87,9 @@ public class SearchScreen extends AppCompatActivity {
         });
         filterGyms.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * This onclick method filters the search results by gym owners
+             */
             public void onClick(View view) {
                 currentFilter = 2;
 //                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER);
@@ -75,6 +108,10 @@ public class SearchScreen extends AppCompatActivity {
             }
 
             @Override
+            /**
+             * This method updates the search results based upon what the user has currently
+             * typed in the search bar.
+             */
             public boolean onQueryTextChange(String newText) {
                 mAdapter.getFilter().filter(newText);
                 return false;
@@ -136,7 +173,8 @@ public class SearchScreen extends AppCompatActivity {
             }
         },url);
     }
-
+    //After the results have all been retrieved from the server, add them to the recycler view to
+    //be displayed for the user.
     private void after()
     {
         mRecyclerView = findViewById(R.id.recyclerView_search_screen);
@@ -147,6 +185,10 @@ public class SearchScreen extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnComponentClickListener(new RecyclerViewAdapter.OnComponentClickListener() {
             @Override
+            /**
+             * This onclick method allows users to click on various search results and then displays
+             * information on those search results
+             */
             public void onComponentClick(int position) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(

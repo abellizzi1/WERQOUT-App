@@ -25,8 +25,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
+}
+task createJavaDocs (type: Javadoc){
+    exclude '**/R.html', '**/R.*.html', '**/index.html'
+    source = project.android.sourceSets.main.java.srcDirs
+    options.linkSource true
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation "org.mockito:mockito-core:3.12.4"
