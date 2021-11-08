@@ -43,9 +43,13 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
     /**
      * A string that contains the selected member from the Scroll View.
      */
-    private static String selectedMember = "";
+    private static String selectedMemberString = "";
+
+    private JSONObject selectedMemberJson;
 
     private JSONObject team;
+
+    private ArrayList<JSONObject> jsonMembersArray;
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
@@ -57,6 +61,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_group_screen);
         team = CoachGroupsScreen.getTeamInfo();
+        jsonMembersArray = new ArrayList<JSONObject>();
 
         Button backButton = findViewById(R.id.back_button_edit_group);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +97,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 {
                     try {
                         JSONObject user = users.getJSONObject(i);
+                        jsonMembersArray.add(users.getJSONObject(i));
                         Button groupButton = new Button (context);
                         groupButton.setText(user.get("userName").toString());
                         linearScroll.addView(groupButton);
@@ -174,6 +180,25 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 changeNameRequest.jsonObjectRequest(Const.CURRENT_URL, 2, team);
         }
     });
+
+        Button removeAthleteButton = findViewById(R.id.remove_button_edit_group);
+        removeAthleteButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function removes an athlete from the team when the "remove" button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                String athleteUrl = "";
+                try {
+                    athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + selectedMemberJson.get("id") + "/teams";
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ServerRequest removeAthleteRequest = new ServerRequest();
+                removeAthleteRequest.jsonObjectRequest(athleteUrl, 3, team);
+            }
+        });
     }
 
     /**
@@ -183,9 +208,10 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     public void onClick(View v) {
-        selectedMember = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+        selectedMemberString = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
         TextView selected = findViewById(R.id.selected_label_edit_group);
-        selected.setText("Selected: " + selectedMember);
+        selected.setText("Selected: " + selectedMemberString);
+        selectedMemberJson = jsonMembersArray.get(v.getId());
     }
 
 }
