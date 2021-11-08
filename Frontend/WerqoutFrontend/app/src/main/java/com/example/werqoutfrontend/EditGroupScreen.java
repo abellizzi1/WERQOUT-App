@@ -76,7 +76,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_group);
 
         try {
-            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.getInt("id") + "/athletes";
+            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.get("id") + "/athletes";
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -115,6 +115,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         },Const.CURRENT_URL);
 
         Button addAthleteButton = findViewById(R.id.add_button_edit_group);
+        EditText addAthleteEmail = findViewById(R.id.athleteEmail_input_edit_group);
         addAthleteButton.setOnClickListener(new View.OnClickListener() {
             /**
              * This onClick function puts an athlete in the current Team when the "add" button
@@ -124,16 +125,32 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
              */
             @Override
             public void onClick(View view) {
+                ServerRequest addAthleteRequest = new ServerRequest();
+                addAthleteRequest.jsonArrayRequest(new VolleyCallback() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                    }
 
-                Map params = new HashMap<>();
-                params.put("userName", "test1");
-                params.put("lastName", "test1lastname");
-                params.put("email", "test1@iastate.edu");
-                params.put("password", "Testtest1");
-                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
-                ServerRequest request = new ServerRequest();
-                request.jsonObjectRequest(Const.CURRENT_URL,2, new JSONObject(params));
-                startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+                    @Override
+                    public void onSuccess(JSONArray users) {
+                        for(int i = 0; i < users.length(); i++)
+                        {
+                            try {
+                                JSONObject user = users.getJSONObject(i);
+                                if(user.get("email").toString().equals(addAthleteEmail.getText().toString()))
+                                {
+                                    String athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + user.get("id") + "/teams";
+                                    ServerRequest postTeam = new ServerRequest();
+                                    postTeam.jsonObjectRequest(athleteUrl, 1, team);
+                                    break;
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },Const.CURRENT_URL);
             }
         });
 
@@ -149,7 +166,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/1";
                 ServerRequest changeNameRequest = new ServerRequest();
                 try {
-                    //Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.getInt("id");
+                    //Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.get("id");
                     team.put("name", editNameText.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
