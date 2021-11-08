@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".SearchScreen"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_search_screen"
+        android:layout_width="412dp"
+        android:layout_height="491dp"
+        android:background="@color/cardview_dark_background"
+        android:padding="4dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.879" />
+
+    <SearchView
+        android:id="@+id/search_entry"
+        android:layout_width="281dp"
+        android:layout_height="72dp"
+        android:background="@color/white"
+        android:queryHint="Enter Search Here"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.271" />
+
+    <Button
+        android:id="@+id/filter_athletes_button_search_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:text="Athletes"
+        android:backgroundTint="#000000"
+        android:textColor="#00FFA7"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toStartOf="@+id/filter_coaches_button_search_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_entry" />
+
+    <Button
+        android:id="@+id/filter_coaches_button_search_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#000000"
+        android:text="Coaches"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toStartOf="@+id/filter_gym_button_serach_screen"
+        app:layout_constraintStart_toEndOf="@+id/filter_athletes_button_search_screen"
+        app:layout_constraintTop_toBottomOf="@+id/search_entry"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/filter_gym_button_serach_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:text="Gyms"
+        android:backgroundTint="#000000"
+        android:textColor="#00FFA7"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/filter_coaches_button_search_screen"
+        app:layout_constraintTop_toBottomOf="@+id/search_entry" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

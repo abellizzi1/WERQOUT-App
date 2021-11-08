@@ -22,14 +22,46 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The RegisterScreen class gives functionality to the register_screen.xml screen. It includes many
+ * edit texts where the user can input their information to register. Once the user fills out all of
+ * the fields, this RegisterScreen class validates all of the information and either posts to the database,
+ * or gives the user an error.
+ * @author Angelo Bellizzi
+ * @author Colin Brenizer
+ */
 public class RegisterScreen extends AppCompatActivity {
 
+    /**
+     * The inputted first name.
+     */
     private String firstName;
+
+    /**
+     * The inputted last name.
+     */
     private String lastName;
+
+    /**
+     * The inputted email.
+     */
     private String email;
+
+    /**
+     * The inputted password. Must follow the requirements for a password.
+     */
     private String password;
+
+    /**
+     * The inputted confirm password, used to confirm the previous password.
+     */
     private String confirmPassword;
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to register_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +83,11 @@ public class RegisterScreen extends AppCompatActivity {
         EditText confirmPasswordInput = findViewById(R.id.confirmPassword_input_register);
 
         submitRegisterButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function validates the fields on the screen and either posts a new user
+             * to the database, or pops up with an error message containing information on the incorrect inputs.
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 firstName = firstNameInput.getText().toString();
@@ -91,7 +128,7 @@ public class RegisterScreen extends AppCompatActivity {
                 else
                 {
                     //Storing the values in a hashmap to be placed in JSON
-                    Map<String, String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<>();
                     params.put("userName", firstName);
                     params.put("lastName", lastName);
                     params.put("email", email);
@@ -119,11 +156,30 @@ public class RegisterScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks if the inputted password is valid:
+     * Must be between 8 and 16 characters in length,
+     * must have at least one number, special character,
+     * uppercase letter, and lowercase letter.
+     * @param pass
+     * the inputted password
+     * @return
+     * returns true if the password is valid, else false.
+     */
     public boolean isValidPassword(String pass)
     {
         return pass.length() >= 8 && pass.length() <= 16 && pass.matches("(.*[0-9].*)") && pass.matches("(.*[A-Z].*)") && pass.matches("^(?=.*[@#!$%^&+=*()~_{}|:;<>]).*$");
     }
 
+    /**
+     * Checks if the inputted email is valid:
+     * Must contain characters before and after '@',
+     * must contain characters before and after '.'
+     * @param email
+     * the inputted email
+     * @return
+     * returns true if the email is valid, else false.
+     */
     public boolean isValidEmail(String email)
     {
         String[] emailSplit = email.split("@");
@@ -138,11 +194,26 @@ public class RegisterScreen extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Checks if the inputted name is valid:
+     * Must contain only letters.
+     * @param name
+     * the inputted name
+     * @return
+     * returns true if the name is valid, else false.
+     */
     public boolean isValidName(String name)
     {
         return name.matches("[a-zA-Z]+");
     }
 
+    /**
+     * Checks if the inputted string is AlphaNumeric.
+     * @param s
+     * the inputted string
+     * @return
+     * returns true if the string is AlphaNumeric, else false.
+     */
     public boolean isAlphaNumeric(String s)
     {
         return s.matches("^[a-zA-Z0-9]+$");

@@ -1,7 +1,6 @@
 package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,12 +22,24 @@ import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
+/**
+ * The AthleteHomeScreen class gives functionality to the athlete_home_screen.xml screen. This screen
+ * contains a weather api to display the weather in the user's area. It also includes the athlete's
+ * upcoming workouts for the Team that they are a member of.
+ * @author Angelo Bellizzi
+ * @author Colin Brenizer
+ */
 public class AthleteHomeScreen extends AppCompatActivity {
 
     private TextView temperatureView;
     private ImageView imageView;
     private String weatherIconCode = "";
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to athlete_home_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +55,14 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.profile_button_athlete_home);
         Button messageButton = findViewById(R.id.messages_button_athlete_home);
+        Button searchButton = findViewById(R.id.search_button_athlete_home);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Profile Screen when the "Profile" button
+             * is clicked on the bottom taskbar.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), ProfileScreen.class));
@@ -53,9 +70,21 @@ public class AthleteHomeScreen extends AppCompatActivity {
         });
 
         messageButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Messages Screen when the "Messages" button
+             * is clicked on the bottom taskbar.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SelectMessageScreen.class));
+            }
+        });
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SearchScreen.class));
             }
         });
 
