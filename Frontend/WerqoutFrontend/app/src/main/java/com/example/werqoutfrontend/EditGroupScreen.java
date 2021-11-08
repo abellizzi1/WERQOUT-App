@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,8 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
      */
     private static String selectedMember = "";
 
+    private JSONObject team;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to edit_group_screen.xml
@@ -53,6 +56,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_group_screen);
+        team = CoachGroupsScreen.getTeamInfo();
 
         Button backButton = findViewById(R.id.back_button_edit_group);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +75,11 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_group);
 
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
+        try {
+            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.getInt("id") + "/athletes";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         ServerRequest displayAllGroups = new ServerRequest();
         displayAllGroups.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -128,6 +136,26 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(view.getContext(), EditGroupScreen.class));
             }
         });
+
+        Button editNameButton = findViewById(R.id.submit_button_edit_group);
+        EditText editNameText = findViewById(R.id.newGroupName_input_edit_group);
+        editNameButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function changes the name of the team when the "submit" button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                ServerRequest changeNameRequest = new ServerRequest();
+                try {
+                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.getInt("id");
+                    team.put("name", editNameText.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                changeNameRequest.jsonObjectRequest(Const.CURRENT_URL, 2, team);
+        }
+    });
     }
 
     /**
