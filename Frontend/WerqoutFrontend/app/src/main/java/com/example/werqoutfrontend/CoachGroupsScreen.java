@@ -47,6 +47,11 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
      * Connects this class to coach_groups_screen.xml
      * @param savedInstanceState
      */
+
+    private JSONObject newTeam;
+
+    private static JSONObject selectedTeamInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +74,8 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         });
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_groups);
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
+        //Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/3/teams";
 
         ServerRequest displayAllGroups = new ServerRequest();
         displayAllGroups.jsonGetRequest(new VolleyCallback() {
@@ -77,6 +83,7 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
             @Override
             public void onSuccess(JSONObject result) {
                 try {
+                    selectedTeamInfo = result;
                     Button groupButton = new Button (context);
                     groupButton.setText(result.get("name").toString());
                     linearScroll.addView(groupButton);
@@ -147,12 +154,27 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                 Map params = new HashMap<>();
                 params.put("name", newGroup);
                 params.put("description", "Coach id: " + LoginScreen.getId());
-                //TODO: Add this url to the const class
-//                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
                 ServerRequest request = new ServerRequest();
                 request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
+                request = new ServerRequest();
+                request.jsonArrayRequest(new VolleyCallback() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray users) {
+                        try {
+                            newTeam = users.getJSONObject(users.length()-1);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },Const.CURRENT_URL);
                 Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
-                request.jsonObjectRequest(Const.CURRENT_URL,2, new JSONObject(params));
+                request.jsonObjectRequest(Const.CURRENT_URL,2, newTeam);
                 startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
             }
         });
@@ -177,5 +199,10 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
     public static String getSelectedGroup()
     {
         return selectedGroup;
+    }
+
+    public static JSONObject getTeamInfo()
+    {
+        return selectedTeamInfo;
     }
 }
