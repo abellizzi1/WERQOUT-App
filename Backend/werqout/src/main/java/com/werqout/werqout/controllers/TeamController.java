@@ -29,8 +29,8 @@ public class TeamController {
 	@Autowired
 	TeamRepository teamRepository;
 	
-	@GetMapping("")
 	@ApiOperation(value = "Gets list of Teams in the database", response = Iterable.class, tags = "getTeam")
+	@GetMapping("")
 	List<Team> getTeam(){
 		return teamRepository.findAll();
 	}
