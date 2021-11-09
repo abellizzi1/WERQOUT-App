@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.werqout.werqout.repository.CoachRepository;
 import com.werqout.werqout.repository.TeamRepository;
 import com.werqout.werqout.models.Athlete;
 import com.werqout.werqout.models.Team;
@@ -28,6 +29,9 @@ public class TeamController {
 	
 	@Autowired
 	TeamRepository teamRepository;
+	
+	@Autowired
+	CoachRepository coachRepository;
 	
 	@ApiOperation(value = "Gets list of Teams in the database", response = Iterable.class, tags = "getTeam")
 	@GetMapping("")
@@ -61,6 +65,9 @@ public class TeamController {
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "Deletes a Team from the database", response = Iterable.class, tags = "deleteGroup")
 	String deleteGroup(@PathVariable long id) {
+		Team team = teamRepository.findById(id);
+		if(team.getCoach() != null)
+			team.getCoach().removeManagedTeam();
 		teamRepository.deleteById(id);
 		return "Group: " + teamRepository.findById(id).getName() + " deleted successfully!";
 	}
