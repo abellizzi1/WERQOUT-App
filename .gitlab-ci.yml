@@ -35,6 +35,7 @@ android-build: #this is another job
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/WerqoutFrontend/gradlew
   script:
+    - sudo systemctl start docker
     - cd Frontend/WerqoutFrontend
     - ./gradlew assemble
 
