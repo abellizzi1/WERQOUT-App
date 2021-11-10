@@ -65,6 +65,7 @@ public class EventController {
 		Event toUpdate = eventRepository.findById(id);
 		if(toUpdate == null)
 			return null;
+		event.setId(id);
 		eventRepository.save(event);
 		return eventRepository.findById(id);
 	}

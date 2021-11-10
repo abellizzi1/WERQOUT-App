@@ -58,6 +58,7 @@ public class TeamController {
 		Team toUpdate = teamRepository.findById(id);
 		if(toUpdate == null)
 			return null;
+		group.setId(id);
 		teamRepository.save(group);
 		return teamRepository.findById(id);
 	}

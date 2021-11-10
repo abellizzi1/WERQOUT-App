@@ -52,6 +52,7 @@ public class CoachController {
 	public Coach updateCoach(@PathVariable long id, @RequestBody Coach coach) {
 		if(coachRepository.findById(id) == null)
 			return null;
+		coach.setId(id);
 		coachRepository.save(coach);
 		return coachRepository.findById(id);
 	}
