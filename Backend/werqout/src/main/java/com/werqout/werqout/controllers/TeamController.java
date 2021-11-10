@@ -67,8 +67,10 @@ public class TeamController {
 	@ApiOperation(value = "Deletes a Team from the database", response = Iterable.class, tags = "deleteGroup")
 	String deleteGroup(@PathVariable long id) {
 		Team team = teamRepository.findById(id);
-		if(team.getCoach() != null)
+		if(team.getCoach() != null) {
 			team.getCoach().removeManagedTeam();
+			coachRepository.save(team.getCoach());
+		}
 		teamRepository.deleteById(id);
 		return "Group: " + teamRepository.findById(id).getName() + " deleted successfully!";
 	}
