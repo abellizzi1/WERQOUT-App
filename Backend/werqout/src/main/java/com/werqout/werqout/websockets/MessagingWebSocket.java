@@ -36,8 +36,6 @@ public class MessagingWebSocket {
 		
 		sessionUsernameMap.put(session, username);
 		usernameSessionMap.put(username, session);
-		
-		String message = "User: " + username + "is online";
 	}
 	
 	
