@@ -10,5 +10,4 @@ public interface CoachRepository extends JpaRepository<Coach, Long> {
     Coach findById(long id);
 
     void deleteById(long id);
-    
 }

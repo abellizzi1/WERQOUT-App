@@ -98,4 +98,30 @@ public class CoachController {
 		coachRepository.save(coach);
 		return true;
 	}
+
+	/** Rating Methods*/
+
+	@PutMapping("/{id}/rate")
+	@ApiOperation(value = "Increases the Coaches rating", response = Iterable.class, tags = "rateCoach")
+	public void rateCoach(@PathVariable long id, @RequestBody Coach coach){
+		Coach c = coachRepository.findById(id);
+		if (c == null){
+			System.out.println("No such coach");
+		}
+		double rate = coach.getRating();
+		System.out.println(rate);
+		c.rate(rate);
+		coachRepository.save(coach);
+	}
+
+	@GetMapping("{id}/getRating")
+	@ApiOperation(value = "Gets the Coaches rating", response = Iterable.class, tags = "getCoachRating")
+	public double getCoachRating(@PathVariable long id){
+		Coach coach = coachRepository.findById(id);
+		if (coach == null){
+			System.out.println("No such coach");
+		}
+		return coach.getRating();
+	}
+
 }
