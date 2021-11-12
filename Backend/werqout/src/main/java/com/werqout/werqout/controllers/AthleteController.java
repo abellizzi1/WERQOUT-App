@@ -65,6 +65,7 @@ public class AthleteController {
     public Athlete updateAthlete(@PathVariable long id, @RequestBody Athlete athlete) {
     	if(athleteRepository.findById(id) == null)
     		return null;
+    	athlete.setId(id);
     	athleteRepository.save(athlete);
     	return athleteRepository.findById(id);
     }
