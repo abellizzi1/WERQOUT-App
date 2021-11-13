@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -103,15 +104,13 @@ public class CoachController {
 
 	@PutMapping("/{id}/rate")
 	@ApiOperation(value = "Increases the Coaches rating", response = Iterable.class, tags = "rateCoach")
-	public void rateCoach(@PathVariable long id, @RequestBody Coach coach){
+	public void rateCoach(@PathVariable long id, @RequestParam(required=true, name="rating") float rating){
 		Coach c = coachRepository.findById(id);
 		if (c == null){
 			System.out.println("No such coach");
 		}
-		double rate = coach.getRating();
-		System.out.println(rate);
-		c.rate(rate);
-		coachRepository.save(coach);
+		c.rate(rating);
+		coachRepository.save(c);
 	}
 
 	@GetMapping("{id}/getRating")

@@ -111,18 +111,17 @@ public class Coach {
      * @return rating.
      */
     public double rate(double rating) {
-        this.rating += rating;
         numRatings++;
-        return this.rating / ++numRatings;
+        this.rating += rating;
+        return this.rating / numRatings;
     }
     
     public int getNumRatings() {
     	return numRatings;
     }
 
-    public double getRating() {
+    public double getRating() { 
         return rating;
-        
     }
     
     // Manage managedTeam ====================================================================================
