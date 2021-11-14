@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -122,6 +123,29 @@ public class GymOwnerController {
         gymOwnerRepository.deleteById(id);
         return "Gym Owner: " + user + " deleted successfully";
     }
+
+    /** Rating Methods*/
+
+	@PutMapping("/{id}/rate") //path is rate?rating=4 but 4 is the rating you want to give
+	@ApiOperation(value = "Updates the Gym Owners rating", response = Iterable.class, tags = "rateGymOwner")
+	public void rateGymOwner(@PathVariable long id, @RequestParam(required=true, name="rating") int rating){
+		GymOwner go = gymOwnerRepository.findById(id);
+		if (go == null){
+			System.out.println("No such coach");
+		}
+		go.rate(rating);
+		gymOwnerRepository.save(go);
+	}
+
+	@GetMapping("{id}/getRating")
+	@ApiOperation(value = "Gets the Gym Owner's rating", response = Iterable.class, tags = "getGymOwnerRating")
+	public double getGymOwnerRating(@PathVariable long id){
+		GymOwner gymOwner = gymOwnerRepository.findById(id);
+		if (gymOwner == null){
+			System.out.println("No such Gym Owner");
+		}
+		return gymOwner.getRating();
+	}
     
 
 }

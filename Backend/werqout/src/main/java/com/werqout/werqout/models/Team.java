@@ -166,17 +166,18 @@ public class Team {
 		this.description = description;
 	}
 	
-	public double getRating() {
-		return rating;
-	}
-	
 	public void rate(double rating) {
-		this.rating = (this.rating + rating) / ++numRatings;
-	}
-	
-	public long getNumRatings() {
-		return numRatings;
-	}
+        numRatings++;
+        this.rating += rating;
+        
+    }
+    public int getNumRatings() {
+    	return numRatings;
+    }
+
+    public double getRating() { 
+        return rating / numRatings;
+    }
 	
 	public Coach getCoach() {
 		return coach;
