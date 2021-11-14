@@ -53,6 +53,7 @@ public class CoachController {
 	public Coach updateCoach(@PathVariable long id, @RequestBody Coach coach) {
 		if(coachRepository.findById(id) == null)
 			return null;
+		coach.setId(id);
 		coachRepository.save(coach);
 		return coachRepository.findById(id);
 	}
@@ -81,7 +82,7 @@ public class CoachController {
 	@ApiOperation(value = "Adds the Coach to a Team", response = Iterable.class, tags = "setManageTeam")
 	public Team setManagedTeam(@PathVariable int id, @RequestBody Team team) {
 		Coach coach = coachRepository.findById(id);
-		if(coach == null)
+		if(coach == null || coach.getManagedTeam() != null)
 			return null;
 		coach.setManagedTeam(team);
 		coachRepository.save(coach);
@@ -93,7 +94,7 @@ public class CoachController {
 	@ApiOperation(value = "Deletes the Coach from a team", response = Iterable.class, tags = "removeManagedTeam")
 	public boolean removeManagedTeam(@PathVariable long id) {
 		Coach coach = coachRepository.findById(id);
-		if(coach == null)
+		if(coach == null || coach.getManagedTeam() == null)
 			return false;
 		coach.removeManagedTeam();
 		coachRepository.save(coach);

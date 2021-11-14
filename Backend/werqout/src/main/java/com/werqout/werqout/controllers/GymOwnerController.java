@@ -33,6 +33,11 @@ public class GymOwnerController {
 
     @Autowired
     TeamRepository teamRepository;
+    
+    @GetMapping("")
+    public List<GymOwner> getAllGyms() {
+    	return gymOwnerRepository.findAll();
+    }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Gets a Gym Owner from the database by their ID", response = Iterable.class, tags = "getGymOwner")
@@ -64,6 +69,7 @@ public class GymOwnerController {
         if(toUpdate == null){
             return null;
         }
+        gymOwner.setId(id);
         gymOwnerRepository.save(gymOwner);
         return gymOwnerRepository.findById(id);
     }
