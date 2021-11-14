@@ -16,6 +16,9 @@ import com.example.werqoutfrontend.utils.RecyclerViewAdapterMessage;
 import com.example.werqoutfrontend.utils.RecyclerViewMessage;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.drafts.Draft_6455;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,16 +65,25 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
      * The username of the person that you are messaging
      */
     private TextView title;
+    /**
+     * The websocket client for this user
+     */
+    private WebSocketClient cc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_screen);
-
         enterMessage = findViewById(R.id.edit_message_text_message_sceen);
         sendIcon = findViewById(R.id.send_button_messages_screen);
         title = findViewById(R.id.title_message_screen);
         title.setText(getIntent().getSerializableExtra("username").toString());
+
+        Draft[] drafts = { new Draft_6455() };
+        String w = "ws://10.49.47.52:8080/websocket/" + User.currentUser.getUsername();
+
+
+
         createList();
 
         sendIcon.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +95,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 String textMessage = enterMessage.getText().toString();
                 if(!textMessage.equals(""))
                 {
+                    //Add the onMessage implementation in here
                     addMessage(textMessage);
                     enterMessage.setText("");
                     ServerRequest serverRequest= new ServerRequest();
