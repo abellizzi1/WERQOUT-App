@@ -102,9 +102,9 @@ public class CoachController {
 
 	/** Rating Methods*/
 
-	@PutMapping("/{id}/rate")
+	@PutMapping("/{id}/rate") //path is rate?rating=4 but 4 is the rating you want to give
 	@ApiOperation(value = "Increases the Coaches rating", response = Iterable.class, tags = "rateCoach")
-	public void rateCoach(@PathVariable long id, @RequestParam(required=true, name="rating") float rating){
+	public void rateCoach(@PathVariable long id, @RequestParam(required=true, name="rating") int rating){
 		Coach c = coachRepository.findById(id);
 		if (c == null){
 			System.out.println("No such coach");

@@ -110,10 +110,10 @@ public class Coach {
      * Allows a user to rate a coach and stores that in the database
      * @return rating.
      */
-    public double rate(double rating) {
+    public void rate(double rating) {
         numRatings++;
         this.rating += rating;
-        return this.rating / numRatings;
+        
     }
     
     public int getNumRatings() {
@@ -121,7 +121,7 @@ public class Coach {
     }
 
     public double getRating() { 
-        return rating;
+        return rating / numRatings;
     }
     
     // Manage managedTeam ====================================================================================
