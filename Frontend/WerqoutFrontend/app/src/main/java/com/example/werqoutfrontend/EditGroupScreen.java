@@ -169,10 +169,9 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
              */
             @Override
             public void onClick(View view) {
-                Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/1";
                 ServerRequest changeNameRequest = new ServerRequest();
                 try {
-                    //Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.get("id");
+                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.get("id");
                     team.put("name", editNameText.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();

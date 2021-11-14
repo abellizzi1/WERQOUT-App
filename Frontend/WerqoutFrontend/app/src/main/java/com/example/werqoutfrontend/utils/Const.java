@@ -13,7 +13,7 @@ public class Const {
     /**
      * The url used for requesting information about a coach
      */
-    public static final String URL_JSON_REQUEST_COACHES = "http://coms-309-034.cs.iastate.edu:8080/coaches";
+    public static final String URL_JSON_REQUEST_COACHES = "http://coms-309-034.cs.iastate.edu:8080/coaches/";
 
     /**
      * The url used for requesting information about a team

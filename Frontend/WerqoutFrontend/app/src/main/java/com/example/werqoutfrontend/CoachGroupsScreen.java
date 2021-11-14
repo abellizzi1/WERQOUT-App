@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -49,6 +50,7 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
      */
 
     private JSONObject newTeam;
+    private boolean test = false;
 
     private static JSONObject selectedTeamInfo;
 
@@ -74,8 +76,7 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         });
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_groups);
-        //Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/3/teams";
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
 
         ServerRequest displayAllGroups = new ServerRequest();
         displayAllGroups.jsonGetRequest(new VolleyCallback() {
@@ -110,35 +111,6 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
 
             }
         }, Const.CURRENT_URL);
-//        displayAllGroups.jsonArrayRequest(new VolleyCallback() {
-//            @Override
-//            public void onSuccess(JSONObject result) {
-//            }
-//
-//            @Override
-//            public void onSuccess(JSONArray result) {
-//                for (int i = 0; i < result.length(); i++)
-//                {
-//                    try {
-//                        JSONObject user = result.getJSONObject(i);
-//                        Button groupButton = new Button (context);
-//                        groupButton.setText(user.get("name").toString());
-//                        linearScroll.addView(groupButton);
-//                        ViewGroup.LayoutParams params;
-//                        params = groupButton.getLayoutParams();
-//                        params.height = 300;
-//                        params.width = 1409;
-//                        groupButton.setLayoutParams(params);
-//                        groupButton.setTextSize(30);
-//                        groupButton.setTextColor(Color.parseColor("#000000"));
-//                        groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
-//                        groupButton.setOnClickListener((View.OnClickListener) context);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        },Const.CURRENT_URL);
 
         Button createGroupButton = findViewById(R.id.create_button_groups);
         createGroupButton.setOnClickListener(new View.OnClickListener() {
@@ -158,21 +130,21 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                 ServerRequest request = new ServerRequest();
                 request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
                 request = new ServerRequest();
-                request.jsonArrayRequest(new VolleyCallback() {
+                request.jsonGetRequest(new VolleyCallback() {
                     @Override
                     public void onSuccess(JSONObject result) {
                     }
 
                     @Override
-                    public void onSuccess(JSONArray users) {
+                    public void onSuccess(JSONArray result) {
                         try {
-                            newTeam = users.getJSONObject(users.length()-1);
-
+                            newTeam = result.getJSONObject(result.length()-1);
+                            test = true;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                },Const.CURRENT_URL);
+                }, Const.CURRENT_URL);
                 Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
                 request.jsonObjectRequest(Const.CURRENT_URL,2, newTeam);
                 startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
