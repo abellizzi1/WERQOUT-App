@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,11 +20,14 @@ import com.example.werqoutfrontend.utils.VolleyCallback;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,11 +84,46 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         title.setText(getIntent().getSerializableExtra("username").toString());
 
         Draft[] drafts = { new Draft_6455() };
-        String w = "ws://10.49.47.52:8080/websocket/" + User.currentUser.getUsername();
+        //TODO:Update this url to match the server path
+        String w = "ws://10.49.47.161:8080/websocket/" + User.currentUser.getUsername();
+        try{
+            Log.d("Socket:", "Trying socket");
+            cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    Log.d("OPEN", "run() returned: " + "is connecting");
+                }
 
+                @Override
+                public void onMessage(String message) {
+                    Log.d("", "run() returned: " + message);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            addMessage(message);
+                        }
+                    });
+                }
 
+                @Override
+                public void onClose(int code, String reason, boolean remote) {
+                    Log.d("CLOSE", "onClose() returned: " + reason);
+                }
 
-        createList();
+                @Override
+                public void onError(Exception e) {
+                    Log.d("Exception:", e.toString());
+                }
+            };
+        }
+        catch (URISyntaxException e)
+        {
+            Log.d("Exception:", e.getMessage().toString());
+            e.printStackTrace();
+        }
+        cc.connect();
+        buildRecyclerView();
+//        createList();
 
         sendIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +135,20 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 if(!textMessage.equals(""))
                 {
                     //Add the onMessage implementation in here
-                    addMessage(textMessage);
                     enterMessage.setText("");
-                    ServerRequest serverRequest= new ServerRequest();
-                    Map <String, String> params = new HashMap<>();
-                    params.put("userName", "colin");
-                    params.put("message", textMessage);
-                    JSONObject messageObject = new JSONObject(params);
-                    serverRequest.jsonObjectRequest(Const.POSTMAN_TEST_URL + "postmessage",
-                            1, messageObject);
+                    try {
+                        cc.send(textMessage);
+                    }
+                    catch(Exception e){
+                        Log.d("ExceptionSendMessage:", e.getMessage().toString());
+                    }
+//                    ServerRequest serverRequest= new ServerRequest();
+//                    Map <String, String> params = new HashMap<>();
+//                    params.put("userName", "colin");
+//                    params.put("message", textMessage);
+//                    JSONObject messageObject = new JSONObject(params);
+//                    serverRequest.jsonObjectRequest(Const.POSTMAN_TEST_URL + "postmessage",
+//                            1, messageObject);
                 }
             }
         });
@@ -146,7 +190,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
     }
     private void addMessage(String textMessage){
         messages.add(new RecyclerViewMessage(textMessage, User.currentUser.getUsername()));
-//        messages.add(new RecyclerViewMessage(textMessage, "colin"));
         mAdapter.notifyItemInserted(messages.size());
     }
 }
