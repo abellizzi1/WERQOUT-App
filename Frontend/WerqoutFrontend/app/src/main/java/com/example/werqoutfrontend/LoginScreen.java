@@ -109,7 +109,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+//            startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
                 getJsonLoginInfo();
             }
         });
@@ -177,7 +177,8 @@ public class LoginScreen extends AppCompatActivity {
                 if (userSpinner.getSelectedItem().toString().equals("Athlete"))
                 {
                     Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
-                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                    startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
+//                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
                 }
                 else if (userSpinner.getSelectedItem().toString().equals("Coach"))
                 {

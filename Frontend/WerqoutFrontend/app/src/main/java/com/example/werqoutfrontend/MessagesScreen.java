@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * This class contains all of the logic needed for displaying messages between users. You basically
@@ -72,7 +75,9 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
     /**
      * The websocket client for this user
      */
+    private Button back;
     private WebSocketClient cc;
+    private static boolean closed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,26 +86,31 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         enterMessage = findViewById(R.id.edit_message_text_message_sceen);
         sendIcon = findViewById(R.id.send_button_messages_screen);
         title = findViewById(R.id.title_message_screen);
+        back = findViewById(R.id.close_cc_button_messages_screen);
         title.setText(getIntent().getSerializableExtra("username").toString());
 
         Draft[] drafts = { new Draft_6455() };
         //TODO:Update this url to match the server path
-        String w = "ws://10.49.47.161:8080/websocket/" + User.currentUser.getUsername();
+        String w = "ws://10.49.47.139:8080/chat/" + title.getText().toString();
         try{
             Log.d("Socket:", "Trying socket");
             cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     Log.d("OPEN", "run() returned: " + "is connecting");
+                    closed = false;
                 }
 
                 @Override
                 public void onMessage(String message) {
                     Log.d("", "run() returned: " + message);
+                    Scanner scan = new Scanner(message);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            addMessage(message);
+                            while(scan.hasNextLine()) {
+                                addMessage(scan.nextLine());
+                            }
                         }
                     });
                 }
@@ -113,6 +123,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 @Override
                 public void onError(Exception e) {
                     Log.d("Exception:", e.toString());
+                    closed = true;
                 }
             };
         }
@@ -150,6 +161,14 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
 //                    serverRequest.jsonObjectRequest(Const.POSTMAN_TEST_URL + "postmessage",
 //                            1, messageObject);
                 }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cc.close();
+                startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });
     }
