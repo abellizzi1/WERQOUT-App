@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The AddDeleteWorkoutScreen class gives functionality to the add_delete_workout_screen.xml screen.
@@ -56,6 +58,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
     private LinearLayout linearScroll;
 
     private ArrayList<JSONObject> jsonWorkoutsArray;
+
+    private JSONObject selectedWorkoutJson;
+
+    private static String selectedWorkoutString = "";
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
@@ -134,6 +140,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                 else
                 {
                     //create new workout and add it to the database
+                    Map<String, String> params = new HashMap<>();
+                    params.put("description", workoutName);
+                    ServerRequest request = new ServerRequest();
+                    Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/create";
+                    request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
+                    startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
                 }
             }
         });
@@ -152,19 +164,21 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                     try {
                         JSONObject workout = users.getJSONObject(i);
                         jsonWorkoutsArray.add(workout);
-                        Button groupButton = new Button (context);
-                        groupButton.setText(workout.get("description").toString());
-                        linearScroll.addView(groupButton);
+                        Button workoutButton = new Button (context);
+                        String desc = workout.get("description").toString();
+                        String dateAndTime = formatDateTimeFromDatabase(workout.get("date").toString());
+                        workoutButton.setText(desc + " " + dateAndTime);
+                        linearScroll.addView(workoutButton);
                         ViewGroup.LayoutParams params;
-                        params = groupButton.getLayoutParams();
+                        params = workoutButton.getLayoutParams();
                         params.height = 200;
                         params.width = 1409;
-                        groupButton.setLayoutParams(params);
-                        groupButton.setTextSize(30);
-                        groupButton.setTextColor(Color.parseColor("#000000"));
-                        groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
-                        groupButton.setId(i);
-                        groupButton.setOnClickListener((View.OnClickListener) context);
+                        workoutButton.setLayoutParams(params);
+                        workoutButton.setTextSize(25);
+                        workoutButton.setTextColor(Color.parseColor("#000000"));
+                        workoutButton.setBackgroundColor(Color.parseColor("#00FFA7"));
+                        workoutButton.setId(i);
+                        workoutButton.setOnClickListener((View.OnClickListener) context);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -222,10 +236,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      */
     @Override
     public void onClick(View v) {
-//        selectedMemberString = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
-//        TextView selected = findViewById(R.id.selected_label_edit_group);
-//        selected.setText("Selected: " + selectedMemberString);
-//        selectedMemberJson = jsonMembersArray.get(v.getId());
+        selectedWorkoutString = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+        TextView selected = findViewById(R.id.selected_label_add_delete);
+        selected.setText("Selected: " + selectedWorkoutString);
+        selectedWorkoutJson = jsonWorkoutsArray.get(v.getId());
     }
 
     /**
@@ -236,7 +250,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      * @return
      * returns the date/time in the correct format
      */
-    public String formatDateTime(String dt)
+    public String formatDateTimeFromDatabase(String dt)
     {
         // 2021-01-01T13:30:00.000+00:00 (date: yyyy-mm-dd)
         String year = dt.substring(2, 4);
@@ -251,5 +265,28 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
             ampm = "PM";
         }
         return month + "/" + day + "/" + year + " " + hour + ":" + minute + " " + ampm;
+    }
+
+    /**
+     * Converts the date and time so that it can be posted to the database correctly.
+     * @param date
+     * the date of the workout
+     * @param time
+     * the time of the workout
+     * @param isAM
+     * true if the time is AM, else false
+     * @return
+     * returns a string that is able to be posted to the events database.
+     */
+    public String formatDateTimeToDatabase(String date, String time, boolean isAM)
+    {
+        /*
+        2021-01-01T13:30:00.000+00:00 (date: yyyy-mm-dd)
+        date: mm/dd/yy
+        time: 00:00
+         */
+        
+
+        return "";
     }
 }

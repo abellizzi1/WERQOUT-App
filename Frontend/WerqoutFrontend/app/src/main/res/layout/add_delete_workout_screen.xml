@@ -186,20 +186,24 @@
     <ScrollView
         android:id="@+id/scrollView_add_delete"
         android:layout_width="409dp"
-        android:layout_height="235dp"
+        android:layout_height="225dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/delete_button_add_delete"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDeleteWorkouts_label_add_delete">
+        app:layout_constraintTop_toBottomOf="@+id/addDeleteWorkouts_label_add_delete"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/scrollLinear_add_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@drawable/empty_tall_divider"
             android:orientation="vertical" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
