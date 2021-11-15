@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * to delete a selected workout.
  * @author Angelo Bellizzi
  */
-public class AddDeleteWorkoutScreen extends AppCompatActivity {
+public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * The name of the workout to be added.
@@ -213,5 +213,43 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
             return (hour >= 0 && hour <= 12 && minute >= 0 && minute <= 59);
         }
         return false;
+    }
+
+    /**
+     * This onClick function keeps track of the selected workout. Once a workout is selected,
+     * it can be deleted from the team.
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+//        selectedMemberString = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+//        TextView selected = findViewById(R.id.selected_label_edit_group);
+//        selected.setText("Selected: " + selectedMemberString);
+//        selectedMemberJson = jsonMembersArray.get(v.getId());
+    }
+
+    /**
+     * Converts the date and time from the database into the correct format.
+     * (No military time, use of AM/PM, date in mm/dd/yy)
+     * @param dt
+     * the date/time to be re-formatted
+     * @return
+     * returns the date/time in the correct format
+     */
+    public String formatDateTime(String dt)
+    {
+        // 2021-01-01T13:30:00.000+00:00 (date: yyyy-mm-dd)
+        String year = dt.substring(2, 4);
+        String month = dt.substring(5, 7);
+        String day = dt.substring(8, 10);
+        String hour = dt.substring(11, 13);
+        String minute = dt.substring(14, 16);
+        String ampm = "AM";
+        int hourInt = Integer.parseInt(hour);
+        if (hourInt >= 13)
+        {
+            ampm = "PM";
+        }
+        return month + "/" + day + "/" + year + " " + hour + ":" + minute + " " + ampm;
     }
 }
