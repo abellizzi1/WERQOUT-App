@@ -51,6 +51,8 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
     private ArrayList<JSONObject> jsonMembersArray;
 
+    private String addAthleteEmail;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to edit_group_screen.xml
@@ -121,7 +123,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         },Const.CURRENT_URL);
 
         Button addAthleteButton = findViewById(R.id.add_button_edit_group);
-        EditText addAthleteEmail = findViewById(R.id.athleteEmail_input_edit_group);
+        EditText athleteEmail = findViewById(R.id.athleteEmail_input_edit_group);
         addAthleteButton.setOnClickListener(new View.OnClickListener() {
             /**
              * This onClick function puts an athlete in the current Team when the "add" button
@@ -131,6 +133,8 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
              */
             @Override
             public void onClick(View view) {
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/all";
+                addAthleteEmail = athleteEmail.getText().toString();
                 ServerRequest addAthleteRequest = new ServerRequest();
                 addAthleteRequest.jsonArrayRequest(new VolleyCallback() {
                     @Override
@@ -143,7 +147,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                         {
                             try {
                                 JSONObject user = users.getJSONObject(i);
-                                if(user.get("email").toString().equals(addAthleteEmail.getText().toString()))
+                                if(user.get("email").toString().equals(addAthleteEmail))
                                 {
                                     String athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + user.get("id") + "/teams";
                                     ServerRequest postTeam = new ServerRequest();
