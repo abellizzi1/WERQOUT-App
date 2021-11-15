@@ -2,15 +2,30 @@ package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.network.ServerRequest;
+import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * The AddDeleteWorkoutScreen class gives functionality to the add_delete_workout_screen.xml screen.
@@ -36,6 +51,13 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
     private String workoutTime;
 
     /**
+     * The linear layout within the Scroll View in add_delete_workout_screen.xml
+     */
+    private LinearLayout linearScroll;
+
+    private ArrayList<JSONObject> jsonWorkoutsArray;
+
+    /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to add_delete_workout_screen.xml
      * @param savedInstanceState
@@ -46,6 +68,9 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
         setContentView(R.layout.add_delete_workout_screen);
 
         Spinner userSpinner = (Spinner) findViewById(R.id.ampm_spinner_add_delete);
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_add_delete);
+        jsonWorkoutsArray = new ArrayList<JSONObject>();
+        Context context = this;
 
         ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(AddDeleteWorkoutScreen.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.time));
@@ -112,6 +137,41 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity {
                 }
             }
         });
+
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        ServerRequest allWorkouts = new ServerRequest();
+        allWorkouts.jsonArrayRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+
+            @Override
+            public void onSuccess(JSONArray users) {
+                for(int i = 0; i < users.length(); i++)
+                {
+                    try {
+                        JSONObject workout = users.getJSONObject(i);
+                        jsonWorkoutsArray.add(workout);
+                        Button groupButton = new Button (context);
+                        groupButton.setText(workout.get("description").toString());
+                        linearScroll.addView(groupButton);
+                        ViewGroup.LayoutParams params;
+                        params = groupButton.getLayoutParams();
+                        params.height = 200;
+                        params.width = 1409;
+                        groupButton.setLayoutParams(params);
+                        groupButton.setTextSize(30);
+                        groupButton.setTextColor(Color.parseColor("#000000"));
+                        groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
+                        groupButton.setId(i);
+                        groupButton.setOnClickListener((View.OnClickListener) context);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, Const.CURRENT_URL);
     }
 
     /**

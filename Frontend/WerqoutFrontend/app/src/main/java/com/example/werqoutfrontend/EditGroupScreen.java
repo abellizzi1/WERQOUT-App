@@ -97,7 +97,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 {
                     try {
                         JSONObject user = users.getJSONObject(i);
-                        jsonMembersArray.add(users.getJSONObject(i));
+                        jsonMembersArray.add(user);
                         Button groupButton = new Button (context);
                         groupButton.setText(user.get("userName").toString());
                         linearScroll.addView(groupButton);
