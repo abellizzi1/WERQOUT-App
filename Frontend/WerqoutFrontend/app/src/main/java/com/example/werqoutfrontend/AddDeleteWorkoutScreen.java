@@ -142,6 +142,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                     //create new workout and add it to the database
                     Map<String, String> params = new HashMap<>();
                     params.put("description", workoutName);
+                    params.put("date", formatDateTimeToDatabase(workoutDate, workoutTime, userSpinner.getSelectedItem().toString().equals("AM")));
                     ServerRequest request = new ServerRequest();
                     Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/create";
                     request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
@@ -264,6 +265,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         {
             ampm = "PM";
         }
+        if (hour.equals("00"))
+        {
+            hour = "12";
+        }
         return month + "/" + day + "/" + year + " " + hour + ":" + minute + " " + ampm;
     }
 
@@ -285,8 +290,15 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         date: mm/dd/yy
         time: 00:00
          */
-        
-
-        return "";
+        String month = date.substring(0, 2);
+        String day = date.substring(3, 5);
+        String year = "20" + date.substring(6);
+        int hour = Integer.parseInt(time.substring(0, 2));
+        if (!isAM && hour != 12)
+        {
+            hour += 12;
+        }
+        String t = "T" + hour + time.substring(2);
+        return year + "-" + month + "-" + day + t;
     }
 }
