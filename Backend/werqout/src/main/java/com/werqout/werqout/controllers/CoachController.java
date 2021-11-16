@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -99,4 +100,28 @@ public class CoachController {
 		coachRepository.save(coach);
 		return true;
 	}
+
+	/** Rating Methods*/
+
+	@PutMapping("/{id}/rate") //path is rate?rating=4 but 4 is the rating you want to give
+	@ApiOperation(value = "Updates the Coaches rating", response = Iterable.class, tags = "rateCoach")
+	public void rateCoach(@PathVariable long id, @RequestParam(required=true, name="rating") int rating){
+		Coach c = coachRepository.findById(id);
+		if (c == null){
+			System.out.println("No such coach");
+		}
+		c.rate(rating);
+		coachRepository.save(c);
+	}
+
+	@GetMapping("{id}/getRating")
+	@ApiOperation(value = "Gets the Coach's rating", response = Iterable.class, tags = "getCoachRating")
+	public double getCoachRating(@PathVariable long id){
+		Coach coach = coachRepository.findById(id);
+		if (coach == null){
+			System.out.println("No such coach");
+		}
+		return coach.getRating();
+	}
+
 }

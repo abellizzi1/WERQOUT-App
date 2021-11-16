@@ -134,17 +134,18 @@ public class GymOwner{
         this.gymName = gymName;
     }
     public double getRating() {
-        return rating;
+        return rating / numRatings;
     }
     /**
      * Allows a user to rate a coach and stores that in the database
-     * @return rating.
      */
-    public double rate(){
+    public void rate(double rating) {
         numRatings++;
-        return rating /= numRatings;
+        this.rating += rating;   
     }
-
+    public int getNumRatings() {
+    	return numRatings;
+    }
     //team methods
     @JsonIgnore
     public List<Team> getTeams() {
@@ -166,19 +167,7 @@ public class GymOwner{
         return event;
     }
     
-    /**
-     * Allows a user to rate a coach and stores that in the database
-     * @return rating.
-     */
-    public double rate(double rating){
-        numRatings++;
-        this.rating += rating;
-        return this.rating / numRatings;
-    }
     
-    public int getNumRatings() {
-    	return numRatings;
-    }
 
     public void setEvent(Event event){
         this.event = event;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.werqout.werqout.repository.CoachRepository;
 import com.werqout.werqout.repository.TeamRepository;
@@ -102,6 +103,29 @@ public class TeamController {
 		if(group != null && group.getMembers().contains(athlete)) {
 			group.removeMember(athlete);
 		}
+	}
+
+	/** Rating Methods*/
+
+	@PutMapping("/{id}/rate") //path is rate?rating=4 but 4 is the rating you want to give
+	@ApiOperation(value = "Updates the Team's rating", response = Iterable.class, tags = "rateTeam")
+	public void rateTeam(@PathVariable long id, @RequestParam(required=true, name="rating") int rating){
+		Team team = teamRepository.findById(id);
+		if (team == null){
+			System.out.println("No such coach");
+		}
+		team.rate(rating);
+		teamRepository.save(team);
+	}
+
+	@GetMapping("{id}/getRating")
+	@ApiOperation(value = "Gets the Team's rating", response = Iterable.class, tags = "getTeamRating")
+	public double getTeamRating(@PathVariable long id){
+		Team team = teamRepository.findById(id);
+		if (team == null){
+			System.out.println("No such team");
+		}
+		return team.getRating();
 	}
 	
 }

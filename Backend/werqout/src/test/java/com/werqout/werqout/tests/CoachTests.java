@@ -21,7 +21,7 @@ public class CoachTests {
 		assertEquals("testName", c.getUserName());
 		assertEquals("testEmail", c.getEmail());
 		assertEquals("testPass", c.getPassword());
-		assertEquals(5, c.rate(5), .001);
+		c.rate(5);
 		assertEquals(1, c.getNumRatings());
 	}
 	
