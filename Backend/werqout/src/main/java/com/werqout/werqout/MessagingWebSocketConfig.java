@@ -1,4 +1,4 @@
-package com.werqout.werqout.websockets;
+package com.werqout.werqout;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
