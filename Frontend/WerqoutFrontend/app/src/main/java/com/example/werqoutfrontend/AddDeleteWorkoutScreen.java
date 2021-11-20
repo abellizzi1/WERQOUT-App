@@ -251,7 +251,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      * @return
      * returns the date/time in the correct format
      */
-    public String formatDateTimeFromDatabase(String dt)
+    public static String formatDateTimeFromDatabase(String dt)
     {
         // 2021-01-01T13:30:00.000+00:00 (date: yyyy-mm-dd)
         String year = dt.substring(2, 4);
@@ -283,7 +283,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      * @return
      * returns a string that is able to be posted to the events database.
      */
-    public String formatDateTimeToDatabase(String date, String time, boolean isAM)
+    public static String formatDateTimeToDatabase(String date, String time, boolean isAM)
     {
         /*
         2021-01-01T13:30:00.000+00:00 (date: yyyy-mm-dd)
