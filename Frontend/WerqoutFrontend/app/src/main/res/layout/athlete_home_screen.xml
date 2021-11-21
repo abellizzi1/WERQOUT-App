@@ -160,7 +160,7 @@
 
     <TextView
         android:id="@+id/workouts_label_athlete_home"
-        android:layout_width="250dp"
+        android:layout_width="236dp"
         android:layout_height="40dp"
         android:text="Upcoming workouts"
         android:textAlignment="center"
@@ -168,23 +168,25 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434" />
+        app:layout_constraintVertical_bias="0.425" />
 
     <ScrollView
         android:id="@+id/scrollview_athlete_home"
         android:layout_width="409dp"
-        android:layout_height="300dp"
+        android:layout_height="290dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar_athlete_home"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workouts_label_athlete_home"
+        app:layout_constraintVertical_bias="0.28"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout

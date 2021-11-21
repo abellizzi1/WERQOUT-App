@@ -2,6 +2,7 @@ package com.example.werqoutfrontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,6 +37,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private String weatherIconCode = "";
 
     /**
+     * The linear layout within the Scroll View in athlete_home_screen.xml
+     */
+    private LinearLayout linearScroll;
+
+    /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to athlete_home_screen.xml
      * @param savedInstanceState
@@ -48,6 +54,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         TextView welcomeLabel = findViewById(R.id.name_label_athlete_home);
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_athlete_home);
+        Context context = this;
 
         /* Weather icon and temperature attributes */
         temperatureView = findViewById(R.id.weather_textview_athlete_home);
@@ -88,32 +96,34 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
 
-        LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_athlete_home);
-        ViewGroup.LayoutParams params;
-        TextView liftText;
-        TextView dateText;
-        TextView timeText;
-        for (int i = 0; i < 10; i++)
-        {
-            liftText = new TextView(this);
-            liftText.setText("Chest/Triceps Lift");
-            linearScroll.addView(liftText);
-            params = liftText.getLayoutParams();
-            CoachHomeScreen.setTextSettings(params, liftText);
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        ServerRequest allWorkouts = new ServerRequest();
+        allWorkouts.jsonArrayRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
 
-            dateText = new TextView(this);
-            linearScroll.addView(dateText);
-            params = dateText.getLayoutParams();
-            CoachHomeScreen.setTextSettings(params, dateText);
-            dateText.setText("10/21/21");
+            @Override
+            public void onSuccess(JSONArray users) {
+                for(int i = 0; i < users.length(); i++)
+                {
+                    try {
+                        JSONObject workout = users.getJSONObject(i);
+                        TextView workoutText = new TextView(context);
+                        String desc = workout.get("description").toString();
+                        String dateAndTime = AddDeleteWorkoutScreen.formatDateTimeFromDatabase(workout.get("date").toString());
+                        workoutText.setText(desc + "\n" + dateAndTime.substring(0, 8) + "\n" + dateAndTime.substring(9) + "\n");
+                        linearScroll.addView(workoutText);
+                        ViewGroup.LayoutParams params;
+                        params = workoutText.getLayoutParams();
+                        CoachHomeScreen.setTextSettings(params, workoutText);
 
-            timeText = new TextView(this);
-            linearScroll.addView(timeText);
-            params = timeText.getLayoutParams();
-            CoachHomeScreen.setTextSettings(params, timeText);
-            timeText.setText("10:00 AM\n");
-        }
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, Const.CURRENT_URL);
 
     }
 
