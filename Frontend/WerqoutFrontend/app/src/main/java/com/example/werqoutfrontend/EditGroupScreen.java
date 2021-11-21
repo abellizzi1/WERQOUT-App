@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,7 +43,15 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
     /**
      * A string that contains the selected member from the Scroll View.
      */
-    private static String selectedMember = "";
+    private static String selectedMemberString = "";
+
+    private JSONObject selectedMemberJson;
+
+    private JSONObject team;
+
+    private ArrayList<JSONObject> jsonMembersArray;
+
+    private String addAthleteEmail;
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
@@ -53,6 +62,8 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_group_screen);
+        team = CoachGroupsScreen.getTeamInfo();
+        jsonMembersArray = new ArrayList<JSONObject>();
 
         Button backButton = findViewById(R.id.back_button_edit_group);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +82,11 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_group);
 
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
+        try {
+            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.get("id") + "/athletes";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         ServerRequest displayAllGroups = new ServerRequest();
         displayAllGroups.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -84,6 +99,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 {
                     try {
                         JSONObject user = users.getJSONObject(i);
+                        jsonMembersArray.add(user);
                         Button groupButton = new Button (context);
                         groupButton.setText(user.get("userName").toString());
                         linearScroll.addView(groupButton);
@@ -107,6 +123,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         },Const.CURRENT_URL);
 
         Button addAthleteButton = findViewById(R.id.add_button_edit_group);
+        EditText athleteEmail = findViewById(R.id.athleteEmail_input_edit_group);
         addAthleteButton.setOnClickListener(new View.OnClickListener() {
             /**
              * This onClick function puts an athlete in the current Team when the "add" button
@@ -116,16 +133,73 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
              */
             @Override
             public void onClick(View view) {
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/all";
+                addAthleteEmail = athleteEmail.getText().toString();
+                ServerRequest addAthleteRequest = new ServerRequest();
+                addAthleteRequest.jsonArrayRequest(new VolleyCallback() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                    }
 
-                Map params = new HashMap<>();
-                params.put("userName", "test1");
-                params.put("lastName", "test1lastname");
-                params.put("email", "test1@iastate.edu");
-                params.put("password", "Testtest1");
-                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
-                ServerRequest request = new ServerRequest();
-                request.jsonObjectRequest(Const.CURRENT_URL,2, new JSONObject(params));
-                startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+                    @Override
+                    public void onSuccess(JSONArray users) {
+                        for(int i = 0; i < users.length(); i++)
+                        {
+                            try {
+                                JSONObject user = users.getJSONObject(i);
+                                if(user.get("email").toString().equals(addAthleteEmail))
+                                {
+                                    String athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + user.get("id") + "/teams";
+                                    ServerRequest postTeam = new ServerRequest();
+                                    postTeam.jsonObjectRequest(athleteUrl, 1, team);
+                                    break;
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },Const.CURRENT_URL);
+            }
+        });
+
+        Button editNameButton = findViewById(R.id.submit_button_edit_group);
+        EditText editNameText = findViewById(R.id.newGroupName_input_edit_group);
+        editNameButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function changes the name of the team when the "submit" button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                ServerRequest changeNameRequest = new ServerRequest();
+                try {
+                    Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS + "/" + team.get("id");
+                    team.put("name", editNameText.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                changeNameRequest.jsonObjectRequest(Const.CURRENT_URL, 2, team);
+        }
+    });
+
+        Button removeAthleteButton = findViewById(R.id.remove_button_edit_group);
+        removeAthleteButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function removes an athlete from the team when the "remove" button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                String athleteUrl = "";
+                try {
+                    athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + selectedMemberJson.get("id") + "/teams";
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ServerRequest removeAthleteRequest = new ServerRequest();
+                removeAthleteRequest.jsonObjectRequest(athleteUrl, 3, team);
             }
         });
     }
@@ -137,9 +211,10 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     public void onClick(View v) {
-        selectedMember = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
+        selectedMemberString = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
         TextView selected = findViewById(R.id.selected_label_edit_group);
-        selected.setText("Selected: " + selectedMember);
+        selected.setText("Selected: " + selectedMemberString);
+        selectedMemberJson = jsonMembersArray.get(v.getId());
     }
 
 }

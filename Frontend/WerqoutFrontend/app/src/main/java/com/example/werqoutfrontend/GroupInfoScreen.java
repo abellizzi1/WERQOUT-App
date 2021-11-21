@@ -100,8 +100,13 @@ public class GroupInfoScreen extends AppCompatActivity {
         linearScroll.addView(membersText);
         params = membersText.getLayoutParams();
         CoachHomeScreen.setTextSettings(params, membersText);
+        JSONObject team = CoachGroupsScreen.getTeamInfo();
 
-        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/1/athletes";
+        try {
+            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.get("id") + "/athletes";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         ServerRequest displayMembers = new ServerRequest();
         displayMembers.jsonArrayRequest(new VolleyCallback() {
             @Override
