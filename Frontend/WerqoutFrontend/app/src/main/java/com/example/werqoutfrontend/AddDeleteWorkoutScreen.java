@@ -151,6 +151,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
             }
         });
 
+        // get all workouts and add them to the scroll view
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
@@ -187,6 +188,26 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                 }
             }
         }, Const.CURRENT_URL);
+
+        Button removeWorkoutButton = findViewById(R.id.delete_button_add_delete);
+        removeWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function removes a workout when the "delete" button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                String workoutUrl = "";
+                try {
+                    // /events/{id}
+                    workoutUrl = "http://coms-309-034.cs.iastate.edu:8080/events/" + selectedWorkoutJson.get("id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ServerRequest removeWorkoutRequest = new ServerRequest();
+                removeWorkoutRequest.jsonObjectRequest(workoutUrl, 3, selectedWorkoutJson);
+            }
+        });
     }
 
     /**
