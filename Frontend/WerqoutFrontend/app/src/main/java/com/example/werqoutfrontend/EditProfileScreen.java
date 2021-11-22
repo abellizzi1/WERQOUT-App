@@ -175,9 +175,8 @@ public class EditProfileScreen extends AppCompatActivity {
     private void deleteAccount()
     {
         ServerRequest deleteRequest = new ServerRequest();
-        String url = Const.URL_JSON_REQUEST_ATHLETES + String.valueOf(User.currentUser.getId());
+        String url = Const.CURRENT_URL + String.valueOf(User.currentUser.getId());
         deleteRequest.jsonObjectRequest(url,3,null);
-        User.currentUser.setLoggedIn(false);
         startActivity(new Intent(getApplicationContext(), LoginScreen.class));
     }
     @Override

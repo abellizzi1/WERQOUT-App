@@ -129,7 +129,7 @@ public class LoginScreen extends AppCompatActivity {
     {
         if (userSpinner.getSelectedItem().toString().equals("Athlete"))
         {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/all";
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "all";
             userType = 0;
         }
         else if (userSpinner.getSelectedItem().toString().equals("Coach"))

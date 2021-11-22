@@ -55,7 +55,7 @@ public class SearchScreen extends AppCompatActivity {
     /**
      * The filter that is currently being applied to the search results
      */
-    private int currentFilter = 3;
+    private int currentFilter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class SearchScreen extends AppCompatActivity {
         Button filterAthletes = findViewById(R.id.filter_athletes_button_search_screen);
         Button filterCoaches = findViewById(R.id.filter_coaches_button_search_screen);
         Button filterGyms = findViewById(R.id.filter_gym_button_serach_screen);
-        getSearchResults(Const.POSTMAN_TEST_URL);
+        getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all");
 
         filterAthletes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +82,8 @@ public class SearchScreen extends AppCompatActivity {
              */
             public void onClick(View view) {
                 currentFilter = 1;
-//                getSearchResults(Const.URL_JSON_REQUEST_COACHES);
-                getSearchResults(Const.POSTMAN_TEST_URL + "/coaches");
+                getSearchResults(Const.URL_JSON_REQUEST_COACHES);
+//                getSearchResults(Const.POSTMAN_TEST_URL + "/coaches");
             }
         });
         filterGyms.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class SearchScreen extends AppCompatActivity {
              */
             public void onClick(View view) {
                 currentFilter = 2;
-//                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER);
+                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER);
             }
         });
     }
