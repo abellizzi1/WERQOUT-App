@@ -106,7 +106,12 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         returnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                if(User.currentUser.getUserType().equals("Athlete")) {
+                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                }
+                else if(User.currentUser.getUserType().equals("Coach")) {
+                    startActivity(new Intent(getApplicationContext(), CoachHomeScreen.class));
+                }
             }
         });
 

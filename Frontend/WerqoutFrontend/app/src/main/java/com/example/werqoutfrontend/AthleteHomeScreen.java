@@ -124,7 +124,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
-
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
     }
 
     private void getWeather()
