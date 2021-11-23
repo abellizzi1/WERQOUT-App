@@ -5,18 +5,22 @@
       <map>
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/cell_shape.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_baseline_coach_24.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_baseline_gym_24.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.12760416666666666" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_default_account_box.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_event.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/ic_team.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/message_color_sidebar.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/drawable/profile_window.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_edit_profile_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_messages_screen.xml" value="0.28907563025210087" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_profile_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_recycler_view_component.xml" value="0.353125" />
-        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_search_screen.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_search_screen.xml" value="0.22" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/activity_select_message_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/athlete_home_screen.xml" value="0.22" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/coach_home_screen.xml" value="0.121875" />
+        <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/group_info_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/message_layout_user.xml" value="0.1796875" />
         <entry key="..\:/Users/Colin/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/recycler_view_component.xml" value="0.3333333333333333" />
@@ -42,9 +46,8 @@
     </option>
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../../../../Program Files (x86)/javadocwerq" />
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Javadocs" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
     <option name="OTHER_OPTIONS" value="-encoding utf-8 -sourcepath /path/to/sdk/platforms/android-##/android.jar" />
     <option name="OPTION_INCLUDE_LIBS" value="true" />
   </component>

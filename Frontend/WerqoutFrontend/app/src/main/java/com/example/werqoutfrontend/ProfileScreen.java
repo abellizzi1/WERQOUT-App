@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.model.Coach;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
@@ -63,15 +64,30 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
 
         //If the profile screen is accessed from the search screen, display the profile image of the
         //selected user here
-        if(getIntent().getSerializableExtra("calledFrom") != null)
+        if(getIntent().getSerializableExtra("userType") != null)
         {
             editProfile.setVisibility(View.GONE);
-            Athlete athlete = (Athlete) getIntent().getSerializableExtra("athlete");
-            usernameText.setText(athlete.getUsername());
-            idText.setText("User ID: " + athlete.getId());
-            userTypeText.setText("User type: " + athlete.getUserType());
-            emailText.setText("Email: " + athlete.getEmail());
-            bioText.append("Successfully viewed from the search activity");
+            if(getIntent().getSerializableExtra("userType").equals("athlete"))
+            {
+                Athlete user = (Athlete) getIntent().getSerializableExtra("athlete");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+            }
+            else if(getIntent().getSerializableExtra("userType").equals("coach"))
+            {
+                Coach user = (Coach) getIntent().getSerializableExtra("coach");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+            }
+            else{
+                Coach user = (Coach) getIntent().getSerializableExtra("coach");
+            }
         }
         //If the profile screen is accessed from the home screen, then simply display the current
         //user's profile information
