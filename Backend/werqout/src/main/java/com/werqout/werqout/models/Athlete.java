@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -70,6 +71,9 @@ public class Athlete {
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
+    @OneToMany
+    private List<AthleteDM> dms = new ArrayList<>();
+    
     // Constructors ==========================================================================================
 
     
@@ -131,5 +135,23 @@ public class Athlete {
     
     public void removeTeam(Team team) {
     	teams.remove(team);
+    }
+    
+    // Manage DMs
+    
+    public List<AthleteDM> getOpenDMs(){
+    	return dms;
+    }
+    
+    public void addDM(AthleteDM dm) {
+    	dms.add(dm);
+    }
+    
+    public void removeDM(AthleteDM dm) {
+    	dms.remove(dm);
+    }
+    
+    public void sendDM(AthleteDM dm, String message) {
+    	dm.sendMessage(this, message);
     }
 }
