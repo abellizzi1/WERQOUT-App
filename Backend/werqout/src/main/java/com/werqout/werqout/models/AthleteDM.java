@@ -6,7 +6,10 @@ import java.util.Stack;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -21,6 +24,7 @@ import javax.persistence.ManyToOne;
 public class AthleteDM {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	// Id of first athlete in relationship
@@ -39,6 +43,8 @@ public class AthleteDM {
 		this.athlete1 = athlete1;
 		this.athlete2 = athlete2;
 	}
+	
+	public AthleteDM() {}
 	
 	/**
 	 * Adds a message to this relationship by pushing it to the messages stack
@@ -89,4 +95,27 @@ public class AthleteDM {
 		return toReturn;
 	}
 	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public Athlete getAthlete1() {
+		return athlete1;
+	}
+	
+	public Athlete getAthlete2() {
+		return athlete2;
+	}
+	
+	public void setAthlete1(Athlete athlete) {
+		athlete1 = athlete;
+	}
+	
+	public void setAthlete2(Athlete athlete) {
+		athlete2 = athlete;
+	}
 }

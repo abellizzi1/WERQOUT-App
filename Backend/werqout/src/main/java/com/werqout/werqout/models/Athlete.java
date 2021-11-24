@@ -72,6 +72,9 @@ public class Athlete {
     private List<Team> teams = new ArrayList<Team>();
     
     @OneToMany
+    @JsonIgnore
+    @JoinTable(name="athlete_dms",
+    		   joinColumns = @JoinColumn(name = ""))
     private List<AthleteDM> dms = new ArrayList<>();
     
     // Constructors ==========================================================================================
