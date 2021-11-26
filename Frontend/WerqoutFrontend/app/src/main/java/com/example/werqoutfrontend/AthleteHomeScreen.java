@@ -41,6 +41,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
      */
     private LinearLayout linearScroll;
 
+    private static JSONObject athleteTeam;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to athlete_home_screen.xml
@@ -96,6 +98,19 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
 
+        // /athletes/{id}/teams
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/" + LoginScreen.getId() + "/teams";
+        ServerRequest getTeamRequest = new ServerRequest();
+        getTeamRequest.jsonGetRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                athleteTeam = result;
+            }
+            @Override
+            public void onSuccess(JSONArray result) {
+            }
+        }, Const.CURRENT_URL);
+
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
@@ -124,7 +139,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
-
     }
 
     private void getWeather()
@@ -161,5 +175,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onSuccess(JSONArray result) {
             }
         },Const.WEATHER_API);
+    }
+
+    public static JSONObject getAthleteTeam()
+    {
+        return athleteTeam;
     }
 }
