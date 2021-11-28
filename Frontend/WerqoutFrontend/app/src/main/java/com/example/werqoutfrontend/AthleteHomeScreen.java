@@ -43,6 +43,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
     private static JSONObject athleteTeam;
 
+    private static int test1 = 0;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to athlete_home_screen.xml
@@ -66,6 +68,19 @@ public class AthleteHomeScreen extends AppCompatActivity {
         Button profileButton = findViewById(R.id.profile_button_athlete_home);
         Button messageButton = findViewById(R.id.messages_button_athlete_home);
         Button searchButton = findViewById(R.id.search_button_athlete_home);
+        Button myGroupButton = findViewById(R.id.myGroup_button_athlete_home);
+
+        myGroupButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the MyGroup screen when the "My Group"
+             * button is clicked.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), AthleteMyGroupScreen.class));
+            }
+        });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -101,15 +116,21 @@ public class AthleteHomeScreen extends AppCompatActivity {
         // /athletes/{id}/teams
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/" + LoginScreen.getId() + "/teams";
         ServerRequest getTeamRequest = new ServerRequest();
-        getTeamRequest.jsonGetRequest(new VolleyCallback() {
+        getTeamRequest.jsonArrayRequest(new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
-                athleteTeam = result;
             }
             @Override
             public void onSuccess(JSONArray result) {
+                test1 =1;
+                try {
+                    athleteTeam = result.getJSONObject(0);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, Const.CURRENT_URL);
+        JSONObject test = athleteTeam;
 
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
         ServerRequest allWorkouts = new ServerRequest();
