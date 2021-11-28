@@ -71,11 +71,19 @@ public class Athlete {
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "athlete_dms",
+    		   joinColumns = @JoinColumn(name = "athlete_id"),
+    		   inverseJoinColumns = @JoinColumn(name = "dm_id"))
     @JsonIgnore
-    @JoinTable(name="athlete_dms",
-    		   joinColumns = @JoinColumn(name = ""))
     private List<AthleteDM> dms = new ArrayList<>();
+    
+    @OneToMany
+    @JoinTable(name = "athlete_send_dms",
+    		   joinColumns = @JoinColumn(name = "athlete_id"),
+    		   inverseJoinColumns = @JoinColumn(name = "message_id"))
+    @JsonIgnore
+    private List<AthleteMessage> sentDMs = new ArrayList<AthleteMessage>();
     
     // Constructors ==========================================================================================
 
@@ -142,6 +150,7 @@ public class Athlete {
     
     // Manage DMs
     
+    @JsonIgnore
     public List<AthleteDM> getOpenDMs(){
     	return dms;
     }
@@ -154,7 +163,7 @@ public class Athlete {
     	dms.remove(dm);
     }
     
-    public void sendDM(AthleteDM dm, String message) {
-    	dm.sendMessage(this, message);
+    public void sendDM(AthleteDM dm, AthleteMessage message) {
+    	dm.sendMessage(message);
     }
 }

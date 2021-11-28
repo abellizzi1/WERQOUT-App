@@ -2,15 +2,22 @@ package com.werqout.werqout.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.werqout.werqout.repository.AthleteMessageRepository;
 
 /**
  * @author evanu
@@ -23,25 +30,25 @@ import javax.persistence.ManyToOne;
 @Entity
 public class AthleteDM {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	// Id of first athlete in relationship
-	@ManyToOne
-	private Athlete athlete1;
-	
-	// Id of second athlete in relationship
-	@ManyToOne
-	private Athlete athlete2;
+	@ManyToMany(mappedBy = "dms")
+	@JsonIgnore
+	private List<Athlete> athletes = new ArrayList<Athlete>();
 	
 	// Stack which contains messages between these users
-	@Column(name = "messages")
-	private Stack<AthleteMessage> messages = new Stack<>();
+	@OneToMany
+	@JoinTable(name = "athlete_messages",
+			   joinColumns = @JoinColumn(name = "dm_id"),
+			   inverseJoinColumns = @JoinColumn(name = "message_id"))
+	private List<AthleteMessage> messages = new ArrayList<AthleteMessage>();
 	
 	public AthleteDM(Athlete athlete1, Athlete athlete2) {
-		this.athlete1 = athlete1;
-		this.athlete2 = athlete2;
+		athletes.add(athlete1);
+		athletes.add(athlete2);
 	}
 	
 	public AthleteDM() {}
@@ -56,16 +63,14 @@ public class AthleteDM {
 	 * @param data
 	 * 	 String which represents the actual message to be sent
 	 */
-	public void sendMessage(Athlete from, String data) {
+	public void sendMessage(AthleteMessage message) {
 		
 		// Check that the from and to parameters both represent an athlete in the relationship
 		
-		if(from == athlete1) {
-			AthleteMessage message = new AthleteMessage(from, data);
-			messages.push(message);
-		} else if(from == athlete2) {
-			AthleteMessage message = new AthleteMessage(from, data);
-			messages.push(message);
+		if(message.getFrom() == athletes.get(0)) {
+			messages.add(message);
+		} else if(message.getFrom() == athletes.get(1)) {
+			messages.add(message);
 		} else {
 		// If not, illegal argument
 		throw new IllegalArgumentException();
@@ -89,7 +94,7 @@ public class AthleteDM {
 		}
 		
 		// Iterate through stack getting messages, adding each to a list to be returned
-		for(int i = 0; i < numToRetrieve; i++) {
+		for(int i = numToRetrieve - 1; i >= 0; i--) {
 			toReturn.add(messages.get(i));
 		}
 		return toReturn;
@@ -104,18 +109,24 @@ public class AthleteDM {
 	}
 	
 	public Athlete getAthlete1() {
-		return athlete1;
+		return athletes.get(0);
 	}
 	
 	public Athlete getAthlete2() {
-		return athlete2;
+		return athletes.get(1);
 	}
 	
 	public void setAthlete1(Athlete athlete) {
-		athlete1 = athlete;
+		if(athletes.get(0) == null)
+			athletes.add(0, athlete);
+		else
+			athletes.set(0, athlete);
 	}
 	
 	public void setAthlete2(Athlete athlete) {
-		athlete2 = athlete;
+		if(athletes.get(1) == null)
+			athletes.add(1, athlete);
+		else
+			athletes.set(1, athlete);
 	}
 }
