@@ -15,37 +15,63 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.werqout.werqout.controllers.AthleteController;
+import com.werqout.werqout.models.Athlete;
+import com.werqout.werqout.models.AthleteDM;
+import com.werqout.werqout.models.AthleteMessage;
+import com.werqout.werqout.repository.AthleteDMRepository;
+import com.werqout.werqout.repository.AthleteMessageRepository;
+import com.werqout.werqout.repository.AthleteRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
-@ServerEndpoint("/message/{userName}")
+@ServerEndpoint("/message/{athleteID}")
 @Component
-public class MessagingWebSocket {
+@ComponentScan
+public class AthleteMessagingWebsocket {
 	
-	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
-	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+	@Autowired
+	AthleteRepository athleteRepository;
 	
-	private final Logger logger = LoggerFactory.getLogger(MessagingWebSocket.class);
+	@Autowired
+	AthleteDMRepository athleteDMRepository;
+	
+	@Autowired
+	AthleteMessageRepository athleteMessageRepository;
+	
+	AthleteController athleteController;
+	
+	private static Map<Session, Long> sessionUsernameMap = new Hashtable<>();
+	private static Map<Long, Session> usernameSessionMap = new Hashtable<>();
+	
+	private final Logger logger = LoggerFactory.getLogger(AthleteMessagingWebsocket.class);
 	
 	@OnOpen
-	public void onOpen(Session session, @PathParam("userName") String username) 
+	public void onOpen(Session session, @PathParam("athleteID") long id) 
 	throws IOException {
 		logger.info("Session opened");
 		
-		sessionUsernameMap.put(session, username);
-		usernameSessionMap.put(username, session);
+		sessionUsernameMap.put(session, id);
+		usernameSessionMap.put(id, session);
 		
-		String message = "User " + username + " is online.";
-		broadcast(message);
+		//Athlete athlete = athleteRepository.findById(id);
+		
+		Athlete athlete = athleteController.getAthlete(id);
+		
+		String message = "Athlete with id: " + id + " is online.";
+		
+		for(Athlete i : athlete.getAthletesDMing()) 
+			broadcastToAthlete(message, i.getId());
 	}
 	
 	
-	// Handles messages. DMs are in format "@Username:message"
+	// Handles messages. DMs are in format "@id:message"
 	@OnMessage
 	public void onMessage(Session session, String inString) throws IOException {
 		
-		// Gets session of user sending message
-		String username = sessionUsernameMap.get(session);
+		long id = sessionUsernameMap.get(session);
 		
 		// Handles DM operation
 		if(inString.startsWith("@")) {
@@ -55,7 +81,7 @@ public class MessagingWebSocket {
 			
 			// Iterate through array and find index of first space, set delimiter, break when found in case message contains spaces
 			for(int i = 0; i < inString.length(); i++) {
-				if(inString.toCharArray()[i] == ' ') {
+				if(inString.toCharArray()[i] == ':') {
 					delimiter = i;
 					break;
 				}
@@ -71,34 +97,66 @@ public class MessagingWebSocket {
 			// Second is the first character after the delimiter until the end of the string
 			String message = inString.substring(delimiter + 1);
 			
+			long TOid = Integer.parseInt(dstUser);
 			// Send message to both users involved
-			sendDirectMessage(dstUser, "[DM]" + username + ":" + message);
-			sendDirectMessage(username, "[DM]" + username + ":" + message);
+			sendDirectMessage(TOid, session, message);
 		}
 		else { // If no '@', this is a broadcast
-			broadcast(username + ':' + inString);
+			broadcast(id + ':' + inString);
 		}
 	}
 	
 	@OnClose
 	public void onClose(Session session) throws IOException {
-		String username = sessionUsernameMap.get(session);
+		long id = sessionUsernameMap.get(session);
 		
 		sessionUsernameMap.remove(session);
-		usernameSessionMap.remove(username);
+		usernameSessionMap.remove(id);
 		
-		String message = username + " disconnected";
-		broadcast(message);
+		String message = id + " disconnected";
+		Athlete athlete = athleteRepository.findById(id);
+		
+		for(Athlete i : athlete.getAthletesDMing())
+			broadcastToAthlete(message, i.getId());
 	}
 	
 	@OnError
 	public void onError(Session session, Throwable throwable) {
-		logger.info("Error");
+		logger.info("Error" + sessionUsernameMap.get(session));
 	}
 	
-	private void sendDirectMessage(String username, String message) {
+	private void sendDirectMessage(long id, Session session, String message) {
 		try {
-			usernameSessionMap.get(username).getBasicRemote().sendText(message);
+			Athlete toAthlete = athleteRepository.findById(id);
+			long fromId = sessionUsernameMap.get(session);
+			Athlete fromAthlete = athleteRepository.findById(fromId);
+			
+			AthleteDM dm = fromAthlete.getDMWithAthlete(toAthlete);
+			
+			if(dm == null) {
+				dm = athleteDMRepository.save(new AthleteDM(toAthlete, fromAthlete));
+				toAthlete.addDM(dm);
+				fromAthlete.addDM(dm);
+				athleteRepository.save(toAthlete);
+				athleteRepository.save(fromAthlete);
+			}
+			
+			AthleteMessage toSend = new AthleteMessage(fromAthlete, message, dm);
+			athleteMessageRepository.save(toSend);
+			
+			dm.sendMessage(toSend);
+			athleteDMRepository.save(dm);
+			
+			usernameSessionMap.get(id).getBasicRemote().sendText(fromId + ':' + message);
+		} catch(IOException e) {
+			logger.info("Exception: " + e.getMessage().toString());
+			e.printStackTrace();
+		}
+	}
+	
+	private void broadcastToAthlete(String message, long id) {
+		try {
+			usernameSessionMap.get(id).getBasicRemote().sendText(message);
 		} catch(IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
 			e.printStackTrace();

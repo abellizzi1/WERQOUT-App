@@ -155,6 +155,28 @@ public class Athlete {
     	return dms;
     }
     
+    @JsonIgnore
+    public List<Athlete> getAthletesDMing() {
+    	List<Athlete> toReturn = new ArrayList<>();
+    	
+    	for(AthleteDM i : dms) {
+    		if(i.getAthlete1().equals(this))
+    			toReturn.add(i.getAthlete2());
+    		else
+    			toReturn.add(i.getAthlete1());
+    	}
+    	
+    	return toReturn;
+    }
+    
+    public AthleteDM getDMWithAthlete(Athlete athlete) {
+    	for(AthleteDM i : dms) {
+    		if(i.getAthlete1().equals(athlete) || i.getAthlete2().equals(athlete))
+    			return i;
+    	}
+    	return null;
+    }
+    
     public void addDM(AthleteDM dm) {
     	dms.add(dm);
     }
