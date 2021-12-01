@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -54,7 +54,7 @@ public class Event {
     /**
      * Team at this specific time 
      */
-    @OneToMany
+    @ManyToMany
     @JsonIgnore
     @JoinTable(name="gym",
             joinColumns = @JoinColumn(name = "event_id"),
