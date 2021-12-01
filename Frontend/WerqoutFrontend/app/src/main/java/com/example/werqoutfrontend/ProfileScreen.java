@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.Athlete;
@@ -51,6 +50,8 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
      */
     private TextView bioText;
     private TextView ratingText;
+    private TextView idText;
+    private Button rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,9 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         emailText = findViewById((R.id.email_text_profile_screen));
         bioText = findViewById(R.id.bio_profileScreen);
         ratingText = findViewById(R.id.rating_textview_profile_page);
-        TextView idText = findViewById(R.id.userID_text_profile_screen);
+        idText = findViewById(R.id.userID_text_profile_screen);
 
+        rate = findViewById(R.id.rate_button_profile_screen);
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
         Button returnHome = findViewById(R.id.return_button_profile_screen);
 
@@ -82,6 +84,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 emailText.setText("Email: " + user.getEmail());
                 bioText.append("Successfully viewed from the search activity");
                 ratingText.setVisibility(View.GONE);
+                rate.setVisibility(View.GONE);
 
             }
             else if(getIntent().getSerializableExtra("userType").equals("coach"))
@@ -116,6 +119,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             {
                 ratingText.setVisibility(View.GONE);
             }
+            rate.setVisibility(View.GONE);
         }
         /*
         TODO: Once we are able to properly store images, replace this server request with the stored image
@@ -141,15 +145,26 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         returnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(User.currentUser.getUserType().equals("Athlete")) {
-                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
-                }
-                else if(User.currentUser.getUserType().equals("Coach")) {
-                    startActivity(new Intent(getApplicationContext(), CoachHomeScreen.class));
-                }
+                finish();
+            }
+        });
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ratingPopup();
             }
         });
 
+    }
 
+    private void ratingPopup()
+    {
+        Intent intent = new Intent(getApplicationContext(), RatingPopUp.class);
+        String rt = userTypeText.getText().toString().substring(11);
+        String idString = idText.getText().toString();
+        String id = idString.substring(idString.length() - 1);
+        intent.putExtra("ratingType", rt);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }

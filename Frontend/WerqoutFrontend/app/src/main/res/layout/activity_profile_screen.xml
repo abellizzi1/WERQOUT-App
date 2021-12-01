@@ -137,6 +137,22 @@
     </androidx.cardview.widget.CardView>
 
     <Button
+        android:id="@+id/rate_button_profile_screen"
+        android:layout_width="320dp"
+        android:layout_height="46dp"
+        android:backgroundTint="@color/black"
+        android:text="Leave Rating"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/return_button_profile_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2"
+        app:layout_constraintVertical_bias="0.476"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2sp" />
+
+    <Button
         android:id="@+id/return_button_profile_screen"
         android:layout_width="320dp"
         android:layout_height="46dp"

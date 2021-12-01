@@ -117,7 +117,7 @@ public class EditProfileScreen extends AppCompatActivity {
              * screen
              */
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ProfileScreen.class));
+                finish();
             }
         });
         /*
