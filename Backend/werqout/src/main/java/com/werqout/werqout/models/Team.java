@@ -191,4 +191,12 @@ public class Team {
 		this.coach = null;
 	}
 
+	public Event getEvent(){
+		return this.event;
+	}
+
+	public void setEvent(Event e){
+		this.event = e;
+	}
+
 }
