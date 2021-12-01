@@ -145,7 +145,9 @@ public class EventController {
         }
         else{
         go.setEvent(null);
+        eventRepository.deleteById(eventID);
         gymOwnerRepository.save(go);
+        eventRepository.save(e);
         return "Event " + e.getId() + " has been deleted";
         }
         
@@ -160,9 +162,9 @@ public class EventController {
      */
     @GetMapping("/team/{teamID}/events")
     @ApiOperation(value = "Gets the events created by the team by the team's id", response = Iterable.class, tags = "getTeamEvents")
-    public Event getTeamEvents(@PathVariable long teamID){
+    public List<Event> getTeamEvents(@PathVariable long teamID){
         //todo- filter by date
-       return teamRepository.findById(teamID).getEvent();
+       return teamRepository.findById(teamID).getEvents();
     }
     /**
      * Allows a team to create an event
@@ -176,7 +178,7 @@ public class EventController {
         Team t = teamRepository.findById(teamID);
 
         if (t != null){
-            t.setEvent(e);
+            t.addEvent(e);
             eventRepository.save(e);
             return eventRepository.findById(e.getId());
         }
@@ -204,8 +206,10 @@ public class EventController {
             return "no such team or event";
         }
         else{
-        t.setEvent(null);
+        t.removeEvent(e);
+        eventRepository.deleteById(eventID);
         teamRepository.save(t);
+        eventRepository.save(e);
         return "Event " + e.getId() + " has been deleted";
         }
         

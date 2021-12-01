@@ -69,10 +69,10 @@ public class Team {
 	/**
 	 * Event that the team is attending
 	 */
-	@ManyToOne
+	@ManyToMany
     @JoinColumn(name = "event_id")
     @JsonIgnore
-    private Event event;    
+    private List<Event> events = new ArrayList<Event>();    
 	
 	/**
 	 * Create a new teamand set key parameters
@@ -191,12 +191,20 @@ public class Team {
 		this.coach = null;
 	}
 
-	public Event getEvent(){
-		return this.event;
+	public List<Event> getEvents(){
+		return this.events;
 	}
 
-	public void setEvent(Event e){
-		this.event = e;
+	public void addEvent(Event e){
+		this.events.add(e);
+	}
+
+	public void removeEvent(Event e){
+		this.events.remove(e);
+	}
+
+	public boolean hasEvent(Event e){
+		return events.contains(e);
 	}
 
 }
