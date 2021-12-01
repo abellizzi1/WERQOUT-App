@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.model.Coach;
+import com.example.werqoutfrontend.model.GymOwner;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
@@ -47,6 +50,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
      * A textview used to display a user's bio
      */
     private TextView bioText;
+    private TextView ratingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         userTypeText = findViewById(R.id.userType_text_profile_screen);
         emailText = findViewById((R.id.email_text_profile_screen));
         bioText = findViewById(R.id.bio_profileScreen);
+        ratingText = findViewById(R.id.rating_textview_profile_page);
         TextView idText = findViewById(R.id.userID_text_profile_screen);
 
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
@@ -66,6 +71,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         //selected user here
         if(getIntent().getSerializableExtra("userType") != null)
         {
+            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.linear);
             editProfile.setVisibility(View.GONE);
             if(getIntent().getSerializableExtra("userType").equals("athlete"))
             {
@@ -75,6 +81,8 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 userTypeText.setText("User type: " + user.getUserType());
                 emailText.setText("Email: " + user.getEmail());
                 bioText.append("Successfully viewed from the search activity");
+                ratingText.setVisibility(View.GONE);
+
             }
             else if(getIntent().getSerializableExtra("userType").equals("coach"))
             {
@@ -84,9 +92,16 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 userTypeText.setText("User type: " + user.getUserType());
                 emailText.setText("Email: " + user.getEmail());
                 bioText.append("Successfully viewed from the search activity");
+                ratingText.append(Double.toString(user.getRating()));
             }
             else{
-                Coach user = (Coach) getIntent().getSerializableExtra("coach");
+                GymOwner user = (GymOwner) getIntent().getSerializableExtra("gymOwner");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+                ratingText.append(Double.toString(user.getRating()));
             }
         }
         //If the profile screen is accessed from the home screen, then simply display the current
@@ -97,6 +112,10 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             userTypeText.setText("User type: " + User.currentUser.getUserType());
             emailText.setText("Email: " + User.currentUser.getEmail());
             bioText.append(" The one and only :)");
+            if(User.currentUser.getUserType().equalsIgnoreCase("athlete"))
+            {
+                ratingText.setVisibility(View.GONE);
+            }
         }
         /*
         TODO: Once we are able to properly store images, replace this server request with the stored image

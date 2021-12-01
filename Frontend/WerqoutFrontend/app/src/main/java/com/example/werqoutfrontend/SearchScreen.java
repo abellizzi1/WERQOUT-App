@@ -13,6 +13,7 @@ import android.widget.SearchView;
 
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.model.Coach;
+import com.example.werqoutfrontend.model.GymOwner;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
@@ -262,6 +263,19 @@ public class SearchScreen extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
                         intent.putExtra("coach",coach);
                         intent.putExtra("userType", "coach");
+                        startActivity(intent);
+                    }
+                    else if(resultType == 2)
+                    {
+                        String email = jsonObject.getString("email");
+                        String username = jsonObject.getString("userName");
+                        int id = jsonObject.getInt("id");
+                        double rating = jsonObject.getDouble("rating");
+                        int numRatings = jsonObject.getInt("numRatings");
+                        GymOwner gymOwner = new GymOwner(email, null, username, id, rating, numRatings);
+                        Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
+                        intent.putExtra("gymOwner", gymOwner);
+                        intent.putExtra("userType", "gymOwner");
                         startActivity(intent);
                     }
 
