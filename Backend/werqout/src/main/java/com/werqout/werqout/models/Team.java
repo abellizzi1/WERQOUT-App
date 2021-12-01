@@ -191,4 +191,8 @@ public class Team {
 		this.coach = null;
 	}
 
+	public long getEventID(){
+		return this.event.getId();
+	}
+
 }

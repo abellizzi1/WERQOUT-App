@@ -50,5 +50,19 @@ public class EventTests {
         g.setEvent(null);
         assertEquals(null, g.getEvent());
     }
+
+    @Test
+    public void testTeam() throws ParseException{
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        Date d = format.parse("01-01-2021");
+        Event e = new Event(1,d,"team event");
+
+        //undefined until mr is approved
+        t.setEvent(e);
+        assertEquals(1, t.getEventID());
+        assertEquals("team event", e.getDescription());
+        assertEquals(d, e.getDate());
+        
+    }
     
 }
