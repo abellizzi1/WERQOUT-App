@@ -162,7 +162,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         });
 
         // get all workouts and add them to the scroll view
-        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/events";
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -210,7 +210,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                 String workoutUrl = "";
                 try {
                     // /events/{id}
-                    workoutUrl = "http://coms-309-034.cs.iastate.edu:8080/events/" + selectedWorkoutJson.get("id");
+                    workoutUrl = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/" + selectedWorkoutJson.get("id");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
