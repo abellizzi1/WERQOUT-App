@@ -171,7 +171,7 @@ public class Athlete {
     
     public AthleteDM getDMWithAthlete(Athlete athlete) {
     	for(AthleteDM i : dms) {
-    		if(i.getAthlete1().equals(athlete) || i.getAthlete2().equals(athlete))
+    		if(i.getAthlete1().getId() == id || i.getAthlete2().getId() == id)
     			return i;
     	}
     	return null;

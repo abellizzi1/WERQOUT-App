@@ -137,6 +137,11 @@ public class AthleteController {
     	return athleteRepository.findById(id).getOpenDMs();
     }
     
+    @GetMapping("/dms/{id}")
+    public List<AthleteMessage> getMessages(@PathVariable long id){
+    	return athleteDMRepository.findById(id).getMessages();
+    }
+    
     /**
      * createDM
      *   Create a new DM object and map it to two athletes

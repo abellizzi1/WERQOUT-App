@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +27,6 @@ public class AthleteMessage {
 	// Athlete whom this message is from
 	@ManyToOne
 	@JoinColumn(name = "athlete_id")
-	@JsonIgnore
 	private Athlete from;
 	
 	// DM which this message is in
@@ -61,7 +59,6 @@ public class AthleteMessage {
 		this.data = data;
 	}
 	
-	@JsonIgnore
 	public Athlete getFrom() {
 		return from;
 	}

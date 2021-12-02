@@ -1,7 +1,6 @@
 package com.werqout.werqout.websockets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +13,11 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.werqout.werqout.controllers.AthleteController;
 import com.werqout.werqout.models.Athlete;
 import com.werqout.werqout.models.AthleteDM;
 import com.werqout.werqout.models.AthleteMessage;
@@ -63,21 +62,23 @@ public class AthleteMessagingWebsocket {
 	@OnOpen
 	public void onOpen(Session session, @PathParam("athleteID") long id) 
 	throws IOException {
-		logger.info("Session opened");
 		
+		// Put athlete into session
 		sessionUsernameMap.put(session, id);
 		usernameSessionMap.put(id, session);
-		
-		//Athlete athlete = athleteRepository.findById(id);
-		
-		//Athlete athlete = athleteController.getAthlete(id);
+		logger.info("Session opened");
 		
 		String message = "Athlete with id: " + id + " is online.";
 		
 		List<Athlete> dms = athleteRepository.findById(id).getAthletesDMing();
 		
-		for(Athlete i : dms) 
+		// Iterate through athletes dming with notify them that this athlete is online
+		for(Athlete i : dms) {
 			broadcastToAthlete(message, i.getId());
+			if(usernameSessionMap.get(i.getId()) != null)
+				// List to current user which athletes they are dming with are online
+				broadcastToAthlete("Athlete with id: " + i.getId() + " is online", id);
+		}
 	}
 	
 	
@@ -124,12 +125,14 @@ public class AthleteMessagingWebsocket {
 	public void onClose(Session session) throws IOException {
 		long id = sessionUsernameMap.get(session);
 		
+		// Remove athlete from session
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(id);
 		
 		String message = id + " disconnected";
 		Athlete athlete = athleteRepository.findById(id);
 		
+		// Notify athletes DMing with that this athlete is now offline
 		for(Athlete i : athlete.getAthletesDMing())
 			broadcastToAthlete(message, i.getId());
 	}
@@ -141,12 +144,15 @@ public class AthleteMessagingWebsocket {
 	
 	private void sendDirectMessage(long id, Session session, String message) {
 		try {
+			
+			// Get all of the objects we need for the operation
 			Athlete toAthlete = athleteRepository.findById(id);
 			long fromId = sessionUsernameMap.get(session);
 			Athlete fromAthlete = athleteRepository.findById(fromId);
 			
 			AthleteDM dm = fromAthlete.getDMWithAthlete(toAthlete);
 			
+			// If there is no current relationship between these athletes, create a new AthleteDM
 			if(dm == null) {
 				dm = athleteDMRepository.save(new AthleteDM(toAthlete, fromAthlete));
 				toAthlete.addDM(dm);
@@ -155,13 +161,19 @@ public class AthleteMessagingWebsocket {
 				athleteRepository.save(fromAthlete);
 			}
 			
+			// Instantiate and save message that is being sent
 			AthleteMessage toSend = new AthleteMessage(fromAthlete, message, dm);
-			athleteMessageRepository.save(toSend);
 			
-			dm.sendMessage(toSend);
+			toSend = athleteMessageRepository.save(toSend);
+			
+			Hibernate.initialize(dm);
+			
+			dm = athleteDMRepository.findById(dm.getId());
+			dm.addMessage(toSend);
 			athleteDMRepository.save(dm);
 			
-			usernameSessionMap.get(id).getBasicRemote().sendText(fromId + ':' + message);
+			// Notify athlete message was sent to that DM was sent
+			usernameSessionMap.get(id).getBasicRemote().sendText(fromId + ":" + message);
 		} catch(IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
 			e.printStackTrace();
@@ -170,7 +182,10 @@ public class AthleteMessagingWebsocket {
 	
 	private void broadcastToAthlete(String message, long id) {
 		try {
-			usernameSessionMap.get(id).getBasicRemote().sendText(message);
+			Session gottenSession = usernameSessionMap.get(id);
+			if(gottenSession != null) {
+				gottenSession.getBasicRemote().sendText(message);
+			}
 		} catch(IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
 			e.printStackTrace();

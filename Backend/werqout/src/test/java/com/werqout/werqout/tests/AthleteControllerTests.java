@@ -2,22 +2,17 @@ package com.werqout.werqout.tests;
 
 import static org.mockito.Matchers.any;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.anyInt;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +22,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 
 import com.werqout.werqout.repository.AthleteRepository;
-import com.werqout.werqout.controllers.AthleteController;
 import com.werqout.werqout.models.Athlete;
 
 import java.util.ArrayList;
@@ -58,7 +51,6 @@ public class AthleteControllerTests {
 	@Test
 	public void testAthleteController() throws Exception {
 		List<Athlete> l = new ArrayList<Athlete>();
-		List<Athlete> ret;
 		
 		when(r.findAll()).thenReturn(l);
 		

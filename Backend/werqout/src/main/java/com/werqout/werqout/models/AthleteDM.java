@@ -3,8 +3,8 @@ package com.werqout.werqout.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.werqout.werqout.repository.AthleteMessageRepository;
 
 /**
  * @author evanu
@@ -36,16 +36,20 @@ public class AthleteDM {
 	private long id;
 	
 	// List of athletes in this dm, generally two
-	@ManyToMany(mappedBy = "dms")
+	@ManyToMany(mappedBy = "dms",
+			    fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Athlete> athletes = new ArrayList<Athlete>();
 	
 	// List of messages between these two athletes. Highest index is most recent
 	@OneToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "athlete_messages",
 			   joinColumns = @JoinColumn(name = "dm_id"),
 			   inverseJoinColumns = @JoinColumn(name = "message_id"))
 	private List<AthleteMessage> messages = new ArrayList<AthleteMessage>();
+	
+	
 	
 	public AthleteDM(Athlete athlete1, Athlete athlete2) {
 		athletes.add(athlete1);
@@ -67,12 +71,15 @@ public class AthleteDM {
 	public void sendMessage(AthleteMessage message) {
 		
 		// Check that the from and to parameters both represent an athlete in the relationship
+		Hibernate.initialize(messages);
+		System.out.println("wowee");
 		
-		if(message.getFrom() == athletes.get(0)) {
+		if(message.getFrom().getId() == athletes.get(0).getId()) {
 			messages.add(message);
-		} else if(message.getFrom() == athletes.get(1)) {
+		} else if(message.getFrom().getId() == athletes.get(1).getId()) {
 			messages.add(message);
 		} else {
+			
 		// If not, illegal argument
 		throw new IllegalArgumentException();
 		}
@@ -85,21 +92,21 @@ public class AthleteDM {
 	 * @return
 	 *   List containing the last 20 messages
 	 */
-	public List<AthleteMessage> getRecent(){
-		List<AthleteMessage> toReturn = new ArrayList<>();
-		
-		int numToRetrieve = 20;
-		// Avoid index out of bounds, if stack.size() < 20, we will retrieve stack.size() messages
-		if(messages.size() < 20) {
-			numToRetrieve = messages.size();
-		}
-		
-		// Iterate through stack getting messages, adding each to a list to be returned
-		for(int i = numToRetrieve - 1; i >= 0; i--) {
-			toReturn.add(messages.get(i));
-		}
-		return toReturn;
-	}
+//	public List<AthleteMessage> getRecent(){
+//		List<AthleteMessage> toReturn = new ArrayList<>();
+//		
+//		int numToRetrieve = 20;
+//		// Avoid index out of bounds, if stack.size() < 20, we will retrieve stack.size() messages
+//		if(messages.size() < 20) {
+//			numToRetrieve = messages.size();
+//		}
+//		
+//		// Iterate through stack getting messages, adding each to a list to be returned
+//		for(int i = numToRetrieve - 1; i >= 0; i--) {
+//			toReturn.add(messages.get(i));
+//		}
+//		return toReturn;
+//	}
 	
 	public long getId() {
 		return id;
@@ -129,5 +136,13 @@ public class AthleteDM {
 			athletes.add(1, athlete);
 		else
 			athletes.set(1, athlete);
+	}
+	
+	public List<AthleteMessage> getMessages() {
+		return messages;
+	}
+	
+	public void addMessage(AthleteMessage message) {
+		messages.add(message);
 	}
 }
