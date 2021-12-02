@@ -43,8 +43,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
     private static JSONObject athleteTeam;
 
-    private static int test1 = 0;
-
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to athlete_home_screen.xml
@@ -122,7 +120,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
             @Override
             public void onSuccess(JSONArray result) {
-                test1 =1;
                 try {
                     athleteTeam = result.getJSONObject(0);
                 } catch (JSONException e) {
@@ -130,7 +127,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
-        JSONObject test = athleteTeam;
 
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
         ServerRequest allWorkouts = new ServerRequest();

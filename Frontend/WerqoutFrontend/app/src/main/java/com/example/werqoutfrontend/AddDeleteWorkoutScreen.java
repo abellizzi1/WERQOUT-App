@@ -63,6 +63,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
 
     private static String selectedWorkoutString = "";
 
+    private JSONObject team;
+
+    private int teamId;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to add_delete_workout_screen.xml
@@ -77,6 +81,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_add_delete);
         jsonWorkoutsArray = new ArrayList<JSONObject>();
         Context context = this;
+        team = CoachGroupsScreen.getTeamInfo();
+        try {
+            teamId = ((int)team.get("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(AddDeleteWorkoutScreen.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.time));
@@ -144,7 +154,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                     params.put("description", workoutName);
                     params.put("date", formatDateTimeToDatabase(workoutDate, workoutTime, userSpinner.getSelectedItem().toString().equals("AM")));
                     ServerRequest request = new ServerRequest();
-                    Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/create";
+                    Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/createEvent";
                     request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
                     startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
                 }
