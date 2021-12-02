@@ -71,7 +71,7 @@ public class Athlete {
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "athlete_dms",
     		   joinColumns = @JoinColumn(name = "athlete_id"),
     		   inverseJoinColumns = @JoinColumn(name = "dm_id"))

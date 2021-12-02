@@ -25,11 +25,13 @@ public class AthleteMessage {
 	
 	private String data;
 	
+	// Athlete whom this message is from
 	@ManyToOne
 	@JoinColumn(name = "athlete_id")
 	@JsonIgnore
 	private Athlete from;
 	
+	// DM which this message is in
 	@ManyToOne
 	@JoinColumn(name = "dm_id")
 	@JsonIgnore

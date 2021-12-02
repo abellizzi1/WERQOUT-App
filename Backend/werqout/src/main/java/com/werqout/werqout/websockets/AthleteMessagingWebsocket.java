@@ -1,7 +1,9 @@
 package com.werqout.werqout.websockets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -32,16 +34,26 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 public class AthleteMessagingWebsocket {
 	
-	@Autowired
-	AthleteRepository athleteRepository;
+	static AthleteRepository athleteRepository;
 	
 	@Autowired
-	AthleteDMRepository athleteDMRepository;
+	public void setAthleteRepo(AthleteRepository repo) {
+		athleteRepository = repo;
+	}
+	
+	static AthleteDMRepository athleteDMRepository;
 	
 	@Autowired
-	AthleteMessageRepository athleteMessageRepository;
+	public void setAthleteDMRepo(AthleteDMRepository repo) {
+		athleteDMRepository = repo;
+	}
 	
-	AthleteController athleteController;
+	static AthleteMessageRepository athleteMessageRepository;
+	
+	@Autowired
+	public void setAthleteMessageRepo(AthleteMessageRepository repo) {
+		athleteMessageRepository = repo;
+	}
 	
 	private static Map<Session, Long> sessionUsernameMap = new Hashtable<>();
 	private static Map<Long, Session> usernameSessionMap = new Hashtable<>();
@@ -58,11 +70,13 @@ public class AthleteMessagingWebsocket {
 		
 		//Athlete athlete = athleteRepository.findById(id);
 		
-		Athlete athlete = athleteController.getAthlete(id);
+		//Athlete athlete = athleteController.getAthlete(id);
 		
 		String message = "Athlete with id: " + id + " is online.";
 		
-		for(Athlete i : athlete.getAthletesDMing()) 
+		List<Athlete> dms = athleteRepository.findById(id).getAthletesDMing();
+		
+		for(Athlete i : dms) 
 			broadcastToAthlete(message, i.getId());
 	}
 	
@@ -122,7 +136,7 @@ public class AthleteMessagingWebsocket {
 	
 	@OnError
 	public void onError(Session session, Throwable throwable) {
-		logger.info("Error" + sessionUsernameMap.get(session));
+		logger.info("Error" + sessionUsernameMap.get(session) + throwable.getMessage());
 	}
 	
 	private void sendDirectMessage(long id, Session session, String message) {

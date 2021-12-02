@@ -121,17 +121,45 @@ public class AthleteController {
     
     // Methods that control DMs ===============================================================================
     
+    /**
+     * getAllDMs
+     *   Get all dm objects this athlete is currently mapped to
+     * 
+     * @param id
+     *   id of athlete whose dms you want to get
+     * @return
+     *   list of AthleteDM objects, represents all users the athlete is messaging
+     */
+    
     @GetMapping("/{id}/dms")
     @ApiOperation(value = "Get all DM relationships belonging to this user", response = Iterable.class, tags = "getOpenDMs")
     public List<AthleteDM> getAllDMs(@PathVariable long id) {
     	return athleteRepository.findById(id).getOpenDMs();
     }
     
+    /**
+     * createDM
+     *   Create a new DM object and map it to two athletes
+     * 
+     * @param id0
+     *   id of first athlete to be mapped to new DM
+     * @param id1
+     *   id of second athlete to be mapped to new DM
+     */
+    
     @PostMapping("/{id0}/dms/{id1}")
     @ApiOperation(value = "Add new DM relationship between first id and second id", response = Iterable.class, tags = "createDM")
     public void createDM(@PathVariable long id0, @PathVariable long id1) {
     	Athlete athlete0 = athleteRepository.findById(id0);
     	Athlete athlete1 = athleteRepository.findById(id1);
+    	
+    	List<Athlete> a0dms = athlete0.getAthletesDMing();
+    	
+    	for(Athlete i : a0dms) {
+    		if(i.equals(athlete1)) {
+    			throw new IllegalArgumentException("Athletes already DMing");
+    		}
+    	}
     	
     	AthleteDM dm = new AthleteDM(athlete0, athlete1);
     	
@@ -151,8 +179,19 @@ public class AthleteController {
     	//athleteRepository.save(athlete0);
     	//athleteRepository.save(athlete1);
     	
-    	
     }
+    
+    /**
+     * sendDM
+     *   Sends a new dm from the specified athlete to the specified dm
+     * 
+     * @param AthleteId
+     *   Athlete who this dm is coming from
+     * @param DMId
+     *   DM which the message is being sent to
+     * @param text
+     *   Data to be sent
+     */
     
     @PutMapping("/{AthleteId}/dms/{DMId}")
     @ApiOperation(value = "Send DM in existing relationship", response = Iterable.class, tags = "sendDM")

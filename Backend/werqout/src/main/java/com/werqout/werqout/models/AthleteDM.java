@@ -35,11 +35,12 @@ public class AthleteDM {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	// List of athletes in this dm, generally two
 	@ManyToMany(mappedBy = "dms")
 	@JsonIgnore
 	private List<Athlete> athletes = new ArrayList<Athlete>();
 	
-	// Stack which contains messages between these users
+	// List of messages between these two athletes. Highest index is most recent
 	@OneToMany
 	@JoinTable(name = "athlete_messages",
 			   joinColumns = @JoinColumn(name = "dm_id"),
