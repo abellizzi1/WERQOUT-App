@@ -57,12 +57,16 @@ public class EventTests {
         Date d = format.parse("01-01-2021");
         Event e = new Event(1,d,"team event");
 
-        //undefined until mr is approved
-        t.setEvent(e);
-        assertEquals(1, t.getEventID());
+        Team t = new Team(1, "testTeam", "testDesc");
+
+        t.addEvent(e);
+        assertEquals(true, t.hasEvent(e));
         assertEquals("team event", e.getDescription());
         assertEquals(d, e.getDate());
-        
+
+        t.removeEvent(e);
+        assertEquals(false, t.hasEvent(e));
+
     }
     
 }

@@ -36,7 +36,8 @@ public class GymOwnerController {
     TeamRepository teamRepository;
     
     @GetMapping("")
-    public List<GymOwner> getAllGyms() {
+    @ApiOperation(value = "Gets all gym owners in the database", response = Iterable.class, tags = "getAllGyms")
+    public List<GymOwner> getAllGymOwners() {
     	return gymOwnerRepository.findAll();
     }
 
