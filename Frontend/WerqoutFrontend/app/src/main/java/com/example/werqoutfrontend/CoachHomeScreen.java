@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,6 +41,12 @@ public class CoachHomeScreen extends AppCompatActivity {
      */
     private LinearLayout linearScroll;
 
+    private static JSONObject coachTeam;
+    private int teamId;
+
+    private Context context = this;
+
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to coach_home_screen.xml
@@ -50,8 +57,6 @@ public class CoachHomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWeather();
         setContentView(R.layout.coach_home_screen);
-
-        Context context = this;
 
         TextView welcomeLabel = findViewById(R.id.name_label_coach_home);
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
@@ -89,7 +94,35 @@ public class CoachHomeScreen extends AppCompatActivity {
 
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_coach_home);
 
-        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
+        ServerRequest getTeamId = new ServerRequest();
+        getTeamId.jsonGetRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    coachTeam = result;
+                    teamId = ((int)coachTeam.get("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onSuccess(JSONArray result) {
+            }
+        }, Const.CURRENT_URL);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                displayTeamWorkouts();
+            }
+        }, 300);
+
+    }
+
+    private void displayTeamWorkouts()
+    {
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/events";
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -117,7 +150,6 @@ public class CoachHomeScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
-
     }
 
     private void getWeather()
