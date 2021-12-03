@@ -51,7 +51,6 @@ public class AthleteControllerTests {
 	@Test
 	public void testAthleteController() throws Exception {
 		List<Athlete> l = new ArrayList<Athlete>();
-		List<Athlete> ret;
 		
 		when(r.findAll()).thenReturn(l);
 		
