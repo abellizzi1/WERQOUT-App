@@ -204,7 +204,7 @@ public class Team {
 	}
 
 	public boolean hasEvent(Event e){
-		return events.contains(e);
+		return this.events.contains(e);
 	}
 
 }

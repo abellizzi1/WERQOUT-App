@@ -36,7 +36,8 @@ public class GymOwnerController {
     TeamRepository teamRepository;
     
     @GetMapping("")
-    public List<GymOwner> getAllGyms() {
+    @ApiOperation(value = "Gets all gym owners in the database", response = Iterable.class, tags = "getAllGyms")
+    public List<GymOwner> getAllGymOwners() {
     	return gymOwnerRepository.findAll();
     }
 
@@ -59,8 +60,8 @@ public class GymOwnerController {
     @PostMapping("/")
     @ApiOperation(value = "Creates a Gym Onwer in the database", response = Iterable.class, tags = "getGymOwner")
     GymOwner createGymOwner(@RequestBody GymOwner gymOwner){
-        gymOwnerRepository.save(gymOwner);
-        return gymOwnerRepository.findById(gymOwner.getId());
+        return gymOwnerRepository.save(gymOwner);
+        
     }
 
     @PutMapping("/{id}")
