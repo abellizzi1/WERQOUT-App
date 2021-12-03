@@ -125,20 +125,14 @@ public class GymOwnerControllerTests {
 		.andExpect(jsonPath("$[0].userName", is("test0")))
 		.andExpect(jsonPath("$[0].email", is("government@us.gov")))
 		.andExpect(jsonPath("$[0].password", is("mypassword2")))
-		.andExpect(jsonPath("$.gymName", is("gym1")))
-		.andExpect(jsonPath("$.numRatings", is(0)))
 		.andExpect(jsonPath("$[1].id", is(1)))
 		.andExpect(jsonPath("$[1].userName", is("test1")))
 		.andExpect(jsonPath("$[1].email", is("government@us.gov")))
 		.andExpect(jsonPath("$[1].password", is("mypassword2")))
-        .andExpect(jsonPath("$.gymName", is("gym2")))
-		.andExpect(jsonPath("$.numRatings", is(0)))
 		.andExpect(jsonPath("$[2].id", is(2)))
 		.andExpect(jsonPath("$[2].userName", is("test2")))
 		.andExpect(jsonPath("$[2].email", is("government@us.gov")))
-		.andExpect(jsonPath("$[2].password", is("mypassword2")))
-        .andExpect(jsonPath("$.gymName", is("gym3")))
-		.andExpect(jsonPath("$.numRatings", is(0)));
+		.andExpect(jsonPath("$[2].password", is("mypassword2")));
 	}
 
 }
