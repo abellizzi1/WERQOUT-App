@@ -15,9 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <activity
-
+            android:name=".AthleteMyGroupScreen"
+            android:exported="false" />
+        <activity
             android:name=".SearchScreen"
             android:exported="true"
             android:theme="@style/Theme.WerqoutFrontend" />
@@ -34,19 +36,19 @@
             android:theme="@style/Theme.WerqoutFrontend" />
         <activity
             android:name=".EditGroupScreen"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddDeleteWorkoutScreen"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".GroupInfoScreen"
             android:exported="false" />
         <activity
             android:name=".CoachGroupsScreen"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProfileScreen"
             android:exported="true"
