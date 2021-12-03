@@ -135,7 +135,7 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                     public void run() {
                         getPostedTeam();
                     }
-                }, 1000);
+                }, 500);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override

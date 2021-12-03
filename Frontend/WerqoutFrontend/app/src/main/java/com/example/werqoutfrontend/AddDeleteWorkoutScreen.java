@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,7 +157,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                     ServerRequest request = new ServerRequest();
                     Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/createEvent";
                     request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-                    startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+                        }
+                    }, 100);
                 }
             }
         });
@@ -329,7 +335,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         {
             hour += 12;
         }
-        String t = "T" + hour + time.substring(2);
+        String hourString = "" + hour;
+        if (hourString.length() == 1)
+        {
+            hourString = "0" + hour;
+        }
+        String t = "T" + hourString + time.substring(2, 5);
         return year + "-" + month + "-" + day + t;
     }
 }
