@@ -67,6 +67,8 @@ public class CoachHomeScreen extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.profile_button_coach_home);
         Button editGroupButton = findViewById(R.id.edit_button_coach_home);
+        Button messageButton = findViewById(R.id.messages_button_athlete_home);
+        Button searchButton = findViewById(R.id.search_button_athlete_home);
 
         editGroupButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -89,6 +91,30 @@ public class CoachHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), ProfileScreen.class));
+            }
+        });
+
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Messages Screen when the "Messages" button
+             * is clicked on the bottom taskbar.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SelectMessageScreen.class));
+            }
+        });
+
+        /**
+         * This onClick function directs the user to the Search Screen when the "Search" button
+         * is clicked on the bottom taskbar.
+         * @param view
+         */
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SearchScreen.class));
             }
         });
 

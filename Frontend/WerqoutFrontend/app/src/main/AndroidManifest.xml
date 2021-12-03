@@ -17,6 +17,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ManageGymEventsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ManageGymTeamsScreen"
+            android:exported="false" />
+        <activity
             android:name=".GymOwnerHomeScreen"
             android:exported="false" />
         <activity
