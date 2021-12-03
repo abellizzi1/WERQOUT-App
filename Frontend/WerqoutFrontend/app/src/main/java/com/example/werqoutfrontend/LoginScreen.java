@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
+import com.example.werqoutfrontend.network.Websocket;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 
@@ -177,7 +178,8 @@ public class LoginScreen extends AppCompatActivity {
                 if (userSpinner.getSelectedItem().toString().equals("Athlete"))
                 {
                     Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
-                    startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
+                    new Websocket();
+                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
 //                    startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
                 }
                 else if (userSpinner.getSelectedItem().toString().equals("Coach"))

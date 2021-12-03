@@ -60,6 +60,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
 
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
         Button returnHome = findViewById(R.id.return_button_profile_screen);
+        Button dmUser = findViewById(R.id.message_button_profile_page);
 
         //If the profile screen is accessed from the search screen, display the profile image of the
         //selected user here
@@ -107,6 +108,17 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+            }
+        });
+        dmUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ServerRequest dmRequest = new ServerRequest();
+                String thisId = Integer.toString(User.currentUser.getId());
+                String otherId = idText.getText().toString().substring(9);
+                String url = "http://coms-309-034.cs.iastate.edu:8080/athletes/" + thisId +"/dms/" +
+                        otherId;
+                dmRequest.jsonObjectRequest(url,1,null);
             }
         });
 

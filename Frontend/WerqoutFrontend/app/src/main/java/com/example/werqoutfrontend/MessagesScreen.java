@@ -90,7 +90,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
 
         Draft[] drafts = { new Draft_6455() };
         //TODO:Update this url to match the server path
-        String w = "ws://10.49.47.139:8080/chat/" + title.getText().toString();
+        String w = "ws://10.29.159.69:8080/message/1";
         try{
             Log.d("Socket:", "Trying socket");
             cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
@@ -133,7 +133,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         }
         cc.connect();
         buildRecyclerView();
-//        createList();
 
         sendIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,13 +151,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                     catch(Exception e){
                         Log.d("ExceptionSendMessage:", e.getMessage().toString());
                     }
-//                    ServerRequest serverRequest= new ServerRequest();
-//                    Map <String, String> params = new HashMap<>();
-//                    params.put("userName", "colin");
-//                    params.put("message", textMessage);
-//                    JSONObject messageObject = new JSONObject(params);
-//                    serverRequest.jsonObjectRequest(Const.POSTMAN_TEST_URL + "postmessage",
-//                            1, messageObject);
                 }
             }
         });
@@ -170,31 +162,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });
-    }
-    private void createList()
-    {
-        ServerRequest serverRequest= new ServerRequest();
-        serverRequest.jsonArrayRequest(new VolleyCallback() {
-            @Override
-            public void onSuccess(JSONObject result) {
-            }
-            @Override
-            public void onSuccess(JSONArray result) {
-                for(int i = 0; i < result.length(); i++)
-                {
-                    try {
-                        JSONObject message = result.getJSONObject(i);
-                        String username = message.getString("userName");
-                        String textMessage = message.getString("message");
-                        RecyclerViewMessage messageComponent = new RecyclerViewMessage(textMessage, username);
-                        messages.add(messageComponent);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                buildRecyclerView();
-            }
-        }, Const.POSTMAN_TEST_URL + "messages/" + title.getText().toString());
     }
 
     private void buildRecyclerView()
