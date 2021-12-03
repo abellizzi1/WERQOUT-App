@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +44,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
     private static JSONObject athleteTeam;
 
+    private Context context = this;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to athlete_home_screen.xml
@@ -57,7 +60,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
         TextView welcomeLabel = findViewById(R.id.name_label_athlete_home);
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_athlete_home);
-        Context context = this;
 
         /* Weather icon and temperature attributes */
         temperatureView = findViewById(R.id.weather_textview_athlete_home);
@@ -128,13 +130,28 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         }, Const.CURRENT_URL);
 
-        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getAthleteWorkouts();
+            }
+        }, 300);
+
+    }
+
+    public void getAthleteWorkouts()
+    {
+        try {
+            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + athleteTeam.get("id") + "/events";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // /events/team/{teamID}/events
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
             }
-
             @Override
             public void onSuccess(JSONArray users) {
                 for(int i = 0; i < users.length(); i++)
@@ -149,7 +166,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
                         ViewGroup.LayoutParams params;
                         params = workoutText.getLayoutParams();
                         CoachHomeScreen.setTextSettings(params, workoutText);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
