@@ -184,8 +184,8 @@ public class LoginScreen extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), CoachHomeScreen.class));
                 }
                 else {
-                        // startActivity Gym owner home screen
-                    }
+                    startActivity(new Intent(getApplicationContext(), GymOwnerHomeScreen.class));
+                }
             }
             else
             {
