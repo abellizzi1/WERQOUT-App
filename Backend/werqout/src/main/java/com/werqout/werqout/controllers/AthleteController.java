@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.werqout.werqout.repository.AthleteRepository;
+import com.werqout.werqout.repository.TeamRepository;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,9 @@ public class AthleteController {
     
     @Autowired
     AthleteRepository athleteRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
     //Ta suggested to have this
     @RequestMapping(value="/all", method=RequestMethod.GET)
     @ApiOperation(value = "Get list of Athletes in the database", response = Iterable.class, tags = "getAllAthletes")
@@ -101,12 +105,20 @@ public class AthleteController {
     
 
     @Transactional
-    @DeleteMapping("/{id}/teams")
+    @DeleteMapping("/{id}/teams/{teamID}")
     @ApiOperation(value = "Deletes an Athlete from a team", response = Iterable.class, tags = "removeTeam")
-    public void removeTeam(@PathVariable int id, @RequestBody Team team) {
+    public String removeTeam(@PathVariable int id, @PathVariable long teamID) {
     	Athlete athlete = athleteRepository.findById(id);
-    	athlete.removeTeam(team);
-    	athleteRepository.save(athlete);
+        Team team = teamRepository.findById(teamID);
+        if (team != null && athlete != null){
+            athlete.removeTeam(team);
+    	    athleteRepository.save(athlete);
+            return "Athlete " + athlete.getUserName() + " from " + team.getName() +" has been deleted.";
+        }
+        else{
+            return "Team or Athlete doesn't exist";
+        }
+    	
     }
-    
+
 }

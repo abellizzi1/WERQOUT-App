@@ -82,7 +82,7 @@ public class GymOwnerController {
     }
 
     @PostMapping("/{id}/teams/{teamId}")
-    @ApiOperation(value = "Adds a team (refrenced by the team ID) to the list of teams that train at the gym (referenced by gymID)", response = Iterable.class, tags = "addTeam")
+    @ApiOperation(value = "Adds a team (refrenced by the team ID) to the list of teams that train at the gym (referenced by id)", response = Iterable.class, tags = "addTeam")
     public List<Team> addTeam(@PathVariable long id, @PathVariable long teamId) {
     	GymOwner go = gymOwnerRepository.findById(id);
         Team team = teamRepository.findById(teamId);
