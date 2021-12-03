@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -70,6 +71,20 @@ public class Athlete {
     @JsonIgnore
     private List<Team> teams = new ArrayList<Team>();
     
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "athlete_dms",
+    		   joinColumns = @JoinColumn(name = "athlete_id"),
+    		   inverseJoinColumns = @JoinColumn(name = "dm_id"))
+    @JsonIgnore
+    private List<AthleteDM> dms = new ArrayList<>();
+    
+    @OneToMany
+    @JoinTable(name = "athlete_send_dms",
+    		   joinColumns = @JoinColumn(name = "athlete_id"),
+    		   inverseJoinColumns = @JoinColumn(name = "message_id"))
+    @JsonIgnore
+    private List<AthleteMessage> sentDMs = new ArrayList<AthleteMessage>();
+    
     // Constructors ==========================================================================================
 
     
@@ -131,5 +146,46 @@ public class Athlete {
     
     public void removeTeam(Team team) {
     	teams.remove(team);
+    }
+    
+    // Manage DMs
+    
+    @JsonIgnore
+    public List<AthleteDM> getOpenDMs(){
+    	return dms;
+    }
+    
+    @JsonIgnore
+    public List<Athlete> getAthletesDMing() {
+    	List<Athlete> toReturn = new ArrayList<>();
+    	
+    	for(AthleteDM i : dms) {
+    		if(i.getAthlete1().equals(this))
+    			toReturn.add(i.getAthlete2());
+    		else
+    			toReturn.add(i.getAthlete1());
+    	}
+    	
+    	return toReturn;
+    }
+    
+    public AthleteDM getDMWithAthlete(Athlete athlete) {
+    	for(AthleteDM i : dms) {
+    		if(i.getAthlete1().getId() == id || i.getAthlete2().getId() == id)
+    			return i;
+    	}
+    	return null;
+    }
+    
+    public void addDM(AthleteDM dm) {
+    	dms.add(dm);
+    }
+    
+    public void removeDM(AthleteDM dm) {
+    	dms.remove(dm);
+    }
+    
+    public void sendDM(AthleteDM dm, AthleteMessage message) {
+    	dm.sendMessage(message);
     }
 }
