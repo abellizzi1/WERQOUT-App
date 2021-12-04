@@ -97,7 +97,7 @@ public class LoginScreen extends AppCompatActivity {
              * Takes the user to the register screen when clicked
              */
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), CoachGroupsScreen.class));
+                startActivity(new Intent(v.getContext(), RegisterScreen.class));
             }
 
         });
