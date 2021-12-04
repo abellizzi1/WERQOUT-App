@@ -67,8 +67,8 @@ public class CoachHomeScreen extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.profile_button_coach_home);
         Button editGroupButton = findViewById(R.id.edit_button_coach_home);
-        Button messageButton = findViewById(R.id.messages_button_athlete_home);
-        Button searchButton = findViewById(R.id.search_button_athlete_home);
+        Button messageButton = findViewById(R.id.messages_button_coach_home);
+        Button searchButton = findViewById(R.id.search_button_coach_home);
 
         editGroupButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -102,7 +102,7 @@ public class CoachHomeScreen extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), SelectMessageScreen.class));
+                startActivity(new Intent(view.getContext(), MessagesScreen.class));
             }
         });
 

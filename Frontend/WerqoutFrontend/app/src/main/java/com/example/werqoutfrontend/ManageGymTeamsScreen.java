@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -58,6 +59,7 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.manage_gym_teams_screen);
         Context context = this;
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_manageGymTeams);
+        listTeams = new ArrayList<JSONObject>();
 
         Button backButton = findViewById(R.id.back_button_manageGymTeams);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -85,21 +87,24 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
                 {
                     try {
                         JSONObject currResult = result.getJSONObject(i);
-                        listTeams.add(currResult);
-                        Button groupButton = new Button (context);
-                        groupButton.setText(currResult.get("name").toString());
-                        linearScroll.addView(groupButton);
-                        ViewGroup.LayoutParams params;
-                        params = groupButton.getLayoutParams();
-                        params.height = 300;
-                        params.width = 1409;
-                        groupButton.setLayoutParams(params);
-                        groupButton.setTextSize(30);
-                        groupButton.setTextColor(Color.parseColor("#000000"));
-                        groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
-                        groupButton.setId(bId);
-                        bId++;
-                        groupButton.setOnClickListener(ManageGymTeamsScreen.this);
+                        if (currResult != null)
+                        {
+                            listTeams.add(currResult);
+                            Button groupButton = new Button (context);
+                            groupButton.setText(currResult.get("name").toString());
+                            linearScroll.addView(groupButton);
+                            ViewGroup.LayoutParams params;
+                            params = groupButton.getLayoutParams();
+                            params.height = 300;
+                            params.width = 1409;
+                            groupButton.setLayoutParams(params);
+                            groupButton.setTextSize(30);
+                            groupButton.setTextColor(Color.parseColor("#000000"));
+                            groupButton.setBackgroundColor(Color.parseColor("#00FFA7"));
+                            groupButton.setId(bId);
+                            bId++;
+                            groupButton.setOnClickListener(ManageGymTeamsScreen.this);
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -118,7 +123,6 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         selectedGroup = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
         selectedTeamInfo = listTeams.get(v.getId());
-        startActivity(new Intent(v.getContext(), GroupInfoScreen.class));
     }
 
     /**
