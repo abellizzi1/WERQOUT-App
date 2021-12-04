@@ -38,15 +38,16 @@
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/group_info_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/gym_owner_home_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/login_screen.xml" value="0.264" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/manage_gym_events_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/manage_gym_teams_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/register_screen.xml" value="0.264" />
         <entry key="..\:/Users/jbelliz/2_hb_2/Frontend/WerqoutFrontend/app/src/main/res/layout/selected_group_screen.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../../../../Program Files (x86)/javadocwerq" />
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Javadocs" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
     <option name="OTHER_OPTIONS" value="-encoding utf-8 -sourcepath /path/to/sdk/platforms/android-##/android.jar" />
     <option name="OPTION_INCLUDE_LIBS" value="true" />
   </component>

@@ -45,16 +45,15 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
      */
     private LinearLayout linearScroll;
 
+    private static JSONObject newTeam;
+
+    private static JSONObject selectedTeamInfo;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to coach_groups_screen.xml
      * @param savedInstanceState
      */
-
-    private static JSONObject newTeam;
-
-    private static JSONObject selectedTeamInfo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,6 +193,11 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         return selectedGroup;
     }
 
+    /**
+     * Gets the information of the selected team.
+     * @return
+     *  returns a JSONObject of the selected team
+     */
     public static JSONObject getTeamInfo()
     {
         return selectedTeamInfo;

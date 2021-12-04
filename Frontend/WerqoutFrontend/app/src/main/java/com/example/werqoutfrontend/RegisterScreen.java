@@ -58,6 +58,11 @@ public class RegisterScreen extends AppCompatActivity {
     private String password;
 
     /**
+     * This contains the gym name if the user registering is a gym owner.
+     */
+    private String gymName;
+
+    /**
      * The inputted confirm password, used to confirm the previous password.
      */
     private String confirmPassword;
@@ -160,7 +165,8 @@ public class RegisterScreen extends AppCompatActivity {
                             }
                             @Override
                             public void onSuccess(JSONArray users) {
-                                params.put("gymName", ("Gym " + (users.length() + 1)));
+                                int gymid = users.length() + 1;
+                                gymName = "Gym" + gymid;
                             }
                         },Const.CURRENT_URL);
                     }
@@ -170,7 +176,7 @@ public class RegisterScreen extends AppCompatActivity {
                         public void run() {
                             postUser(v);
                         }
-                    }, 300);
+                    }, 500);
                 }
             }
         });
@@ -178,6 +184,9 @@ public class RegisterScreen extends AppCompatActivity {
 
     private void postUser(View v)
     {
+        if (Const.CURRENT_URL.equals(Const.URL_JSON_REQUEST_GYMOWNER)) {
+            params.put("gymName", gymName);
+        }
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER + "/";
         ServerRequest request = new ServerRequest();
         request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));

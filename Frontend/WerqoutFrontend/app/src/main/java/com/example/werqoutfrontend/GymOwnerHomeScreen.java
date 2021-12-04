@@ -38,17 +38,17 @@ public class GymOwnerHomeScreen extends AppCompatActivity {
         setContentView(R.layout.gym_owner_home_screen);
 
         TextView welcomeLabel = findViewById(R.id.name_label_gymOwner_home);
-        TextView gymNameLabel = findViewById(R.id.gymName_label_gymOwner_home);
+        TextView gymNameLabel = findViewById(R.id.actualGymName_label_gymOwner_home);
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
-        gymNameLabel.setText("Gym Name: " + LoginScreen.getGymId());
+        gymNameLabel.setText(LoginScreen.getGymId());
 
         /* Weather icon and temperature attributes */
         temperatureView = findViewById(R.id.weather_textview_athlete_home);
         imageView = findViewById(R.id.weather_icon_athlete_home);
 
-        Button profileButton = findViewById(R.id.profile_button_athlete_home);
-        Button messageButton = findViewById(R.id.messages_button_athlete_home);
-        Button searchButton = findViewById(R.id.search_button_athlete_home);
+        Button profileButton = findViewById(R.id.profile_button_gymOwner_home);
+        Button messageButton = findViewById(R.id.messages_button_gymOwner_home);
+        Button searchButton = findViewById(R.id.search_button_gymOwner_home);
         Button manageTeamsButton = findViewById(R.id.manageTeams_button_gymOwner_home);
         Button manageEventsButton = findViewById(R.id.manageEvents_button_gymOwner_home);
 

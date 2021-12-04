@@ -9,19 +9,32 @@
 
     <TextView
         android:id="@+id/gymName_label_gymOwner_home"
-        android:layout_width="354dp"
-        android:layout_height="57dp"
+        android:layout_width="207dp"
+        android:layout_height="40dp"
         android:text="Gym Name:"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textColor="#00FFA7"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.402" />
+
+    <TextView
+        android:id="@+id/actualGymName_label_gymOwner_home"
+        android:layout_width="207dp"
+        android:layout_height="54dp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47000003" />
 
     <Button
         android:id="@+id/manageTeams_button_gymOwner_home"
@@ -204,4 +217,5 @@
                 app:layout_constraintVertical_bias="0.515" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
