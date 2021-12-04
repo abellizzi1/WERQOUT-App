@@ -18,6 +18,7 @@ import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class GymOwnerHomeScreen extends AppCompatActivity {
 
@@ -37,7 +38,9 @@ public class GymOwnerHomeScreen extends AppCompatActivity {
         setContentView(R.layout.gym_owner_home_screen);
 
         TextView welcomeLabel = findViewById(R.id.name_label_gymOwner_home);
+        TextView gymNameLabel = findViewById(R.id.gymName_label_gymOwner_home);
         welcomeLabel.setText("Hi, " + LoginScreen.getFirstName());
+        gymNameLabel.setText("Gym Name: " + LoginScreen.getGymId());
 
         /* Weather icon and temperature attributes */
         temperatureView = findViewById(R.id.weather_textview_athlete_home);
@@ -108,6 +111,8 @@ public class GymOwnerHomeScreen extends AppCompatActivity {
                 startActivity(new Intent(view.getContext(), ManageGymEventsScreen.class));
             }
         });
+
+
     }
 
     private void getWeather()
