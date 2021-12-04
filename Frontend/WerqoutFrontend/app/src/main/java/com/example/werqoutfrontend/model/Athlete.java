@@ -1,6 +1,4 @@
 package com.example.werqoutfrontend.model;
-
-
 import java.io.Serializable;
 
 /**
