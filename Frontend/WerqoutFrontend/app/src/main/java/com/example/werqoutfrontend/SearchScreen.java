@@ -278,6 +278,10 @@ public class SearchScreen extends AppCompatActivity {
                         intent.putExtra("userType", "gymOwner");
                         startActivity(intent);
                     }
+                    else if(resultType == 4)
+                    {
+                        
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

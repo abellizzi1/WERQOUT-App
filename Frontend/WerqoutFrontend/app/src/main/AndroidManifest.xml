@@ -17,10 +17,13 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SearchScreenPopUp"
+            android:exported="true" />
+        <activity
             android:name=".RatingPopUp"
             android:exported="true"
-            android:theme="@style/AppTheme.CustomTheme"
-            android:label="@string/popup_title"/>
+            android:label="@string/popup_title"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".SearchScreen"
             android:exported="true"

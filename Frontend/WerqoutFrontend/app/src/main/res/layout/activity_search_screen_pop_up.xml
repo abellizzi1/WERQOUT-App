@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchScreenPopUp">
+
+    <TextView
+        android:id="@+id/title_text_ss_popup"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:autoText="true"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:autoSizeMaxTextSize="40dp"
+        app:autoSizeMinTextSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <TextView
+        android:id="@+id/description1_ss_popup"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:autoText="true"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:autoSizeMaxTextSize="40dp"
+        app:autoSizeMinTextSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.208" />
+
+    <TextView
+        android:id="@+id/descritption2_ss_popup"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:autoText="true"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:autoSizeMaxTextSize="40dp"
+        app:autoSizeMinTextSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.355" />
+
+    <TextView
+        android:id="@+id/descritption3_ss_popup"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:autoText="true"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:autoSizeMaxTextSize="40dp"
+        app:autoSizeMinTextSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <Button
+        android:id="@+id/request_to_join_button"
+        android:layout_width="262dp"
+        android:layout_height="70dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descritption2_ss_popup"
+        app:layout_constraintVertical_bias="0.424" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
