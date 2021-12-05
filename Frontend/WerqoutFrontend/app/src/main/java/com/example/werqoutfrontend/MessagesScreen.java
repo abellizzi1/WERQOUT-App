@@ -99,15 +99,17 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 if(!textMessage.equals(""))
                 {
                     addMessage(textMessage, User.currentUser.getId());
-                    textMessage = "@" + Integer.toString(otherID) + ":" +
+                    String sendTextMessage = "@" + Integer.toString(otherID) + ":" +
                             enterMessage.getText().toString();
                     enterMessage.setText("");
                     try {
-                        cc.send(textMessage);
+                        cc.send(sendTextMessage);
+                        Websocket.addMessageLog(otherID, textMessage);
                     }
                     catch(Exception e){
                         Log.d("ExceptionSendMessage:", e.getMessage().toString());
                     }
+
                 }
             }
         });
@@ -172,33 +174,14 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-    private void addMessage(String textMessage, int id){
-        if(id == User.currentUser.getId())
-        {
+    private void addMessage(String textMessage, int id) {
+
+        if (id == User.currentUser.getId()) {
             messages.add(new RecyclerViewMessage(textMessage, User.currentUser.getUsername()));
             mAdapter.notifyItemInserted(messages.size());
-        }
-        else
-        {
-            ServerRequest getUsername = new ServerRequest();
-            String url = Const.URL_JSON_REQUEST_ATHLETES + "/" + Integer.toString(id);
-            getUsername.jsonGetRequest(new VolleyCallback() {
-                @Override
-                public void onSuccess(JSONObject result) {
-                    try {
-                        String username = result.getString("userName");
-                        messages.add(new RecyclerViewMessage(textMessage, username));
-                        mAdapter.notifyItemInserted(messages.size());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onSuccess(JSONArray result) {
-
-                }
-            },url);
+        } else {
+            messages.add(new RecyclerViewMessage(textMessage, username));
+            mAdapter.notifyItemInserted(messages.size());
         }
     }
 }

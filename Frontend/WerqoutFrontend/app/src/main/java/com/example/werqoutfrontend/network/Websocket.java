@@ -25,10 +25,13 @@ import java.util.Scanner;
 public class Websocket {
     private static boolean closed;
     public static boolean newMessage;
+    public static boolean newOnlineStatus;
     private static WebSocketClient cc;
     private ArrayList<String[]> messageLog;
     private static HashMap <Integer, ArrayList<String[]>> messageMap = new HashMap<>();
+    private static HashMap <Integer, Boolean> onlineStatus = new HashMap<>();
     private static String recievedMessage = "no recent message";
+    private static int otherId;
 
     public  Websocket(){
         Draft[] drafts = { new Draft_6455() };
@@ -87,12 +90,52 @@ public class Websocket {
                 public void onMessage(String message) {
 
                     Log.d("", "run() returned: " + message);
+                    if(message.indexOf(' ') != -1)
+                    {
+                        String [] checkLogOff = message.split(" ",2);
+                        if(checkLogOff[1].equals("disconnected"))
+                        {
+                            onlineStatus.put(Integer.parseInt(checkLogOff[0]), false);
+                            Log.d("OnlineStatus", "disconnected");
+                            otherId = Integer.parseInt(checkLogOff[0]);
+                            newOnlineStatus = true;
+                        }
+                        else {
 
-                    newMessage = true;
+                            String[] temp = message.split(":", 2);
+                            if (temp[0].equals("Athlete with id")) {
+                                String[] id = temp[1].split(" ", 4);
+                                onlineStatus.put(Integer.parseInt(id[1]), true);
+                                Log.d("OnlineStatus", "connected");
+                                otherId = Integer.parseInt(id[1]);
+                                newOnlineStatus = true;
+                            } else {
+                                String [] nM = {temp[1], temp[0]};
+                                messageMap.get(Integer.parseInt(temp[0])).add(nM);
+                                Log.d("ML", messageMap.get(otherId).toString());
+                                newMessage = true;
+                            }
+                        }
+                    }
+                    else{
+
+                        String [] temp = message.split(":", 2);
+                        if(temp[0].equals("Athlete with id"))
+                        {
+                            String [] id = temp[1].split(" ", 4);
+                            onlineStatus.put(Integer.parseInt(id[1]),true);
+                            Log.d("OnlineStatus", "connected");
+                            otherId = Integer.parseInt(id[1]);
+                            newOnlineStatus = true;
+                        }
+                        else{
+                            String [] nM = {temp[1], temp[0]};
+                            messageMap.get(Integer.parseInt(temp[0])).add(nM);
+                            Log.d("ML", messageMap.get(otherId).toString());
+                            newMessage = true;
+                        }
+                    }
                     recievedMessage = message;
-                    String [] temp = message.split(":", 2);
-                    String [] mAndS = {temp[1], temp[0]};
-                    messageLog.add(mAndS);
                 }
 
                 @Override
@@ -124,10 +167,33 @@ public class Websocket {
     {
         return messageMap.get(otherID);
     }
+    public static void addMessageLog(int otherId, String m)
+    {
+        String [] newMessage = {m, Integer.toString(User.currentUser.getId())};
+        messageMap.get(otherId).add(newMessage);
+        Log.d("ML", messageMap.get(otherId).toString());
+    }
+
     public static String[] getRecievedMessage(){
         newMessage = false;
+        //The ID of the other user will be at index 0 of the array, and the message will be at
+        //index 1 of the array.
         String [] message = recievedMessage.split(":",2);
         recievedMessage = "no new message";
         return message;
+    }
+    public static boolean getOnlineStatus(int id)
+    {
+        if(onlineStatus.get(id) == null)
+        {
+            return false;
+        }
+        boolean status = onlineStatus.get(id);
+        return status;
+    }
+
+    public static int getOtherId()
+    {
+        return  otherId;
     }
 }
