@@ -79,17 +79,26 @@ public class ViewGymTeamScreen extends AppCompatActivity {
             }
         });
 
+        Button removeTeamButton = findViewById(R.id.delete_button_viewGymTeam);
+        removeTeamButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function deletes the team.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId;
+                ServerRequest removeTeamRequest = new ServerRequest();
+                removeTeamRequest.jsonObjectRequest(Const.CURRENT_URL, 3, team);
+                startActivity(new Intent(view.getContext(), ManageGymTeamsScreen.class));
+            }
+        });
+
         TextView membersText = new TextView(context);
         membersText.setText("Members:");
         linearScroll.addView(membersText);
         params = membersText.getLayoutParams();
         CoachHomeScreen.setTextSettings(params, membersText);
-        team = ManageGymTeamsScreen.getTeamInfo();
-        try {
-            teamId = ((int)team.get("id"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId + "/athletes";
         ServerRequest displayMembers = new ServerRequest();
