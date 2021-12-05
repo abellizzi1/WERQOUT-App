@@ -123,6 +123,7 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         selectedGroup = ((Button)linearScroll.findViewById(v.getId())).getText().toString();
         selectedTeamInfo = listTeams.get(v.getId());
+        startActivity(new Intent(v.getContext(), ViewGymTeamScreen.class));
     }
 
     /**
