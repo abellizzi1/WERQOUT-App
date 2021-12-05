@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,6 +42,31 @@ public class GroupInfoScreen extends AppCompatActivity {
      * The selected team.
      */
     public Team selectedGroup;
+
+    /**
+     * A JSONObject of the team selected in CoachGroupsScreen.
+     */
+    private JSONObject team;
+
+    /**
+     * The ID of the selected team.
+     */
+    private int teamId;
+
+    /**
+     * This screen's context.
+     */
+    private Context context = this;
+
+    /**
+     * The linear layout within the Scroll View in group_info_screen.xml
+     */
+    private LinearLayout linearScroll;
+
+    /**
+     * Params for the text in the Scroll View.
+     */
+    private ViewGroup.LayoutParams params;
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
@@ -91,28 +118,26 @@ public class GroupInfoScreen extends AppCompatActivity {
             }
         });
 
-        LinearLayout linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_group_info);
-        ViewGroup.LayoutParams params;
-        Context context = this;
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_group_info);
 
         TextView membersText = new TextView(context);
         membersText.setText("Members:");
         linearScroll.addView(membersText);
         params = membersText.getLayoutParams();
         CoachHomeScreen.setTextSettings(params, membersText);
-        JSONObject team = CoachGroupsScreen.getTeamInfo();
-
+        team = CoachGroupsScreen.getTeamInfo();
         try {
-            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.get("id") + "/athletes";
+            teamId = ((int)team.get("id"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId + "/athletes";
         ServerRequest displayMembers = new ServerRequest();
         displayMembers.jsonArrayRequest(new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
             }
-
             @Override
             public void onSuccess(JSONArray users) {
                 try {
@@ -131,47 +156,53 @@ public class GroupInfoScreen extends AppCompatActivity {
 
             }
         }, Const.CURRENT_URL);
-//
-//        for (int i = 0; i < 4; i++)
-//        {
-//            membersText = new TextView(this);
-//            membersText.setText("John Doe");
-//            linearScroll.addView(membersText);
-//            params = membersText.getLayoutParams();
-//            CoachHomeScreen.setTextSettings(params, membersText);
-//            if (i == 3)
-//            {
-//                membersText.setText("John Doe\n");
-//            }
-//        }
-//
-//        TextView liftText = new TextView(this);
-//        TextView dateText;
-//        TextView timeText;
-//        liftText.setText("Workouts:");
-//        linearScroll.addView(liftText);
-//        params = liftText.getLayoutParams();
-//        CoachHomeScreen.setTextSettings(params, liftText);
-//        for (int i = 0; i < 10; i++)
-//        {
-//            liftText = new TextView(this);
-//            liftText.setText("Chest/Triceps Lift");
-//            linearScroll.addView(liftText);
-//            params = liftText.getLayoutParams();
-//            CoachHomeScreen.setTextSettings(params, liftText);
-//
-//            dateText = new TextView(this);
-//            linearScroll.addView(dateText);
-//            params = dateText.getLayoutParams();
-//            CoachHomeScreen.setTextSettings(params, dateText);
-//            dateText.setText("10/21/21");
-//
-//            timeText = new TextView(this);
-//            linearScroll.addView(timeText);
-//            params = timeText.getLayoutParams();
-//            CoachHomeScreen.setTextSettings(params, timeText);
-//            timeText.setText("10:00 AM\n");
-//        }
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                displayWorkouts();
+            }
+        }, 300);
+    }
+
+    /**
+     * Displays the workouts in the Scroll View. Called in a delay.
+     */
+    private void displayWorkouts()
+    {
+        TextView workoutText = new TextView(context);
+        workoutText.setText("\nWorkouts:");
+        linearScroll.addView(workoutText);
+        params = workoutText.getLayoutParams();
+        CoachHomeScreen.setTextSettings(params, workoutText);
+
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/events";
+        ServerRequest allWorkouts = new ServerRequest();
+        allWorkouts.jsonArrayRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+            @Override
+            public void onSuccess(JSONArray users) {
+                for(int i = 0; i < users.length(); i++)
+                {
+                    try {
+                        JSONObject workout = users.getJSONObject(i);
+                        TextView textWorkout = new TextView(context);
+                        String desc = workout.get("description").toString();
+                        String dateAndTime = AddDeleteWorkoutScreen.formatDateTimeFromDatabase(workout.get("date").toString());
+                        textWorkout.setText(desc + " " + dateAndTime);
+                        linearScroll.addView(textWorkout);
+                        ViewGroup.LayoutParams params = textWorkout.getLayoutParams();
+                        CoachHomeScreen.setTextSettings(params, textWorkout);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, Const.CURRENT_URL);
     }
 
     /**
