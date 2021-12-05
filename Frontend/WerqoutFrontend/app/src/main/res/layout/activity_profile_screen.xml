@@ -68,6 +68,23 @@
         app:strokeColor="@color/white"
         app:strokeWidth="2dp" />
 
+    <Button
+        android:id="@+id/message_button_profile_page"
+        android:layout_width="340dp"
+        android:layout_height="49dp"
+        android:text="Message"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/black"
+        app:cornerRadius="@null"
+        app:layout_constraintBottom_toTopOf="@+id/cardview2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.384"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview2"
         android:layout_width="331dp"
@@ -76,13 +93,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_button_profile_screen"
-        app:layout_constraintVertical_bias="0.109">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.651">
 
         <ScrollView
             android:id="@+id/scroll_view_profile_page"
             android:layout_width="match_parent"
-            android:layout_height="353dp">
+            android:layout_height="320dp">
 
             <LinearLayout
                 android:id="@+id/layout_profile_page"
@@ -102,8 +119,8 @@
                     android:id="@+id/userType_text_profile_screen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
                     android:layout_marginTop="20dp"
+                    android:baselineAligned="false"
                     android:text="Username:"
                     android:textSize="20sp" />
 

@@ -68,6 +68,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         rate = findViewById(R.id.rate_button_profile_screen);
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
         Button returnHome = findViewById(R.id.return_button_profile_screen);
+        Button message = findViewById(R.id.message_button_profile_page);
 
         //If the profile screen is accessed from the search screen, display the profile image of the
         //selected user here
@@ -96,6 +97,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 emailText.setText("Email: " + user.getEmail());
                 bioText.append("Successfully viewed from the search activity");
                 ratingText.append(Double.toString(user.getRating()));
+                message.setVisibility(View.GONE);
             }
             else{
                 GymOwner user = (GymOwner) getIntent().getSerializableExtra("gymOwner");
@@ -105,6 +107,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 emailText.setText("Email: " + user.getEmail());
                 bioText.append("Successfully viewed from the search activity");
                 ratingText.append(Double.toString(user.getRating()));
+                message.setVisibility(View.GONE);
             }
         }
         //If the profile screen is accessed from the home screen, then simply display the current
@@ -120,6 +123,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 ratingText.setVisibility(View.GONE);
             }
             rate.setVisibility(View.GONE);
+            message.setVisibility(View.GONE);
         }
         /*
         TODO: Once we are able to properly store images, replace this server request with the stored image
@@ -152,6 +156,19 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 ratingPopup();
+            }
+        });
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ServerRequest addNewDM = new ServerRequest();
+                String idString = idText.getText().toString();
+                String [] s = idString.split(" ", 3);
+                int id = Integer.parseInt(s[2]);
+                String url = Const.URL_JSON_REQUEST_ATHLETES + User.currentUser.getId()
+                        + "/dms/" + id;
+                addNewDM.jsonObjectRequest(url, 1,null);
+                //Websocket.getCc().onOpen;
             }
         });
 
