@@ -1,6 +1,7 @@
 package com.example.werqoutfrontend.network;
 import android.util.Log;
 
+import com.example.werqoutfrontend.MessagesScreen;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -23,11 +24,13 @@ import java.util.Scanner;
 
 public class Websocket {
     private static boolean closed;
+    public static boolean newMessage;
     private static WebSocketClient cc;
-    private ArrayList<String> messageLog;
-    private static HashMap <Integer, ArrayList<String>> messageMap;
+    private ArrayList<String[]> messageLog;
+    private static HashMap <Integer, ArrayList<String[]>> messageMap = new HashMap<>();
     private static String recievedMessage = "no recent message";
-    public Websocket(){
+
+    public  Websocket(){
         Draft[] drafts = { new Draft_6455() };
         String w = "ws://coms-309-034.cs.iastate.edu:8080/message/" + Integer.toString(User.currentUser.getId());
         try{
@@ -67,7 +70,9 @@ public class Websocket {
                                     {
                                         JSONObject message = messages.getJSONObject(j);
                                         String messageString = message.getString("data");
-                                        messageLog.add(messageString);
+                                        String sender = message.getJSONObject("from").getString("id");
+                                        String [] messageAndSender = {messageString, sender};
+                                        messageLog.add(messageAndSender);
                                     }
                                     messageMap.put(idFrom, messageLog);
                                 } catch (JSONException e) {
@@ -82,8 +87,12 @@ public class Websocket {
                 public void onMessage(String message) {
 
                     Log.d("", "run() returned: " + message);
-                    messageLog.add(message);
 
+                    newMessage = true;
+                    recievedMessage = message;
+                    String [] temp = message.split(":", 2);
+                    String [] mAndS = {temp[1], temp[0]};
+                    messageLog.add(mAndS);
                 }
 
                 @Override
@@ -106,16 +115,19 @@ public class Websocket {
         cc.connect();
     }
 
-    public WebSocketClient getCc()
+    public static WebSocketClient getCc()
     {
         return cc;
     }
 
-    public ArrayList<String> getMessageLog(int otherID)
+    public static ArrayList<String[]> getMessageLog(int otherID)
     {
         return messageMap.get(otherID);
     }
-    public String getSentMessage(){
-        return recievedMessage;
+    public static String[] getRecievedMessage(){
+        newMessage = false;
+        String [] message = recievedMessage.split(":",2);
+        recievedMessage = "no new message";
+        return message;
     }
 }

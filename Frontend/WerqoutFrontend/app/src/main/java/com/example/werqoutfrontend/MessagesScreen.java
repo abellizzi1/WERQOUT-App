@@ -14,25 +14,21 @@ import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
+import com.example.werqoutfrontend.network.Websocket;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.RecyclerViewAdapterMessage;
 import com.example.werqoutfrontend.utils.RecyclerViewMessage;
 import com.example.werqoutfrontend.utils.VolleyCallback;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_6455;
-import org.java_websocket.handshake.ServerHandshake;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This class contains all of the logic needed for displaying messages between users. You basically
@@ -71,12 +67,10 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
      * The username of the person that you are messaging
      */
     private TextView title;
-    /**
-     * The websocket client for this user
-     */
     private Button back;
     private WebSocketClient cc;
-    private static boolean closed;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,50 +82,11 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         back = findViewById(R.id.close_cc_button_messages_screen);
         title.setText(getIntent().getSerializableExtra("username").toString());
 
-        Draft[] drafts = { new Draft_6455() };
-        //TODO:Update this url to match the server path
-        String w = "ws://10.29.159.69:8080/message/1";
-        try{
-            Log.d("Socket:", "Trying socket");
-            cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
-                @Override
-                public void onOpen(ServerHandshake serverHandshake) {
-                    Log.d("OPEN", "run() returned: " + "is connecting");
-                    closed = false;
-                }
-
-                @Override
-                public void onMessage(String message) {
-                    Log.d("", "run() returned: " + message);
-                    Scanner scan = new Scanner(message);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            while(scan.hasNextLine()) {
-                                addMessage(scan.nextLine());
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onClose(int code, String reason, boolean remote) {
-                    Log.d("CLOSE", "onClose() returned: " + reason);
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.d("Exception:", e.toString());
-                    closed = true;
-                }
-            };
-        }
-        catch (URISyntaxException e)
-        {
-            Log.d("Exception:", e.getMessage().toString());
-            e.printStackTrace();
-        }
-        cc.connect();
+        username = getIntent().getSerializableExtra("username").toString();
+        cc = Websocket.getCc();
+        int otherID = (int) getIntent().getSerializableExtra("id");
+        ArrayList<String[]> messagesLog = Websocket.getMessageLog(otherID);
+        createList(messagesLog);
         buildRecyclerView();
 
         sendIcon.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +98,9 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                 String textMessage = enterMessage.getText().toString();
                 if(!textMessage.equals(""))
                 {
-                    //Add the onMessage implementation in here
+                    addMessage(textMessage, User.currentUser.getId());
+                    textMessage = "@" + Integer.toString(otherID) + ":" +
+                            enterMessage.getText().toString();
                     enterMessage.setText("");
                     try {
                         cc.send(textMessage);
@@ -158,10 +115,52 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cc.close();
                 startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if(Websocket.newMessage)
+                {
+                    String [] idAndMessage = Websocket.getRecievedMessage();
+                    try{
+                        String messageText = idAndMessage[1];
+                        int id = Integer.parseInt(idAndMessage[0]);
+                        addMessage(messageText, id);
+                    }
+                    catch (NumberFormatException e)
+                    {
+
+                    }
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
+
+    private void createList(ArrayList<String[]> m)
+    {
+        for(String [] textMessage: m)
+        {
+            try {
+                String tM = textMessage[0];
+                int id = Integer.parseInt(textMessage[1]);
+                RecyclerViewMessage messageComponent;
+                if (id == User.currentUser.getId()) {
+                    messageComponent = new RecyclerViewMessage(tM, User.currentUser.getUsername());
+                } else {
+                    messageComponent = new RecyclerViewMessage(tM, username);
+                }
+                messages.add(messageComponent);
+            }
+            catch (NumberFormatException e)
+            {
+                Log.d("onlineNotification", "Crisis averted");
+            }
+        }
     }
 
     private void buildRecyclerView()
@@ -173,8 +172,33 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-    private void addMessage(String textMessage){
-        messages.add(new RecyclerViewMessage(textMessage, User.currentUser.getUsername()));
-        mAdapter.notifyItemInserted(messages.size());
+    private void addMessage(String textMessage, int id){
+        if(id == User.currentUser.getId())
+        {
+            messages.add(new RecyclerViewMessage(textMessage, User.currentUser.getUsername()));
+            mAdapter.notifyItemInserted(messages.size());
+        }
+        else
+        {
+            ServerRequest getUsername = new ServerRequest();
+            String url = Const.URL_JSON_REQUEST_ATHLETES + "/" + Integer.toString(id);
+            getUsername.jsonGetRequest(new VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    try {
+                        String username = result.getString("userName");
+                        messages.add(new RecyclerViewMessage(textMessage, username));
+                        mAdapter.notifyItemInserted(messages.size());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onSuccess(JSONArray result) {
+
+                }
+            },url);
+        }
     }
 }

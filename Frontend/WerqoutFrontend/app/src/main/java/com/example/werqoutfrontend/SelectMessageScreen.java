@@ -12,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TableRow.LayoutParams;
 
+import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -39,7 +40,7 @@ public class SelectMessageScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_message_screen);
         linearLayout =(LinearLayout) findViewById(R.id.linear_layout_select_message_screen);
-
+        String url = Const.URL_JSON_REQUEST_ATHLETES +"/" + User.currentUser.getId() + "/dms";
         ServerRequest serverRequest = new ServerRequest();
         serverRequest.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -52,7 +53,7 @@ public class SelectMessageScreen extends AppCompatActivity {
                 messages = result;
                 updateTable();
             }
-        },Const.POSTMAN_TEST_URL);
+        },url);
     }
     private void updateTable()
     {
@@ -63,7 +64,24 @@ public class SelectMessageScreen extends AppCompatActivity {
                         ,LayoutParams.WRAP_CONTENT, 30));
                 TextView username = new TextView(this);
 
-                String userName = messages.getJSONObject(i).getString("userName");
+                String userName;
+                int id;
+                if(messages.getJSONObject(i).getJSONObject("athlete1").getInt("id") !=
+                    User.currentUser.getId())
+                {
+                    userName = messages.getJSONObject(i).getJSONObject("athlete1")
+                            .getString("userName");
+                    id = messages.getJSONObject(i).getJSONObject("athlete1")
+                            .getInt("id");
+                }
+                else
+                {
+                    userName = messages.getJSONObject(i).getJSONObject("athlete2")
+                            .getString("userName");
+                    id = messages.getJSONObject(i).getJSONObject("athlete2")
+                            .getInt("id");
+                }
+
                 username.setText(userName);
                 username.setTextColor(Color.WHITE);
                 username.setTextSize(40);
@@ -75,6 +93,7 @@ public class SelectMessageScreen extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), MessagesScreen.class);
                         intent.putExtra("username", userName);
+                        intent.putExtra("id",id);
                         startActivity(intent);
                     }
                 });
