@@ -233,7 +233,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      * @return
      * if the parameter is a valid date, it will return true, else false.
      */
-    public boolean isValidDate(String date)
+    public static boolean isValidDate(String date)
     {
         String[] dateSplit = date.split("/");
         if (dateSplit.length == 3 && TextUtils.isDigitsOnly(dateSplit[0] + dateSplit[1] + dateSplit[2])
@@ -254,7 +254,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      * @return
      * if the parameter is a valid time, it will return true, else false.
      */
-    public boolean isValidTime(String time)
+    public static boolean isValidTime(String time)
     {
         String[] timeSplit = time.split(":");
         if (timeSplit.length == 2 && TextUtils.isDigitsOnly(timeSplit[0] + timeSplit[1])

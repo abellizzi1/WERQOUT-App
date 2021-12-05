@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.531" />
 
     <EditText
-        android:id="@+id/workoutName_input_manageGymEvents"
+        android:id="@+id/name_input_manageGymEvents"
         android:layout_width="386dp"
         android:layout_height="45dp"
         android:ems="10"
