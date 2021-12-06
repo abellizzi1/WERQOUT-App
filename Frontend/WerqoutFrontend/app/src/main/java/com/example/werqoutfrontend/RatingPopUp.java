@@ -22,22 +22,55 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RatingPopUp extends AppCompatActivity {
+    /**
+     * An star that when clicked assigns the rating to the value of 1
+     */
     private ImageView star1;
+    /**
+     * An star that when clicked assigns the rating to the value of 2
+     */
     private ImageView star2;
+    /**
+     * An star that when clicked assigns the rating to the value of 3
+     */
     private ImageView star3;
+    /**
+     * An star that when clicked assigns the rating to the value of 4
+     */
     private ImageView star4;
+    /**
+     * An star that when clicked assigns the rating to the value of 5
+     */
     private ImageView star5;
+    /**
+     * The rating that the user is giving to a coach or gym owner
+     */
     private String rating;
+    /**
+     * A button that when clicked submits a new rating for a coach or a gym owner
+     */
     private Button submit;
+    /**
+     * A button that when clicked exits out of the popup
+     */
     private Button cancel;
+    /**
+     * Signifies what type of user is receiving a rating (coach or gym owner)
+     */
     private String ratingType;
+    /**
+     * The id of the user that is being rated
+     */
     private int id;
+    /**
+     * The JSON Object that represents the user
+     */
     private JSONObject ratedObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_pop_up);
-
+        rating = "3";
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
@@ -116,18 +149,17 @@ public class RatingPopUp extends AppCompatActivity {
                 if(ratingType.equalsIgnoreCase("Coach"))
                 {
                     url = Const.URL_JSON_REQUEST_COACHES + id + "/rate?rating=" + rating;
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("rating", rating);
+                    ratingRequest.jsonObjectRequest(url, 2, new JSONObject(params));
                 }
                 else if(ratingType.equalsIgnoreCase("GymOwner"))
                 {
-                    url = Const.URL_JSON_REQUEST_GYMOWNER + id + "/rate?rating=" + rating;
+                    url = Const.URL_JSON_REQUEST_GYMOWNER + "/"+ id + "/rate?rating=" + rating;
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("rating", rating);
+                    ratingRequest.jsonObjectRequest(url, 2, new JSONObject(params));
                 }
-                else
-                {
-                    url = Const.URL_JSON_REQUEST_GYMOWNER + id + "/rate?rating=" + rating;
-                }
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("rating", rating);
-                ratingRequest.jsonObjectRequest(url, 2, new JSONObject(params));
 
                 Toast.makeText(getApplicationContext(), "Rating submitted",
                         Toast.LENGTH_SHORT).show();

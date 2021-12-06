@@ -61,8 +61,13 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
      * The username of the person that you are messaging
      */
     private TextView title;
-    private Button back;
+    /**
+     * The websocket client of the current user, used to send messages to other users
+     */
     private WebSocketClient cc;
+    /**
+     * The username of the other user who is being messaged to
+     */
     private String username;
 
 
@@ -73,7 +78,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
         enterMessage = findViewById(R.id.edit_message_text_message_sceen);
         sendIcon = findViewById(R.id.send_button_messages_screen);
         title = findViewById(R.id.title_message_screen);
-        back = findViewById(R.id.close_cc_button_messages_screen);
         title.setText(getIntent().getSerializableExtra("username").toString());
 
         username = getIntent().getSerializableExtra("username").toString();
@@ -105,13 +109,6 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                     }
 
                 }
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });
 

@@ -52,8 +52,17 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
      * A textview used to display a user's bio
      */
     private TextView bioText;
+    /**
+     * A textview used for displaying the user's rating
+     */
     private TextView ratingText;
+    /**
+     * A textview that displays the user's id
+     */
     private TextView idText;
+    /**
+     * A button that when clicked allows the user to recieve a rating
+     */
     private Button rate;
 
     @Override
@@ -128,9 +137,6 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             rate.setVisibility(View.GONE);
             message.setVisibility(View.GONE);
         }
-        /*
-        TODO: Once we are able to properly store images, replace this server request with the stored image
-         */
         ServerRequest profilePic = new ServerRequest();
         profilePic.imageRequest(new VolleyCallbackImage() {
             @Override
@@ -171,7 +177,7 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 String url = Const.URL_JSON_REQUEST_ATHLETES + User.currentUser.getId()
                         + "/dms/" + id;
                 addNewDM.jsonObjectRequest(url, 1,null);
-                Websocket.addMesageLog(id, new ArrayList<String[]>());
+                Websocket.addMessageLog(id, new ArrayList<String[]>());
                 startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });

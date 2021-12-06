@@ -44,6 +44,11 @@ public class SelectMessageScreen extends AppCompatActivity {
      * A layout to format all of the other users into
      */
     private LinearLayout linearLayout;
+    /**
+     * Stores the online status of each dm by the id of the user being direct messaged.
+     * When a user's online status is changed, this hashmap is used to get the
+     * online status icon and then update it.
+     */
     private HashMap<Integer, ImageView> onlineMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +143,8 @@ public class SelectMessageScreen extends AppCompatActivity {
 
     private void checkOnlineStatus()
     {
+        //This method checks to see if the online status has changed every second,
+        //If the status has been changed it properly updates the online icon.
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -160,10 +167,5 @@ public class SelectMessageScreen extends AppCompatActivity {
             }
         };
         timer.scheduleAtFixedRate(task, 1000, 1000);
-    }
-
-    public HashMap<Integer, ImageView> getMessageList()
-    {
-        return onlineMap;
     }
 }

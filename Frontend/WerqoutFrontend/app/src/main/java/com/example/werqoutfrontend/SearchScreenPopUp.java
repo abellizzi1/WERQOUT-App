@@ -18,8 +18,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SearchScreenPopUp extends AppCompatActivity {
+    /**
+     * A textview that displays the name of the team clicked
+     */
     private TextView titleText;
+    /**
+     * A textview that asks the user whether or not they would like to join the team
+     */
     private TextView description1;
+    /**
+     * The team that the user is joining
+     */
     private JSONObject currentTeam;
 
     @Override
