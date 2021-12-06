@@ -233,5 +233,4 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         selected.setText("Selected: " + selectedMemberString);
         selectedMemberJson = jsonMembersArray.get(v.getId());
     }
-//test build
 }
