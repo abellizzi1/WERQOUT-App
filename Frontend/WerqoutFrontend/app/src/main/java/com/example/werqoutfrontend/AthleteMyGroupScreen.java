@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
     /**
      * The current rating of the athlete's team.
      */
-    private double currentRating = 0;
+    private String currentRating = "";
 
     /**
      * The athlete's team id.
@@ -69,7 +70,9 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
-                    currentRating = (double)result.get("rating");
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    String resultrating = df.format((double)result.get("rating"));
+                    currentRating = resultrating;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -122,6 +125,12 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
                     params.put("rating", rating);
                     ServerRequest ratingRequest = new ServerRequest();
                     ratingRequest.jsonObjectRequest(Const.CURRENT_URL, 2, new JSONObject(params));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(view.getContext(), AthleteMyGroupScreen.class));
+                        }
+                    }, 100);
                 }
             }
         });
