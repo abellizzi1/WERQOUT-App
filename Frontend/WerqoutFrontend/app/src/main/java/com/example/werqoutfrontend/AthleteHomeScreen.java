@@ -107,6 +107,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function directs the user to the Search Screen when the "Search" button
+             * is clicked on the bottom taskbar.
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), SearchScreen.class));

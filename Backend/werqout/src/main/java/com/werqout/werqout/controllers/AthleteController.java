@@ -123,6 +123,8 @@ public class AthleteController {
         Team team = teamRepository.findById(teamID);
         if (team != null && athlete != null){
             athlete.removeTeam(team);
+            team.removeMember(athlete);
+            teamRepository.save(team);
     	    athleteRepository.save(athlete);
             return "Athlete " + athlete.getUserName() + " from " + team.getName() +" has been deleted.";
         }
