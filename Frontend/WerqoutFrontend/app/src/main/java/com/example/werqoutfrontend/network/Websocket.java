@@ -167,7 +167,13 @@ public class Websocket {
     {
         return messageMap.get(otherID);
     }
-    public static void addMessageLog(int otherId, String m)
+
+    public static void addMesageLog(int otherID, ArrayList<String[]> mLog)
+    {
+        messageMap.put(otherID, mLog);
+        onlineStatus.put(otherID, false);
+    }
+    public static void addMessage(int otherId, String m)
     {
         String [] newMessage = {m, Integer.toString(User.currentUser.getId())};
         messageMap.get(otherId).add(newMessage);

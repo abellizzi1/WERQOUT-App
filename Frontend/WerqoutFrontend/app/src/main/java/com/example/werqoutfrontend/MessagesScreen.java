@@ -13,17 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.User;
-import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.network.Websocket;
-import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.RecyclerViewAdapterMessage;
 import com.example.werqoutfrontend.utils.RecyclerViewMessage;
-import com.example.werqoutfrontend.utils.VolleyCallback;
 
 import org.java_websocket.client.WebSocketClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -104,7 +98,7 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
                     enterMessage.setText("");
                     try {
                         cc.send(sendTextMessage);
-                        Websocket.addMessageLog(otherID, textMessage);
+                        Websocket.addMessage(otherID, textMessage);
                     }
                     catch(Exception e){
                         Log.d("ExceptionSendMessage:", e.getMessage().toString());
@@ -145,6 +139,10 @@ public class MessagesScreen extends AppCompatActivity implements Serializable {
 
     private void createList(ArrayList<String[]> m)
     {
+        if(m == null)
+        {
+            return;
+        }
         for(String [] textMessage: m)
         {
             try {
