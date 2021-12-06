@@ -134,7 +134,7 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-                Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/" + LoginScreen.getId() + "/teams";
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/" + LoginScreen.getId() + "/teams/" + teamId;
                 ServerRequest removeAthleteRequest = new ServerRequest();
                 removeAthleteRequest.jsonObjectRequest(Const.CURRENT_URL, 3, AthleteHomeScreen.getAthleteTeam());
                 new Handler().postDelayed(new Runnable() {

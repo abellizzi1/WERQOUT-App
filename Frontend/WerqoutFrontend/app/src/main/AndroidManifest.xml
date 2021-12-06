@@ -28,6 +28,7 @@
         <activity
             android:name=".GymOwnerHomeScreen"
             android:exported="false" />
+        <activity
             android:name=".SearchScreenPopUp"
             android:exported="true"
             android:theme="@style/AppTheme.CustomTheme"
