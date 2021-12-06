@@ -87,7 +87,7 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter <RecyclerVi
         holder.mTextView1.setText(currentItem.getMessage());
         holder.username.setText(currentItem.getUsername());
 //        if(currentItem.getUsername().equalsIgnoreCase(User.currentUser.getUsername()))
-        if(currentItem.getUsername().equalsIgnoreCase("colin"))
+        if(currentItem.getUsername().equalsIgnoreCase(User.currentUser.getUsername()))
         {
             holder.username.setTextColor(Color.BLUE);
            // holder.colorSidebar.setBackgroundColor(Color.BLUE);

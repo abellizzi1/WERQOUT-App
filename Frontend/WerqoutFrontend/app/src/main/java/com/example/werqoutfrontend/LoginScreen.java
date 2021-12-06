@@ -104,7 +104,7 @@ public class LoginScreen extends AppCompatActivity {
              * Takes the user to the register screen when clicked
              */
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), RegisterScreen.class));
+                startActivity(new Intent(v.getContext(), CoachGroupsScreen.class));
             }
 
         });
@@ -115,10 +115,9 @@ public class LoginScreen extends AppCompatActivity {
              * Validates the user's login information on click
              */
             public void onClick(View view) {
-                User.loggedIn = false;
-                email = emailInput.getText().toString();
-                password = passwordInput.getText().toString();
-//                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+            email = emailInput.getText().toString();
+            password = passwordInput.getText().toString();
+//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
                 getJsonLoginInfo();
             }
         });
@@ -145,6 +144,7 @@ public class LoginScreen extends AppCompatActivity {
 
         ServerRequest userLogin = new ServerRequest();
         userLogin.jsonArrayRequest(new VolleyCallback() {
+            //Is there a way that I don't need to include this method?
             @Override
             public void onSuccess(JSONObject result) {
             }
