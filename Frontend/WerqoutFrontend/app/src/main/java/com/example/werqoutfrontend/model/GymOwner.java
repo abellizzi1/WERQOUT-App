@@ -7,7 +7,7 @@ public class GymOwner extends User{
     /**
      * The list of teams at the gym.
      */
-    private ArrayList<Team> listTeams;
+    public ArrayList<Team> listTeams;
 
     /**
      * The current event at the gym.

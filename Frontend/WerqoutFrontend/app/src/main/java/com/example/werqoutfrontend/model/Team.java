@@ -31,7 +31,7 @@ public class Team {
     /**
      * The total number of ratings given. (used to compute the average/true rating)
      */
-    private int numRatings;
+    public int numRatings;
 
     /**
      * The owner of the gym that this team is at.
@@ -113,9 +113,24 @@ public class Team {
         return (ratingSum / numRatings);
     }
 
+    /**
+     * Sets the team's gym owner to the given parameter.
+     * @param go
+     *  the team's gym owner.
+     */
     public void setTeamGym(GymOwner go)
     {
         gymOwner = go;
+    }
+
+    /**
+     * Gets the team's gym owner.
+     * @return
+     *  returns the team's gym owner.
+     */
+    public GymOwner getTeamGymOwner()
+    {
+        return gymOwner;
     }
 
 }

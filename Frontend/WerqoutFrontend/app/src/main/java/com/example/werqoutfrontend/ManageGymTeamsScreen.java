@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.werqoutfrontend.model.GymOwner;
+import com.example.werqoutfrontend.model.Team;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -144,5 +146,11 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
     public static JSONObject getTeamInfo()
     {
         return selectedTeamInfo;
+    }
+
+    public ArrayList<Team> getGymTeams(GymOwner go)
+    {
+        //returns the gym's teams from the database
+        return null;
     }
 }

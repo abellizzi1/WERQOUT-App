@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.werqoutfrontend.model.Team;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 
@@ -83,5 +84,11 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public int getRating(Team t)
+    {
+        //gets the rating for the team (used for testing)
+        return 0;
     }
 }
