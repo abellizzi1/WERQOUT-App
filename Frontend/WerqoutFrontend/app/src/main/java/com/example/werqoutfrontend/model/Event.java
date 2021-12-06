@@ -5,7 +5,7 @@ package com.example.werqoutfrontend.model;
  * Also includes methods to create a new workout and set the name, date, and time.
  * @author Angelo Bellizzi
  */
-public class Workout {
+public class Event {
     /**
      * The name of the workout.
      */
@@ -30,7 +30,7 @@ public class Workout {
      * @param time
      * the time of the workout (in the format 00:00AM)
      */
-    public Workout(String name, String date, String time)
+    public Event(String name, String date, String time)
     {
         this.name = name;
         this.date = date;

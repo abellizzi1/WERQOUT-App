@@ -16,12 +16,27 @@ public class Team {
     /**
      * ArrayList of the workouts in this Team.
      */
-    public ArrayList<Workout> listWorkouts;
+    public ArrayList<Event> listWorkouts;
 
     /**
      * The name of the team.
      */
     private String teamName;
+
+    /**
+     * The sum of the ratings for the team.
+     */
+    private double ratingSum;
+
+    /**
+     * The total number of ratings given. (used to compute the average/true rating)
+     */
+    private int numRatings;
+
+    /**
+     * The owner of the gym that this team is at.
+     */
+    private GymOwner gymOwner;
 
     /**
      * Constructor for a Team. Creates an ArrayList for the athletes and workouts, and sets
@@ -33,7 +48,9 @@ public class Team {
     {
         this.teamName = teamName;
         listAthletes = new ArrayList<Athlete>();
-        listWorkouts = new ArrayList<Workout>();
+        listWorkouts = new ArrayList<Event>();
+        ratingSum = 0;
+        numRatings = 0;
     }
 
     /**
@@ -74,4 +91,31 @@ public class Team {
         listAthletes.remove(a);
         a.setTeam(null);
     }
+
+    /**
+     * Rates the team by adding the rating to the sum and adding 1 to the number of ratings.
+     * @param num
+     *  The input for the rating.
+     */
+    public void rate(int num)
+    {
+        numRatings++;
+        ratingSum += num;
+    }
+
+    /**
+     * Gets the rating for the team.
+     * @return
+     *  returns the average of all ratings given to the team.
+     */
+    public double getRating()
+    {
+        return (ratingSum / numRatings);
+    }
+
+    public void setTeamGym(GymOwner go)
+    {
+        gymOwner = go;
+    }
+
 }

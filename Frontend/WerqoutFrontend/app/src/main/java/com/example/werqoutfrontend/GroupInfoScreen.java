@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.model.Team;
-import com.example.werqoutfrontend.model.Workout;
+import com.example.werqoutfrontend.model.Event;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -24,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -212,7 +210,7 @@ public class GroupInfoScreen extends AppCompatActivity {
      * @return
      * returns an ArrayList of the team's workouts
      */
-    public ArrayList<Workout> getWorkouts(Team t)
+    public ArrayList<Event> getWorkouts(Team t)
     {
         //gets workouts from database
         return null;
