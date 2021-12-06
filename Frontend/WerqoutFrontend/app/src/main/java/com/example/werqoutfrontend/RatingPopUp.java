@@ -95,7 +95,7 @@ public class RatingPopUp extends AppCompatActivity {
         }
         else
         {
-            requestURL = Const.URL_JSON_REQUEST_GYMOWNER + id;
+            requestURL = Const.URL_JSON_REQUEST_GYMOWNER + "/" + id;
         }
         ServerRequest request = new ServerRequest();
         request.jsonGetRequest(new VolleyCallback() {
