@@ -16,10 +16,13 @@ import com.example.werqoutfrontend.model.Coach;
 import com.example.werqoutfrontend.model.GymOwner;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
+import com.example.werqoutfrontend.network.Websocket;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallbackImage;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * This class contains the logic necessary for the profile screen to function. It basically
  * allows a user to view their current account information and other user related statistics depending
@@ -168,7 +171,8 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
                 String url = Const.URL_JSON_REQUEST_ATHLETES + User.currentUser.getId()
                         + "/dms/" + id;
                 addNewDM.jsonObjectRequest(url, 1,null);
-                //Websocket.getCc().onOpen;
+                Websocket.addMesageLog(id, new ArrayList<String[]>());
+                startActivity(new Intent(getApplicationContext(), SelectMessageScreen.class));
             }
         });
 
