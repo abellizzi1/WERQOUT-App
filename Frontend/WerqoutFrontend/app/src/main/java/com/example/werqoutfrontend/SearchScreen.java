@@ -278,6 +278,19 @@ public class SearchScreen extends AppCompatActivity {
                         intent.putExtra("userType", "gymOwner");
                         startActivity(intent);
                     }
+                    else if(resultType == 4)
+                    {
+                        if(User.currentUser.getUserType().equalsIgnoreCase("Athlete"))
+                        {
+                            String teamName =  jsonObject.getString("name");
+                            String teamID = jsonObject.getString("id");
+                            Intent intent = new Intent(getApplicationContext(),
+                                    SearchScreenPopUp.class);
+                            intent.putExtra("teamName", teamName);
+                            intent.putExtra("teamID", teamID);
+                            startActivity(intent);
+                        }
+                    }
 
 
                 } catch (JSONException e) {

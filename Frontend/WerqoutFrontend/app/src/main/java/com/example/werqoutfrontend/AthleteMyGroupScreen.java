@@ -37,6 +37,8 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
             teamNameLabel.setText(AthleteHomeScreen.getAthleteTeam().get("name").toString());
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            teamNameLabel.setText("No team");
         }
 
         Button backButton = findViewById(R.id.back_button_athlete_mygroup);
