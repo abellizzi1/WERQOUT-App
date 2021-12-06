@@ -9,7 +9,7 @@ public class Const {
     /**
      * The url used for requesting information about an athlete
      */
-    public static final String URL_JSON_REQUEST_ATHLETES = "http://coms-309-034.cs.iastate.edu:8080/athletes";
+    public static final String URL_JSON_REQUEST_ATHLETES = "http://coms-309-034.cs.iastate.edu:8080/athletes/";
     /**
      * The url used for requesting information about a coach
      */
@@ -27,7 +27,7 @@ public class Const {
     /**
      * The url used for requesting information about a gym owner
      */
-    public static final String URL_JSON_REQUEST_GYMOWNER = "http://coms-309-034.cs.iastate.edu:8080/gymowner";
+    public static final String URL_JSON_REQUEST_GYMOWNER = "http://coms-309-034.cs.iastate.edu:8080/gymOwner/";
     /**
      * The url used for requesting information about users
      */

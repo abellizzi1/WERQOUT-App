@@ -1,6 +1,4 @@
 package com.example.werqoutfrontend.model;
-
-
 import java.io.Serializable;
 
 /**
@@ -9,18 +7,6 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Athlete extends User implements Serializable {
-    /**
-     * The username of the athlete
-     */
-    private String userName;
-    /**
-     * The email of the athlete
-     */
-    private String email;
-    /**
-     * The password of the athlete
-     */
-    private String password;
     /**
      * The team of the athlete
      */
@@ -41,60 +27,6 @@ public class Athlete extends User implements Serializable {
     {
         super(username, email, password, "Athlete", id);
     }
-
-    /**
-     * Gets the username of the athlete
-     * @return
-     *  The username of the athlete
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * Updates the username of the athlete
-     * @param userName
-     *  The new username for the athlete
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * Returns the email of the athlete
-     * @return
-     *  The email of the athlete
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Updates the email of the athlete
-     * @param email
-     *  The new email for the athlete
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Returns the password of the user
-     * @return
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Updates the password of the user
-     * @param password
-     *  The new password for the user
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     /**
      * Updates the current team that the athlete is a part of
      * @param team

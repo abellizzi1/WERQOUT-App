@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.model.Coach;
+import com.example.werqoutfrontend.model.GymOwner;
+import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.RecyclerViewAdapter;
@@ -49,13 +52,10 @@ public class SearchScreen extends AppCompatActivity {
      */
     private ArrayList<RecyclerViewComponent> searchResults;
     /**
-     * A JSON array containing all of the search results
+     * An Array List of JSON objects containing all of the search results
      */
-    private JSONArray jsonArray;
-    /**
-     * The filter that is currently being applied to the search results
-     */
-    private int currentFilter = 3;
+    private ArrayList<JSONObject> jsonObjects;
+    private int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,16 @@ public class SearchScreen extends AppCompatActivity {
         Button filterAthletes = findViewById(R.id.filter_athletes_button_search_screen);
         Button filterCoaches = findViewById(R.id.filter_coaches_button_search_screen);
         Button filterGyms = findViewById(R.id.filter_gym_button_serach_screen);
-        getSearchResults(Const.POSTMAN_TEST_URL);
+        Button filterEvents = findViewById(R.id.filter_events_button_search_screen);
+        Button filterTeams = findViewById(R.id.filter_teams_button_search_screen);
+        Button filterAll = findViewById(R.id.filter_all_button_search_screen);
+
+        initializeSearchView();
+        getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all", 0);
+        getSearchResults(Const.URL_JSON_REQUEST_COACHES,1);
+        getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER,2);
+        getSearchResults(Const.URL_JSON_REQUEST_EVENTS,3);
+        getSearchResults(Const.URL_JSON_REQUEST_TEAMS,4);
 
         filterAthletes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +80,8 @@ public class SearchScreen extends AppCompatActivity {
              * This onclick method filters the search results by athletes
              */
             public void onClick(View view) {
-                currentFilter = 0;
-                getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all");
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all", 0);
             }
         });
         filterCoaches.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +90,8 @@ public class SearchScreen extends AppCompatActivity {
              * This onclick method filters the search results by coaches
              */
             public void onClick(View view) {
-                currentFilter = 1;
-//                getSearchResults(Const.URL_JSON_REQUEST_COACHES);
-                getSearchResults(Const.POSTMAN_TEST_URL + "/coaches");
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_COACHES,1);
             }
         });
         filterGyms.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +100,47 @@ public class SearchScreen extends AppCompatActivity {
              * This onclick method filters the search results by gym owners
              */
             public void onClick(View view) {
-                currentFilter = 2;
-//                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER);
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER,2);
+            }
+        });
+        filterEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * This onclick method filters the search results by gym owners
+             */
+            public void onClick(View view) {
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_EVENTS,3);
+            }
+        });
+        filterTeams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * This onclick method filters the search results by gym owners
+             */
+            public void onClick(View view) {
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_TEAMS,4);
+            }
+        });
+        filterAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initializeSearchView();
+                getSearchResults(Const.URL_JSON_REQUEST_ATHLETES + "/all", 0);
+                getSearchResults(Const.URL_JSON_REQUEST_COACHES,1);
+                getSearchResults(Const.URL_JSON_REQUEST_GYMOWNER,2);
+                getSearchResults(Const.URL_JSON_REQUEST_EVENTS,3);
+                getSearchResults(Const.URL_JSON_REQUEST_TEAMS,4);
             }
         });
     }
-
+    private void initializeSearchView(){
+        index = 0;
+        jsonObjects = new ArrayList<>();
+        searchResults = new ArrayList<>();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         SearchView searchView = findViewById(R.id.search_entry);
@@ -121,7 +164,7 @@ public class SearchScreen extends AppCompatActivity {
         return true;
     }
 
-    private void getSearchResults(String url)
+    private void getSearchResults(String url, int filter)
     {
         ServerRequest getAthletes = new ServerRequest();
         getAthletes.jsonArrayRequest(new VolleyCallback() {
@@ -132,40 +175,46 @@ public class SearchScreen extends AppCompatActivity {
 
             @Override
             public void onSuccess(JSONArray result) {
-                jsonArray = result;
-                searchResults = new ArrayList<>();
                 for(int i = 0; i < result.length(); i++)
                 {
                     try {
                         JSONObject searchResult = result.getJSONObject(i);
+                        jsonObjects.add(searchResult);
                         //Depending on searchType, I'll need to add some conditionals here
-                        if(currentFilter == 0) {
+                        if(filter == 0) {
                             String username = searchResult.get("userName").toString();
                             String description = searchResult.get("email").toString();
                             searchResults.add(new RecyclerViewComponent(R.drawable.ic_default_account_box,
-                                    username, description, i));
+                                    username, description, index, filter));
                         }
-                        else if(currentFilter == 1)
+                        else if(filter == 1)
                         {
                             String username = searchResult.get("userName").toString();
                             String rating = searchResult.get("rating").toString();
                             searchResults.add(new RecyclerViewComponent(R.drawable.ic_baseline_coach_24,
-                                    username, rating, i));
+                                    username, rating, index, filter));
                         }
-                        else if(currentFilter == 2)
+                        else if(filter == 2)
                         {
                             String gymName = searchResult.get("gymName").toString();
                             String username = searchResult.get("userName").toString();
                             searchResults.add(new RecyclerViewComponent(R.drawable.ic_baseline_gym_24,
-                                    gymName, username, i));
+                                    gymName, username, index, filter));
                         }
-                        else
+                        else if(filter == 3)
                         {
-                            String username = searchResult.get("userName").toString();
-                            searchResults.add(new RecyclerViewComponent(R.drawable.ic_default_account_box,
-                                    username, "", i));
+                            String desc = searchResult.get("description").toString();
+                            String date = AddDeleteWorkoutScreen.formatDateTimeFromDatabase(searchResult.get("date").toString());
+                            searchResults.add(new RecyclerViewComponent(R.drawable.ic_event,
+                                    desc, date, index, filter));
                         }
-
+                        else if(filter == 4){
+                            String teamName = searchResult.getString("name");
+                            String desc = searchResult.getString("description");
+                            searchResults.add(new RecyclerViewComponent(R.drawable.ic_team,
+                                    teamName, desc, index, filter));
+                        }
+                        index++;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -192,14 +241,44 @@ public class SearchScreen extends AppCompatActivity {
              */
             public void onComponentClick(int position) {
                 try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(
-                            searchResults.get(position).getOriginalIndex());
-                    Athlete athlete = new Athlete(jsonObject.getString("email"),null,
-                            jsonObject.getString("userName"), Integer.valueOf(jsonObject.get("id").toString()));
-                    Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
-                    intent.putExtra("athlete", athlete);
-                    intent.putExtra("calledFrom", "search");
-                    startActivity(intent);
+                    JSONObject jsonObject = jsonObjects.get(searchResults.get(position).getOriginalIndex());
+                    int resultType = searchResults.get(position).getResultType();
+                    if(resultType == 0)
+                    {
+                        Athlete athlete = new Athlete(jsonObject.getString("email"),null,
+                                jsonObject.getString("userName"), Integer.valueOf(jsonObject.get("id").toString()));
+                        Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
+                        intent.putExtra("athlete", athlete);
+                        intent.putExtra("userType", "athlete");
+                        startActivity(intent);
+                    }
+                    else if(resultType == 1)
+                    {
+                        String email = jsonObject.getString("email");
+                        String username = jsonObject.getString("userName");
+                        int id = jsonObject.getInt("id");
+                        double rating = jsonObject.getDouble("rating");
+                        int numRatings = jsonObject.getInt("numRatings");
+                        Coach coach = new Coach(email, null, username, id, rating, numRatings);
+                        Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
+                        intent.putExtra("coach",coach);
+                        intent.putExtra("userType", "coach");
+                        startActivity(intent);
+                    }
+                    else if(resultType == 2)
+                    {
+                        String email = jsonObject.getString("email");
+                        String username = jsonObject.getString("userName");
+                        int id = jsonObject.getInt("id");
+                        double rating = jsonObject.getDouble("rating");
+                        int numRatings = jsonObject.getInt("numRatings");
+                        GymOwner gymOwner = new GymOwner(email, null, username, id, rating, numRatings);
+                        Intent intent = new Intent(getApplicationContext(), ProfileScreen.class);
+                        intent.putExtra("gymOwner", gymOwner);
+                        intent.putExtra("userType", "gymOwner");
+                        startActivity(intent);
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
