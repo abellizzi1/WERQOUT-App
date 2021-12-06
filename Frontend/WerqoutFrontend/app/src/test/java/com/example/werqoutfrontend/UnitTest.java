@@ -32,12 +32,12 @@ public class UnitTest {
     @Before public void initialize()
     {
         filterResults = mock(FilterResults.class);
-        tim = new RecyclerViewComponent(R.drawable.ic_default_account_box,
-                "tim", "tim@gmail.com", 0);
-        tom = new RecyclerViewComponent(R.drawable.ic_default_account_box,
-                "tom", "tom@gmail.com", 1);
-        ramona = new RecyclerViewComponent(R.drawable.ic_default_account_box,
-                "Ramona", "ramona@gmail.com", 2);
+//        tim = new RecyclerViewComponent(R.drawable.ic_default_account_box,
+//                "tim", "tim@gmail.com", 0);
+//        tom = new RecyclerViewComponent(R.drawable.ic_default_account_box,
+//                "tom", "tom@gmail.com", 1);
+//        ramona = new RecyclerViewComponent(R.drawable.ic_default_account_box,
+//                "Ramona", "ramona@gmail.com", 2);
         searchResults = new ArrayList<>();
         searchResults.add(tim);
         searchResults.add(tom);

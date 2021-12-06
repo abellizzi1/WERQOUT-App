@@ -50,6 +50,8 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
 
     private JSONObject team;
 
+    private int teamId;
+
     private ArrayList<JSONObject> jsonMembersArray;
 
     private String addAthleteEmail;
@@ -84,12 +86,14 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_edit_group);
 
         try {
-            Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + team.get("id") + "/athletes";
+            teamId = (int)team.get("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ServerRequest displayAllGroups = new ServerRequest();
-        displayAllGroups.jsonArrayRequest(new VolleyCallback() {
+
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId + "/athletes";
+        ServerRequest displayAllAthletes = new ServerRequest();
+        displayAllAthletes.jsonArrayRequest(new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject result) {
             }
@@ -201,7 +205,7 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
                 String athleteUrl = "";
                 try {
-                    athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + "/" + selectedMemberJson.get("id") + "/teams";
+                    athleteUrl = Const.URL_JSON_REQUEST_ATHLETES + selectedMemberJson.get("id") + "/teams/" + teamId;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -229,5 +233,5 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
         selected.setText("Selected: " + selectedMemberString);
         selectedMemberJson = jsonMembersArray.get(v.getId());
     }
-
+//test build
 }
