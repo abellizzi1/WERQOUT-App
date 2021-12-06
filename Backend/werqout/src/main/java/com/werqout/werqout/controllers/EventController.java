@@ -1,6 +1,7 @@
 package com.werqout.werqout.controllers;
 
 import com.werqout.werqout.models.GymOwner;
+import com.werqout.werqout.models.Team;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ import com.werqout.werqout.repository.EventRepository;
 @RestController
 @RequestMapping("/events")
 public class EventController {
+
     @Autowired
     GymOwnerRepository gymOwnerRepository;
 
@@ -51,14 +53,23 @@ public class EventController {
     public List<Event> getEvents(){
         return eventRepository.findAll();
     }
-
+    /**
+     * Creates an event
+     * @param event event that is being created
+     * @return the new event
+     */
     @PostMapping("/create")
     @ApiOperation(value = "Create an event in the database", response = Iterable.class, tags = "createEvent")
     public Event createEvent(@RequestBody Event event){
         Event newEvent = eventRepository.save(event);
         return eventRepository.findById(newEvent.getId());
     }
-
+    /**
+     * updates an event 
+     * @param id event id
+     * @param event event that is being updated
+     * @return the new event
+     */
     @PutMapping("/{id}")
     @ApiOperation(value = "Updates an event in the database", response = Iterable.class, tags = "updateEvent")
 	Event updateEvent(@PathVariable long id, @RequestBody Event event) {
@@ -69,7 +80,11 @@ public class EventController {
 		eventRepository.save(event);
 		return eventRepository.findById(id);
 	}
-
+    /**
+     * Deletes an event 
+     * @param id id of the event being deleted
+     * @return the response, either no such event or that the event has been deleted.
+     */
     @Transactional
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Deletes an event in the database", response = Iterable.class, tags = "deleteEvent")
@@ -83,17 +98,22 @@ public class EventController {
     // event methods that have to do with the gymowners
     /**
      * Gets the events at the gym
-     * @param gymId id of the gym owner
+     * @param gymID id of the gym owner
      * @return list of events that that gym has
      */
-    @GetMapping("/{gymID}/events")
-    @ApiOperation(value = "Gets the events at a gym by the gyms id", response = Iterable.class, tags = "getEventsAtGym")
+    @GetMapping("/gym/{gymID}/events")
+    @ApiOperation(value = "Gets the events at a gym by the gym's id", response = Iterable.class, tags = "getEventsAtGym")
     Event getEventsAtGym(@PathVariable long gymID){
         //todo- filter by date
        return gymOwnerRepository.findById(gymID).getEvent();
     }
-
-    @PostMapping("/{gymID}/event")
+    /**
+     * Creates an event at the gym
+     * @param gymID id of the gym that event is being held at
+     * @param e event that is being created
+     * @return  the new event
+     */
+    @PostMapping("/gym/{gymID}/event")
     @ApiOperation(value = "Creates an event at a gym", response = Iterable.class, tags = "createEvent")
     public Event createEvent(@PathVariable long gymID, @RequestBody Event e){
         GymOwner go = gymOwnerRepository.findById(gymID);
@@ -108,9 +128,15 @@ public class EventController {
             return null;
         }
     }
+    /**
+     * Deletes the event from the gym
+     * @param gymID gymId which holds the event
+     * @param eventID eventID which is going to be deleted
+     * @return Response of either no such gymOwner or event, or that the event has been deleted.
+     */
     @Transactional
-    @DeleteMapping("/{gymID}/{eventID}")
-    @ApiOperation(value = "Deletes an event in the database", response = Iterable.class, tags = "deleteEvent")
+    @DeleteMapping("/gym/{gymID}/{eventID}")
+    @ApiOperation(value = "Deletes an event in the database that a gym owner created", response = Iterable.class, tags = "deleteEvent")
     String deleteEvent(@PathVariable long gymID, @PathVariable long eventID){
         GymOwner go = gymOwnerRepository.findById(gymID);
         Event e = eventRepository.findById(eventID);
@@ -119,7 +145,9 @@ public class EventController {
         }
         else{
         go.setEvent(null);
+        eventRepository.deleteById(eventID);
         gymOwnerRepository.save(go);
+        eventRepository.save(e);
         return "Event " + e.getId() + " has been deleted";
         }
         
@@ -127,6 +155,68 @@ public class EventController {
     }
 
     //events that have to do with the teams
+    /**
+     * Gets the events made by the team.
+     * @param teamID
+     * @return team's event.
+     */
+    @GetMapping("/team/{teamID}/events")
+    @ApiOperation(value = "Gets the events created by the team by the team's id", response = Iterable.class, tags = "getTeamEvents")
+    public List<Event> getTeamEvents(@PathVariable long teamID){
+        //todo- filter by date
+       return teamRepository.findById(teamID).getEvents();
+    }
+    /**
+     * Allows a team to create an event
+     * @param teamID ID of the team that wants to creat the event
+     * @param e event that is being created
+     * @return new event
+     */
+    @PostMapping("/team/{teamID}/createEvent")
+    @ApiOperation(value = "Team creates an event", response = Iterable.class, tags = "teamCreateEvent")
+    public Event teamCreateEvent(@PathVariable long teamID,@RequestBody Event e){
+        Team t = teamRepository.findById(teamID);
+
+        if (t != null){
+            t.addEvent(e);
+            eventRepository.save(e);
+            return eventRepository.findById(e.getId());
+        }
+        else{
+            //No Team.
+            System.out.println("No such Team");
+            return null;
+        }
+
+    }
+    
+    /**
+     * Deletes the event from the team
+     * @param teamID ID of the team which holds the event
+     * @param eventID eventID which is going to be deleted
+     * @return Response of either no such team or event, or that the event has been deleted.
+     */
+    @Transactional
+    @DeleteMapping("/team/{teamID}/{eventID}")
+    @ApiOperation(value = "Deletes an event in the database that a team created", response = Iterable.class, tags = "deleteTeamEvent")
+    String deleteTeamEvent(@PathVariable long teamID, @PathVariable long eventID){
+        Team t = teamRepository.findById(teamID);
+        Event e = eventRepository.findById(eventID);
+        if (t == null || e == null){
+            return "no such team or event";
+        }
+        else{
+        t.removeEvent(e);
+        eventRepository.deleteById(eventID);
+        teamRepository.save(t);
+        eventRepository.save(e);
+        return "Event " + e.getId() + " has been deleted";
+        }
+        
+        
+    }
+
+
 
     
 }

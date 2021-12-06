@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -49,8 +51,7 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
      * @param savedInstanceState
      */
 
-    private JSONObject newTeam;
-    private boolean test = false;
+    private static JSONObject newTeam;
 
     private static JSONObject selectedTeamInfo;
 
@@ -108,7 +109,6 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onSuccess(JSONArray result) {
-
             }
         }, Const.CURRENT_URL);
 
@@ -129,27 +129,48 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                 Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS; // http://coms-309-034.cs.iastate.edu:8080/teams
                 ServerRequest request = new ServerRequest();
                 request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-                request = new ServerRequest();
-                request.jsonGetRequest(new VolleyCallback() {
-                    @Override
-                    public void onSuccess(JSONObject result) {
-                    }
 
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onSuccess(JSONArray result) {
-                        try {
-                            newTeam = result.getJSONObject(result.length()-1);
-                            test = true;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void run() {
+                        getPostedTeam();
                     }
-                }, Const.CURRENT_URL);
-                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
-                request.jsonObjectRequest(Const.CURRENT_URL,2, newTeam);
-                startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
+                }, 500);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        putPostedTeam();
+                    }
+                }, 1000);
             }
         });
+    }
+
+    private void getPostedTeam()
+    {
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS;
+        ServerRequest getrequest = new ServerRequest();
+        getrequest.jsonArrayRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+            @Override
+            public void onSuccess(JSONArray users) {
+                try {
+                    newTeam = users.getJSONObject(users.length()-1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, Const.CURRENT_URL);
+    }
+
+    private void putPostedTeam()
+    {
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";
+        ServerRequest putrequest = new ServerRequest();
+        putrequest.jsonObjectRequest(Const.CURRENT_URL,2, newTeam);
     }
 
     /**

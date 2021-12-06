@@ -24,6 +24,10 @@
             android:exported="true"
             android:label="@string/popup_title"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity>
+            android:name=".AthleteMyGroupScreen"
+            android:exported="false" />
+
         <activity
             android:name=".SearchScreen"
             android:exported="true"

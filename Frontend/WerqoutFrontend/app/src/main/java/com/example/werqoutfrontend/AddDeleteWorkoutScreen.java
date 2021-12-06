@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,10 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
 
     private static String selectedWorkoutString = "";
 
+    private JSONObject team;
+
+    private int teamId;
+
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
      * Connects this class to add_delete_workout_screen.xml
@@ -77,6 +82,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_add_delete);
         jsonWorkoutsArray = new ArrayList<JSONObject>();
         Context context = this;
+        team = CoachGroupsScreen.getTeamInfo();
+        try {
+            teamId = ((int)team.get("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(AddDeleteWorkoutScreen.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.time));
@@ -144,15 +155,20 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                     params.put("description", workoutName);
                     params.put("date", formatDateTimeToDatabase(workoutDate, workoutTime, userSpinner.getSelectedItem().toString().equals("AM")));
                     ServerRequest request = new ServerRequest();
-                    Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/create";
+                    Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/createEvent";
                     request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-                    startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+                        }
+                    }, 100);
                 }
             }
         });
 
         // get all workouts and add them to the scroll view
-        Const.CURRENT_URL = Const.URL_JSON_REQUEST_EVENTS;
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/events";
         ServerRequest allWorkouts = new ServerRequest();
         allWorkouts.jsonArrayRequest(new VolleyCallback() {
             @Override
@@ -200,7 +216,7 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                 String workoutUrl = "";
                 try {
                     // /events/{id}
-                    workoutUrl = "http://coms-309-034.cs.iastate.edu:8080/events/" + selectedWorkoutJson.get("id");
+                    workoutUrl = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/" + selectedWorkoutJson.get("id");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -319,7 +335,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
         {
             hour += 12;
         }
-        String t = "T" + hour + time.substring(2);
+        String hourString = "" + hour;
+        if (hourString.length() == 1)
+        {
+            hourString = "0" + hour;
+        }
+        String t = "T" + hourString + time.substring(2, 5);
         return year + "-" + month + "-" + day + t;
     }
 }
