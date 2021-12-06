@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,9 +15,13 @@ import android.widget.TextView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -53,9 +58,16 @@ public class RegisterScreen extends AppCompatActivity {
     private String password;
 
     /**
+     * This contains the gym name if the user registering is a gym owner.
+     */
+    private String gymName;
+
+    /**
      * The inputted confirm password, used to confirm the previous password.
      */
     private String confirmPassword;
+
+    private Map<String, String> params;
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
@@ -128,7 +140,7 @@ public class RegisterScreen extends AppCompatActivity {
                 else
                 {
                     //Storing the values in a hashmap to be placed in JSON
-                    Map<String, String> params = new HashMap<>();
+                    params = new HashMap<>();
                     params.put("userName", firstName);
                     params.put("lastName", lastName);
                     params.put("email", email);
@@ -146,14 +158,39 @@ public class RegisterScreen extends AppCompatActivity {
                     else
                     {
                         Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
+                        ServerRequest getGymOwnerLength = new ServerRequest();
+                        getGymOwnerLength.jsonArrayRequest(new VolleyCallback() {
+                            @Override
+                            public void onSuccess(JSONObject result) {
+                            }
+                            @Override
+                            public void onSuccess(JSONArray users) {
+                                int gymid = users.length() + 1;
+                                gymName = "Gym" + gymid;
+                            }
+                        },Const.CURRENT_URL);
                     }
-                    ServerRequest request = new ServerRequest();
-                    request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-                    startActivity(new Intent(v.getContext(), LoginScreen.class));
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            postUser(v);
+                        }
+                    }, 500);
                 }
             }
         });
+    }
 
+    private void postUser(View v)
+    {
+        if (Const.CURRENT_URL.equals(Const.URL_JSON_REQUEST_GYMOWNER)) {
+            params.put("gymName", gymName);
+        }
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER + "/";
+        ServerRequest request = new ServerRequest();
+        request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
+        startActivity(new Intent(v.getContext(), LoginScreen.class));
     }
 
     /**

@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.werqoutfrontend.model.Athlete;
-import com.example.werqoutfrontend.model.Team;
-import com.example.werqoutfrontend.model.Event;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -23,26 +20,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-/**
- * The GroupInfoScreen class gives functionality to the group_info_screen.xml screen. This screen
- * includes a Scroll View containing the team's members and upcoming workouts. It also gives the
- * Coach the option to go to the Add/Delete workout screen or the Edit Group screen.
- * @author Angelo Bellizzi
- */
-public class GroupInfoScreen extends AppCompatActivity {
-
-    private String TAG = ServerRequest.class.getSimpleName();
-    private String tag_json_obj_post = "jobj_req_post";
+public class ViewGymTeamScreen extends AppCompatActivity {
 
     /**
-     * The selected team.
+     * The linear layout within the Scroll View in view_gym_team_screen.xml
      */
-    public Team selectedGroup;
+    private LinearLayout linearScroll;
 
     /**
-     * A JSONObject of the team selected in CoachGroupsScreen.
+     * The context of this screen.
+     */
+    private Context context = this;
+
+    /**
+     * JSONObject of the team selected on the previous page.
      */
     private JSONObject team;
 
@@ -52,83 +43,62 @@ public class GroupInfoScreen extends AppCompatActivity {
     private int teamId;
 
     /**
-     * This screen's context.
-     */
-    private Context context = this;
-
-    /**
-     * The linear layout within the Scroll View in group_info_screen.xml
-     */
-    private LinearLayout linearScroll;
-
-    /**
      * Params for the text in the Scroll View.
      */
     private ViewGroup.LayoutParams params;
 
     /**
      * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
-     * Connects this class to group_info_screen.xml
+     * Connects this class to view_gym_team_screen.xml
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.group_info_screen);
+        setContentView(R.layout.view_gym_team_screen);
+        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_viewGymTeam);
+        TextView teamLabel = findViewById(R.id.team_label_viewGymTeam);
+        teamLabel.setText(ManageGymTeamsScreen.getSelectedGroup());
+        team = ManageGymTeamsScreen.getTeamInfo();
+        try {
+            teamId = ((int)team.get("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        TextView groupNameLabel = findViewById(R.id.group_name_label_group_info);
-        Button backButton = findViewById(R.id.back_button_group_info);
-        Button addDeleteButton = findViewById(R.id.addDeleteWorkouts_button_group_info);
-        Button editGroupButton = findViewById(R.id.editGroup_button_group_info);
-        groupNameLabel.setText(CoachGroupsScreen.getSelectedGroup());
-
+        Button backButton = findViewById(R.id.back_button_viewGymTeam);
         backButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * This onClick function directs the user to the Coach Groups Screen when the
-             * "back" button is clicked.
-             * @param view
-             */
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
-            }
-        });
-        addDeleteButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * This onClick function directs the user to the Add/Delete Workout Screen when the
-             * "add/delete workout" button is clicked.
-             * @param view
-             */
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
-            }
-        });
-        editGroupButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * This onClick function directs the user to the Edit Group Screen when the "edit group"
+             * This onClick function directs the user to the Manage Gym Teams Screen when the "back"
              * button is clicked.
              * @param view
              */
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+                startActivity(new Intent(view.getContext(), ManageGymTeamsScreen.class));
             }
         });
 
-        linearScroll = (LinearLayout)findViewById(R.id.scrollLinear_group_info);
+        Button removeTeamButton = findViewById(R.id.delete_button_viewGymTeam);
+        removeTeamButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function deletes the team.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId;
+                ServerRequest removeTeamRequest = new ServerRequest();
+                removeTeamRequest.jsonObjectRequest(Const.CURRENT_URL, 3, team);
+                startActivity(new Intent(view.getContext(), ManageGymTeamsScreen.class));
+            }
+        });
 
         TextView membersText = new TextView(context);
         membersText.setText("Members:");
         linearScroll.addView(membersText);
         params = membersText.getLayoutParams();
         CoachHomeScreen.setTextSettings(params, membersText);
-        team = CoachGroupsScreen.getTeamInfo();
-        try {
-            teamId = ((int)team.get("id"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId + "/athletes";
         ServerRequest displayMembers = new ServerRequest();
@@ -201,31 +171,5 @@ public class GroupInfoScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
-    }
-
-    /**
-     * Gets the team's workouts from the database.
-     * @param t
-     * the team that you want to get the workouts for
-     * @return
-     * returns an ArrayList of the team's workouts
-     */
-    public ArrayList<Event> getWorkouts(Team t)
-    {
-        //gets workouts from database
-        return null;
-    }
-
-    /**
-     * Gets the team's athletes from the database.
-     * @param t
-     * the team that you want to get the athletes for
-     * @return
-     * returns an ArrayList of the team's athletes
-     */
-    public ArrayList<Athlete> getAthletes(Team t)
-    {
-        //gets athletes from database
-        return null;
     }
 }

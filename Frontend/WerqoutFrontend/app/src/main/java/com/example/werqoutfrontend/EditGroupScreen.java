@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -161,6 +162,12 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                         }
                     }
                 },Const.CURRENT_URL);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+                    }
+                }, 100);
             }
         });
 
@@ -200,6 +207,12 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
                 }
                 ServerRequest removeAthleteRequest = new ServerRequest();
                 removeAthleteRequest.jsonObjectRequest(athleteUrl, 3, team);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(view.getContext(), EditGroupScreen.class));
+                    }
+                }, 100);
             }
         });
     }

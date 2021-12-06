@@ -57,6 +57,14 @@ public class LoginScreen extends AppCompatActivity {
      */
     private String password;
     /**
+     * True if the user logging in is a gym owner, else false. Initialized to false.
+     */
+    private boolean isGymOwner = false;
+    /**
+     * If the user logging in is a gym owner, the Gym ID is kept in this string.
+     */
+    private static String gymId;
+    /**
      * Provides a drop down menu from which the user can select which type of user to login as
      * (Athlete, Coach, or Gym Owner)
      */
@@ -129,11 +137,11 @@ public class LoginScreen extends AppCompatActivity {
         else
         {
             Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
+            isGymOwner = true;
         }
 
         ServerRequest userLogin = new ServerRequest();
         userLogin.jsonArrayRequest(new VolleyCallback() {
-            //Is there a way that I don't need to include this method?
             @Override
             public void onSuccess(JSONObject result) {
             }
@@ -148,11 +156,13 @@ public class LoginScreen extends AppCompatActivity {
                         JSONObject user = users.getJSONObject(i);
                         if(user.get("email").toString().equals(email))
                         {
-
                             emailResponse = user.get("email").toString();
                             passwordResponse = user.get("password").toString();
                             firstName = user.get("userName").toString();
                             id = ((int)user.get("id"));
+                            if (isGymOwner) {
+                                gymId = user.get("gymName").toString();
+                            }
                             Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             break;
                         }
@@ -184,8 +194,8 @@ public class LoginScreen extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), CoachHomeScreen.class));
                 }
                 else {
-                        // startActivity Gym owner home screen
-                    }
+                    startActivity(new Intent(getApplicationContext(), GymOwnerHomeScreen.class));
+                }
             }
             else
             {
@@ -211,4 +221,11 @@ public class LoginScreen extends AppCompatActivity {
      *  The id of the user
      */
     public static int getId() { return id; }
+
+    /**
+     * Returns the GymID if the user logging in is a gym owner.
+     * @return
+     *  the gym id of the corresponding gym owner.
+     */
+    public static String getGymId() { return gymId; }
 }

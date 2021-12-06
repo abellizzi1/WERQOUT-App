@@ -4,11 +4,10 @@ import static org.mockito.Mockito.*;
 
 import com.example.werqoutfrontend.model.Athlete;
 import com.example.werqoutfrontend.model.Team;
-import com.example.werqoutfrontend.model.Workout;
+import com.example.werqoutfrontend.model.Event;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -37,8 +36,8 @@ public class CoachTest {
     GroupInfoScreen gfs = mock(GroupInfoScreen.class);
     ArrayList<Athlete> testAthletesList = new ArrayList<Athlete>();
     Athlete testAthlete1 = new Athlete("test1@iastate.edu", "Password1!", "Test1", 1);
-    ArrayList<Workout> testWorkoutsList = new ArrayList<Workout>();
-    Workout testWorkout1 = new Workout("Chest/Tri", "10/07/21", "10:00 AM");
+    ArrayList<Event> testWorkoutsList = new ArrayList<Event>();
+    Event testWorkout1 = new Event("Chest/Tri", "10/07/21", "10:00 AM");
 
     @Test
     public void testAddAthlete()
@@ -60,7 +59,7 @@ public class CoachTest {
         Team team = new Team("group2");
         when (gfs.getWorkouts(team)).thenReturn(testWorkoutsList);
         team.listWorkouts = gfs.getWorkouts(team);
-        Workout wkt = new Workout("Back/Bi", "10/08/21", "10:00 AM");
+        Event wkt = new Event("Back/Bi", "10/08/21", "10:00 AM");
         team.listWorkouts.add(wkt);
         team.addAthlete(testAthlete1);
         assertEquals(wkt, testAthlete1.getTeam().listWorkouts.get(1));
