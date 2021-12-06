@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <SearchView
         android:id="@+id/search_entry"
@@ -33,21 +33,69 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.095" />
 
     <Button
         android:id="@+id/filter_athletes_button_search_screen"
         android:layout_width="115dp"
         android:layout_height="45dp"
-        android:text="Athletes"
         android:backgroundTint="#000000"
+        android:text="Athletes"
         android:textColor="#00FFA7"
-        app:strokeColor="#00FFA7"
-        app:strokeWidth="2dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
         app:layout_constraintEnd_toStartOf="@+id/filter_coaches_button_search_screen"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/search_entry"
+        app:layout_constraintVertical_bias="0.272"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/filter_events_button_search_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#000000"
+        android:text="Events"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toStartOf="@+id/filter_teams_button_search_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_athletes_button_search_screen"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/filter_teams_button_search_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#000000"
+        android:text="Teams"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toStartOf="@+id/filter_all_button_search_screen"
+        app:layout_constraintStart_toEndOf="@+id/filter_events_button_search_screen"
+        app:layout_constraintTop_toBottomOf="@+id/filter_coaches_button_search_screen"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/filter_all_button_search_screen"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#000000"
+        android:text="All"
+        android:textColor="#00FFA7"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/filter_teams_button_search_screen"
+        app:layout_constraintTop_toBottomOf="@+id/filter_gym_button_serach_screen"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/filter_coaches_button_search_screen"
@@ -62,6 +110,7 @@
         app:layout_constraintEnd_toStartOf="@+id/filter_gym_button_serach_screen"
         app:layout_constraintStart_toEndOf="@+id/filter_athletes_button_search_screen"
         app:layout_constraintTop_toBottomOf="@+id/search_entry"
+        app:layout_constraintVertical_bias="0.272"
         app:strokeColor="#00FFA7"
         app:strokeWidth="2dp" />
 
@@ -69,14 +118,15 @@
         android:id="@+id/filter_gym_button_serach_screen"
         android:layout_width="115dp"
         android:layout_height="45dp"
-        android:text="Gyms"
         android:backgroundTint="#000000"
+        android:text="Gyms"
         android:textColor="#00FFA7"
-        app:strokeColor="#00FFA7"
-        app:strokeWidth="2dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_search_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/filter_coaches_button_search_screen"
-        app:layout_constraintTop_toBottomOf="@+id/search_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/search_entry"
+        app:layout_constraintVertical_bias="0.272"
+        app:strokeColor="#00FFA7"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

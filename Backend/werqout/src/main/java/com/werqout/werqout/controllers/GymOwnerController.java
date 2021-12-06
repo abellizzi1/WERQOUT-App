@@ -36,7 +36,8 @@ public class GymOwnerController {
     TeamRepository teamRepository;
     
     @GetMapping("")
-    public List<GymOwner> getAllGyms() {
+    @ApiOperation(value = "Gets all gym owners in the database", response = Iterable.class, tags = "getAllGyms")
+    public List<GymOwner> getAllGymOwners() {
     	return gymOwnerRepository.findAll();
     }
 
@@ -59,8 +60,8 @@ public class GymOwnerController {
     @PostMapping("/")
     @ApiOperation(value = "Creates a Gym Onwer in the database", response = Iterable.class, tags = "getGymOwner")
     GymOwner createGymOwner(@RequestBody GymOwner gymOwner){
-        gymOwnerRepository.save(gymOwner);
-        return gymOwnerRepository.findById(gymOwner.getId());
+        return gymOwnerRepository.save(gymOwner);
+        
     }
 
     @PutMapping("/{id}")
@@ -82,7 +83,7 @@ public class GymOwnerController {
     }
 
     @PostMapping("/{id}/teams/{teamId}")
-    @ApiOperation(value = "Adds a team (refrenced by the team ID) to the list of teams that train at the gym (referenced by gymID)", response = Iterable.class, tags = "addTeam")
+    @ApiOperation(value = "Adds a team (refrenced by the team ID) to the list of teams that train at the gym (referenced by id)", response = Iterable.class, tags = "addTeam")
     public List<Team> addTeam(@PathVariable long id, @PathVariable long teamId) {
     	GymOwner go = gymOwnerRepository.findById(id);
         Team team = teamRepository.findById(teamId);

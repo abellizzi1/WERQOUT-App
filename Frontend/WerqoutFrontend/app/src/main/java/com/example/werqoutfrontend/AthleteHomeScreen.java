@@ -140,7 +140,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void run() {
                 getAthleteWorkouts();
             }
-        }, 300);
+        }, 600);
 
     }
 
@@ -150,6 +150,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
             Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + athleteTeam.get("id") + "/events";
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            TextView workoutText = new TextView(context);
+            workoutText.setText("No workouts planned");
+            linearScroll.addView(workoutText);
+            return;
         }
         // /events/team/{teamID}/events
         ServerRequest allWorkouts = new ServerRequest();
@@ -177,6 +182,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 }
             }
         }, Const.CURRENT_URL);
+        Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES;
     }
 
     private void getWeather()

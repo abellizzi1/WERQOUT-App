@@ -1,31 +1,54 @@
 package com.example.werqoutfrontend.model;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class GymOwner extends User{
-
+public class GymOwner extends User implements Serializable {
     /**
      * The list of teams at the gym.
      */
     public ArrayList<Team> listTeams;
-
-    /**
-     * The current event at the gym.
-     */
     private Event gymEvent;
+    private double rating;
+    private int numRatings;
+    public GymOwner(String email, String password, String username, int id, double rating, int numRatings)
+    {
+        super(username, email, password, "GymOwner", id);
+        this.rating = rating;
+        this.numRatings = numRatings;
+        listTeams = new ArrayList<Team>();
+    }
+    public double getRating() {
+        return rating/numRatings;
+    }
+
+    public void setRating(double rating) {
+        this.rating += rating;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
+    }
 
     /**
-     * Constructs a new user with the given parameters
-     *
-     * @param username The username of the user
-     * @param email    The email of the user
-     * @param password The password of the user
-     * @param userType The type of user
-     * @param id       The id of the user
+     * Sets the gym event given the parameter.
+     * @param e
+     *  The gym's new event.
      */
-    public GymOwner(String username, String email, String password, String userType, int id) {
-        super(username, email, password, userType, id);
-        listTeams = new ArrayList<Team>();
+    public void setGymEvent(Event e)
+    {
+        gymEvent = e;
+    }
+
+    /**
+     * Deletes the current gym event and gymEvent is set to null.
+     */
+    public void deleteGymEvent() {
+        gymEvent = null;
     }
 
     /**
@@ -48,23 +71,5 @@ public class GymOwner extends User{
     {
         listTeams.remove(t);
         t.setTeamGym(null);
-    }
-
-    /**
-     * Sets the gym event given the parameter.
-     * @param e
-     *  The gym's new event.
-     */
-    public void setGymEvent(Event e)
-    {
-        gymEvent = e;
-    }
-
-    /**
-     * Deletes the current gym event and gymEvent is set to null.
-     */
-    public void deleteGymEvent()
-    {
-        gymEvent = null;
     }
 }

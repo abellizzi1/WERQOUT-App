@@ -28,6 +28,15 @@
         <activity
             android:name=".GymOwnerHomeScreen"
             android:exported="false" />
+            android:name=".SearchScreenPopUp"
+            android:exported="true"
+            android:theme="@style/AppTheme.CustomTheme"
+            />
+        <activity
+            android:name=".RatingPopUp"
+            android:exported="true"
+            android:label="@string/popup_title"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".AthleteMyGroupScreen"
             android:exported="false" />

@@ -21,6 +21,11 @@ public class RecyclerViewComponent {
      * Stores the original each component within a list even when the filter may switch it's position
      */
     private final int mOriginalIndex;
+    /**
+     * Stores the type of search result as an integer (0 = Athlete, 1 = Coach, 2 = Gym Owner,
+     * 3 = Event, 4 = Team)
+     */
+    private int resultType;
 
     /**
      * Creates a new component to be displayed within a recycler view
@@ -33,12 +38,13 @@ public class RecyclerViewComponent {
      * @param originalIndex
      *  Stores the original each component within a list
      */
-    public RecyclerViewComponent(int ImageResource, String text1, String text2, int originalIndex)
+    public RecyclerViewComponent(int ImageResource, String text1, String text2, int originalIndex, int type)
     {
         mImageResource = ImageResource;
         mText1 = text1;
         mText2 = text2;
         mOriginalIndex = originalIndex;
+        resultType = type;
     }
 
     /**
@@ -75,5 +81,9 @@ public class RecyclerViewComponent {
      */
     public int getOriginalIndex() {
         return mOriginalIndex;
+    }
+
+    public int getResultType() {
+        return resultType;
     }
 }

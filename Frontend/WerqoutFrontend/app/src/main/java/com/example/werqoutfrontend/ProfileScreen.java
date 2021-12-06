@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.model.Coach;
+import com.example.werqoutfrontend.model.GymOwner;
 import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
@@ -46,6 +49,9 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
      * A textview used to display a user's bio
      */
     private TextView bioText;
+    private TextView ratingText;
+    private TextView idText;
+    private Button rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +62,53 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         userTypeText = findViewById(R.id.userType_text_profile_screen);
         emailText = findViewById((R.id.email_text_profile_screen));
         bioText = findViewById(R.id.bio_profileScreen);
-        TextView idText = findViewById(R.id.userID_text_profile_screen);
+        ratingText = findViewById(R.id.rating_textview_profile_page);
+        idText = findViewById(R.id.userID_text_profile_screen);
 
+        rate = findViewById(R.id.rate_button_profile_screen);
         Button editProfile = findViewById(R.id.edit_profile_button_profile_screen);
         Button returnHome = findViewById(R.id.return_button_profile_screen);
+        Button message = findViewById(R.id.message_button_profile_page);
 
         //If the profile screen is accessed from the search screen, display the profile image of the
         //selected user here
-        if(getIntent().getSerializableExtra("calledFrom") != null)
+        if(getIntent().getSerializableExtra("userType") != null)
         {
+            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.linear);
             editProfile.setVisibility(View.GONE);
-            Athlete athlete = (Athlete) getIntent().getSerializableExtra("athlete");
-            usernameText.setText(athlete.getUsername());
-            idText.setText("User ID: " + athlete.getId());
-            userTypeText.setText("User type: " + athlete.getUserType());
-            emailText.setText("Email: " + athlete.getEmail());
-            bioText.append("Successfully viewed from the search activity");
+            if(getIntent().getSerializableExtra("userType").equals("athlete"))
+            {
+                Athlete user = (Athlete) getIntent().getSerializableExtra("athlete");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+                ratingText.setVisibility(View.GONE);
+                rate.setVisibility(View.GONE);
+
+            }
+            else if(getIntent().getSerializableExtra("userType").equals("coach"))
+            {
+                Coach user = (Coach) getIntent().getSerializableExtra("coach");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+                ratingText.append(Double.toString(user.getRating()));
+                message.setVisibility(View.GONE);
+            }
+            else{
+                GymOwner user = (GymOwner) getIntent().getSerializableExtra("gymOwner");
+                usernameText.setText(user.getUsername());
+                idText.setText("User ID: " + user.getId());
+                userTypeText.setText("User type: " + user.getUserType());
+                emailText.setText("Email: " + user.getEmail());
+                bioText.append("Successfully viewed from the search activity");
+                ratingText.append(Double.toString(user.getRating()));
+                message.setVisibility(View.GONE);
+            }
         }
         //If the profile screen is accessed from the home screen, then simply display the current
         //user's profile information
@@ -81,6 +118,12 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
             userTypeText.setText("User type: " + User.currentUser.getUserType());
             emailText.setText("Email: " + User.currentUser.getEmail());
             bioText.append(" The one and only :)");
+            if(User.currentUser.getUserType().equalsIgnoreCase("athlete"))
+            {
+                ratingText.setVisibility(View.GONE);
+            }
+            rate.setVisibility(View.GONE);
+            message.setVisibility(View.GONE);
         }
         /*
         TODO: Once we are able to properly store images, replace this server request with the stored image
@@ -106,10 +149,39 @@ public class ProfileScreen extends AppCompatActivity implements Serializable {
         returnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                finish();
+            }
+        });
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ratingPopup();
+            }
+        });
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ServerRequest addNewDM = new ServerRequest();
+                String idString = idText.getText().toString();
+                String [] s = idString.split(" ", 3);
+                int id = Integer.parseInt(s[2]);
+                String url = Const.URL_JSON_REQUEST_ATHLETES + User.currentUser.getId()
+                        + "/dms/" + id;
+                addNewDM.jsonObjectRequest(url, 1,null);
+                //Websocket.getCc().onOpen;
             }
         });
 
+    }
 
+    private void ratingPopup()
+    {
+        Intent intent = new Intent(getApplicationContext(), RatingPopUp.class);
+        String rt = userTypeText.getText().toString().substring(11);
+        String idString = idText.getText().toString();
+        String id = idString.substring(idString.length() - 1);
+        intent.putExtra("ratingType", rt);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }

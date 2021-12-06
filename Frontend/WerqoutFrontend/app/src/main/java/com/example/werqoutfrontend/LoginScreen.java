@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.werqoutfrontend.model.Athlete;
+import com.example.werqoutfrontend.model.Coach;
+import com.example.werqoutfrontend.model.User;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
 import com.example.werqoutfrontend.utils.VolleyCallback;
@@ -69,6 +71,12 @@ public class LoginScreen extends AppCompatActivity {
      * (Athlete, Coach, or Gym Owner)
      */
     private Spinner userSpinner;
+
+    /**
+     * Stores the type of user as an integer(Athlete = 0, Coach = 1, and Gym Owner = 2)
+     */
+    private int userType;
+
     /**
      * The username of the user
      */
@@ -115,9 +123,10 @@ public class LoginScreen extends AppCompatActivity {
              * Validates the user's login information on click
              */
             public void onClick(View view) {
-            email = emailInput.getText().toString();
-            password = passwordInput.getText().toString();
-//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
+                User.loggedIn = false;
+                email = emailInput.getText().toString();
+                password = passwordInput.getText().toString();
+//                startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
                 getJsonLoginInfo();
             }
         });
@@ -128,16 +137,19 @@ public class LoginScreen extends AppCompatActivity {
     {
         if (userSpinner.getSelectedItem().toString().equals("Athlete"))
         {
-            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/all";
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "all";
+            userType = 0;
         }
         else if (userSpinner.getSelectedItem().toString().equals("Coach"))
         {
             Const.CURRENT_URL = Const.URL_JSON_REQUEST_COACHES;
+            userType = 1;
         }
         else
         {
             Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER;
             isGymOwner = true;
+            userType = 2;
         }
 
         ServerRequest userLogin = new ServerRequest();
@@ -164,6 +176,7 @@ public class LoginScreen extends AppCompatActivity {
                                 gymId = user.get("gymName").toString();
                             }
                             Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
+                            getUserInfo(user);
                             break;
                         }
 
@@ -228,4 +241,36 @@ public class LoginScreen extends AppCompatActivity {
      *  the gym id of the corresponding gym owner.
      */
     public static String getGymId() { return gymId; }
+
+    private void getUserInfo(JSONObject user)
+    {
+        try{
+            emailResponse = user.get("email").toString();
+            passwordResponse = user.get("password").toString();
+            firstName = user.get("userName").toString();
+            id = ((int)user.get("id"));
+
+            if(userType == 0)
+            {
+                Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
+            }
+            else if(userType == 1 || userType == 2)
+            {
+                double ratingResponse = user.getDouble("rating");
+                int numRatingsResponse = user.getInt("numRatings");
+                if(userType == 2)
+                {
+                    String gymName = user.getString("gymName");
+                }
+                else{
+                    new Coach(emailResponse, passwordResponse, firstName, id,
+                            ratingResponse, numRatingsResponse);
+                }
+            }
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

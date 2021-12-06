@@ -53,6 +53,8 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
             teamNameLabel.setText(AthleteHomeScreen.getAthleteTeam().get("name").toString());
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            teamNameLabel.setText("No team");
         }
         teamId = 0;
         try {

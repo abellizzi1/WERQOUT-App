@@ -32,7 +32,7 @@ public class RatingsAndGymOwnerTest {
     public void testAddTeamToGym()
     {
         testTeamsList.add(testTeam);
-        GymOwner gymOwner = new GymOwner("Angelo", "angelo@iastate.edu", "Angelo123!", "Gym Owner", 1);
+        GymOwner gymOwner = new GymOwner("Angelo", "angelo@iastate.edu", "Angelo123!", 1,0, 0);
         when(mgts.getGymTeams(gymOwner)).thenReturn(testTeamsList);
         gymOwner.listTeams = mgts.getGymTeams(gymOwner);
         Team t = new Team("newTeam");
