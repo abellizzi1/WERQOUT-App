@@ -83,6 +83,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+    <TextView
+        android:id="@+id/currTeamRating_label_athlete_mygroup"
+        android:layout_width="385dp"
+        android:layout_height="48dp"
+        android:text="Current team rating: none"
+        android:textAlignment="center"
+        android:textColor="#00FFA7"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.329" />
+
     <Button
         android:id="@+id/back_button_athlete_mygroup"
         android:layout_width="142dp"
@@ -114,4 +130,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.173" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

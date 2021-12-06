@@ -222,6 +222,12 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
                 }
                 ServerRequest removeWorkoutRequest = new ServerRequest();
                 removeWorkoutRequest.jsonObjectRequest(workoutUrl, 3, selectedWorkoutJson);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(view.getContext(), AddDeleteWorkoutScreen.class));
+                    }
+                }, 100);
             }
         });
     }

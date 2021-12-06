@@ -3,8 +3,11 @@ package com.example.werqoutfrontend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -13,7 +16,9 @@ import android.widget.TextView;
 import com.example.werqoutfrontend.model.Team;
 import com.example.werqoutfrontend.network.ServerRequest;
 import com.example.werqoutfrontend.utils.Const;
+import com.example.werqoutfrontend.utils.VolleyCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +26,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AthleteMyGroupScreen extends AppCompatActivity {
+
+    /**
+     * The current rating of the athlete's team.
+     */
+    private double currentRating = 0;
+
+    /**
+     * The athlete's team id.
+     */
+    private int teamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,36 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        teamId = 0;
+        try {
+            teamId = (int)AthleteHomeScreen.getAthleteTeam().get("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId;
+        ServerRequest getRating = new ServerRequest();
+        getRating.jsonGetRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    currentRating = (double)result.get("rating");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onSuccess(JSONArray result) {
+            }
+        }, Const.CURRENT_URL);
+
+        TextView currentRatingText = findViewById(R.id.currTeamRating_label_athlete_mygroup);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                currentRatingText.setText("Current team rating: " + currentRating);
+            }
+        }, 200);
 
         Button backButton = findViewById(R.id.back_button_athlete_mygroup);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -70,18 +115,32 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
                 }
                 else
                 {
-                    int teamId = 0;
-                    try {
-                        teamId = (int)AthleteHomeScreen.getAthleteTeam().get("id");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                     Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/teams/" + teamId + "/rate?rating=" + rating;
                     Map<String, String> params = new HashMap<>();
                     params.put("rating", rating);
                     ServerRequest ratingRequest = new ServerRequest();
                     ratingRequest.jsonObjectRequest(Const.CURRENT_URL, 2, new JSONObject(params));
                 }
+            }
+        });
+
+        Button leaveGroupButton = findViewById(R.id.leaveGroup_button_athlete_mygroup);
+        leaveGroupButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This onClick function leaves the athlete's group.
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                Const.CURRENT_URL = Const.URL_JSON_REQUEST_ATHLETES + "/" + LoginScreen.getId() + "/teams";
+                ServerRequest removeAthleteRequest = new ServerRequest();
+                removeAthleteRequest.jsonObjectRequest(Const.CURRENT_URL, 3, AthleteHomeScreen.getAthleteTeam());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(view.getContext(), AthleteHomeScreen.class));
+                    }
+                }, 100);
             }
         });
     }
