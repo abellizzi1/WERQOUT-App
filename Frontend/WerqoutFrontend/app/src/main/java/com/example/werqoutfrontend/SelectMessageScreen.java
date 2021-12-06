@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -158,5 +160,10 @@ public class SelectMessageScreen extends AppCompatActivity {
             }
         };
         timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
+
+    public HashMap<Integer, ImageView> getMessageList()
+    {
+        return onlineMap;
     }
 }
