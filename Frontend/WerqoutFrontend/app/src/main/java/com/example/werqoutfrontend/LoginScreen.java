@@ -113,7 +113,7 @@ public class LoginScreen extends AppCompatActivity {
              * Takes the user to the register screen when clicked
              */
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), CoachGroupsScreen.class));
+                startActivity(new Intent(v.getContext(), RegisterScreen.class));
             }
 
         });
@@ -244,6 +244,11 @@ public class LoginScreen extends AppCompatActivity {
      */
     public static String getGymId() { return gymId; }
 
+    /**
+     * Gets the user info of the parameter.
+     * @param user
+     *  the User that we are getting the info for.
+     */
     private void getUserInfo(JSONObject user)
     {
         try{

@@ -24,6 +24,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * The ManageGymTeamsScreen class gives functionality to the manage_gym_teams_screen.xml screen. This screen
+ * shows all of the gym's teams and gives the gym owner the ability to look at the team's details or delete
+ * the whole team.
+ * @author Angelo Bellizzi
+ */
 public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnClickListener {
 
     /*
@@ -148,6 +154,13 @@ public class ManageGymTeamsScreen extends AppCompatActivity implements View.OnCl
         return selectedTeamInfo;
     }
 
+    /**
+     * Gets the gym's teams. (used for testing)
+     * @param go
+     *  the gym owner
+     * @return
+     *  returns an ArrayList of all teams in the gym.
+     */
     public ArrayList<Team> getGymTeams(GymOwner go)
     {
         //returns the gym's teams from the database

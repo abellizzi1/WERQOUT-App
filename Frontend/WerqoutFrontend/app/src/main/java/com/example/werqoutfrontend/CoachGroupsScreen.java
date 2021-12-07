@@ -45,8 +45,14 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
      */
     private LinearLayout linearScroll;
 
+    /**
+     * The new team that is added under the current coach.
+     */
     private static JSONObject newTeam;
 
+    /**
+     * The JSONObject of the coach's team.
+     */
     private static JSONObject selectedTeamInfo;
 
     /**
@@ -142,10 +148,20 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
                         putPostedTeam();
                     }
                 }, 1000);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(view.getContext(), CoachGroupsScreen.class));
+                    }
+                }, 1100);
             }
         });
     }
 
+    /**
+     * Gets the team that was just posted when the "Create" button was clicked.
+     */
     private void getPostedTeam()
     {
         Const.CURRENT_URL = Const.URL_JSON_REQUEST_TEAMS;
@@ -165,6 +181,9 @@ public class CoachGroupsScreen extends AppCompatActivity implements View.OnClick
         }, Const.CURRENT_URL);
     }
 
+    /**
+     * Puts the posted team in the current coach.
+     */
     private void putPostedTeam()
     {
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/coaches/" + LoginScreen.getId() + "/teams";

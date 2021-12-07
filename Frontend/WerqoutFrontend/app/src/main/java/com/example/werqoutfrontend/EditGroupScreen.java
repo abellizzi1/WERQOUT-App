@@ -46,14 +46,29 @@ public class EditGroupScreen extends AppCompatActivity implements View.OnClickLi
      */
     private static String selectedMemberString = "";
 
+    /**
+     * JSONObject of the selected member (when clicked).
+     */
     private JSONObject selectedMemberJson;
 
+    /**
+     * JSONObject of the current team that is being edited.
+     */
     private JSONObject team;
 
+    /**
+     * The ID of the current team that is being edited.
+     */
     private int teamId;
 
+    /**
+     * An ArrayList of all members within the current team.
+     */
     private ArrayList<JSONObject> jsonMembersArray;
 
+    /**
+     * The email of the athlete to be added to the team.
+     */
     private String addAthleteEmail;
 
     /**

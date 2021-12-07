@@ -43,15 +43,15 @@
             android:exported="false" />
         <activity
             android:name=".SearchScreen"
-            android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend" />
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true" />
         <activity
             android:name=".SelectMessageScreen"
             android:exported="true" />
         <activity
             android:name=".MessagesScreen"
             android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".EditProfileScreen"
             android:exported="true"
@@ -73,8 +73,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProfileScreen"
-            android:exported="true"
-            android:theme="@style/Theme.WerqoutFrontend" />
+            android:exported="true" />
         <activity
             android:name=".AthleteHomeScreen"
             android:exported="true" />

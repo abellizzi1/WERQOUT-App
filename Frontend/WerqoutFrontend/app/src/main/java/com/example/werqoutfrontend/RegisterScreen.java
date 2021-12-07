@@ -67,6 +67,9 @@ public class RegisterScreen extends AppCompatActivity {
      */
     private String confirmPassword;
 
+    /**
+     * The params of the hashmap to be posted to the database.
+     */
     private Map<String, String> params;
 
     /**
@@ -182,12 +185,17 @@ public class RegisterScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Posts the user that is registering to the database.
+     * @param v
+     *  this screen's view
+     */
     private void postUser(View v)
     {
         if (Const.CURRENT_URL.equals(Const.URL_JSON_REQUEST_GYMOWNER)) {
             params.put("gymName", gymName);
+            Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER + "/";
         }
-        Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER + "/";
         ServerRequest request = new ServerRequest();
         request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
         startActivity(new Intent(v.getContext(), LoginScreen.class));

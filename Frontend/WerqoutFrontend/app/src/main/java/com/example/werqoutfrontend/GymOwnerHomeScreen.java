@@ -20,6 +20,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+/**
+ * The GymOwnerHomeScreen class gives functionality to the gym_owner_home_screen screen. It gives
+ * the gym owner the choice to manage teams or events within that gym.
+ * @author Angelo Bellizzi
+ */
 public class GymOwnerHomeScreen extends AppCompatActivity {
 
     private TextView temperatureView;

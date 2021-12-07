@@ -41,9 +41,19 @@ public class CoachHomeScreen extends AppCompatActivity {
      */
     private LinearLayout linearScroll;
 
+    /**
+     * The coach's team.
+     */
     private static JSONObject coachTeam;
+
+    /**
+     * The ID of the coach's team.
+     */
     private int teamId;
 
+    /**
+     * This screen's context.
+     */
     private Context context = this;
 
 
@@ -146,6 +156,9 @@ public class CoachHomeScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * A method that displays all of this team's workouts.
+     */
     private void displayTeamWorkouts()
     {
         Const.CURRENT_URL = "http://coms-309-034.cs.iastate.edu:8080/events/team/" + teamId + "/events";

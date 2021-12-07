@@ -20,6 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * The ViewGymTeamScreen class gives functionality to the view_gym_team_screen.xml screen. It shows the
+ * information about the selected team at the gym and gives the gym owner the ability to delete that team.
+ * @author Angelo Bellizzi
+ */
 public class ViewGymTeamScreen extends AppCompatActivity {
 
     /**

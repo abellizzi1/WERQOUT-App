@@ -42,8 +42,14 @@ public class AthleteHomeScreen extends AppCompatActivity {
      */
     private LinearLayout linearScroll;
 
+    /**
+     * The team that the athlete is in.
+     */
     private static JSONObject athleteTeam;
 
+    /**
+     * This screen's context.
+     */
     private Context context = this;
 
     /**
@@ -144,6 +150,9 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * Gets the workouts in the athlete's team.
+     */
     public void getAthleteWorkouts()
     {
         try {
@@ -221,6 +230,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
         },Const.WEATHER_API);
     }
 
+    /**
+     * gets the team that the athlete is in.
+     * @return
+     *  returns the team that the athlete is in.
+     */
     public static JSONObject getAthleteTeam()
     {
         return athleteTeam;

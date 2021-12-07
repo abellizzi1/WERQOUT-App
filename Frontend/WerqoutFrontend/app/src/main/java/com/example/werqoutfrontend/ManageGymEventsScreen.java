@@ -23,6 +23,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The ManageGymEventsScreen class gives functionality to the maange_gym_events_screen.xml screen. It gives
+ * the gym owner the ability to create an event at their gym or delete the current event at their gym.
+ * @author Angelo Bellizzi
+ */
 public class ManageGymEventsScreen extends AppCompatActivity {
 
     /**

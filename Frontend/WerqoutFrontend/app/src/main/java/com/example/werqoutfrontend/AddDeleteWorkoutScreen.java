@@ -58,14 +58,29 @@ public class AddDeleteWorkoutScreen extends AppCompatActivity implements View.On
      */
     private LinearLayout linearScroll;
 
+    /**
+     * An ArrayList of all workouts in the database.
+     */
     private ArrayList<JSONObject> jsonWorkoutsArray;
 
+    /**
+     * The selected workout (clicked).
+     */
     private JSONObject selectedWorkoutJson;
 
+    /**
+     * The name of the selected workout.
+     */
     private static String selectedWorkoutString = "";
 
+    /**
+     * The team that the workouts are being shown for.
+     */
     private JSONObject team;
 
+    /**
+     * The ID of the team that the workouts are being shown for.
+     */
     private int teamId;
 
     /**

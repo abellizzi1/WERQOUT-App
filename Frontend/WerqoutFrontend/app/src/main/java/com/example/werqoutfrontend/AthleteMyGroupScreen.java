@@ -26,6 +26,12 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The AthleteMyGroupScreen class gives functionality to the athlete_my_group_screen screen. It gives the
+ * athlete the option to leave a rating on the team that they are in, or leave the team they are in. It also
+ * shows the current rating for that team.
+ * @author Angelo Bellizzi
+ */
 public class AthleteMyGroupScreen extends AppCompatActivity {
 
     /**
@@ -38,6 +44,11 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
      */
     private int teamId;
 
+    /**
+     * Overrides the onCreate function. Gives the interactive buttons and texts functionality.
+     * Connects this class to athlete_my_group_screen.xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +82,7 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
             public void onSuccess(JSONObject result) {
                 try {
                     DecimalFormat df = new DecimalFormat("#.#");
-                    String resultrating = df.format((double)result.get("rating"));
+                    String resultrating = df.format(Double.parseDouble(result.get("rating").toString()));
                     currentRating = resultrating;
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -156,6 +167,13 @@ public class AthleteMyGroupScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets the rating for the team (used for testing)
+     * @param t
+     *  The team that we are getting the rating for.
+     * @return
+     *  returns the rating for the team.
+     */
     public int getRating(Team t)
     {
         //gets the rating for the team (used for testing)
