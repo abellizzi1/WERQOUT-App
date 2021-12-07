@@ -196,9 +196,11 @@ public class RegisterScreen extends AppCompatActivity {
             params.put("gymName", gymName);
             Const.CURRENT_URL = Const.URL_JSON_REQUEST_GYMOWNER + "/";
         }
-        ServerRequest request = new ServerRequest();
-        request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
-        startActivity(new Intent(v.getContext(), LoginScreen.class));
+        else{
+            ServerRequest request = new ServerRequest();
+            request.jsonObjectRequest(Const.CURRENT_URL,1, new JSONObject(params));
+            startActivity(new Intent(v.getContext(), LoginScreen.class));
+        }
     }
 
     /**

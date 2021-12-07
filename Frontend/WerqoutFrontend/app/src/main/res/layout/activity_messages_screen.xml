@@ -70,14 +70,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/close_cc_button_messages_screen"
-        android:layout_width="56dp"
-        android:layout_height="48dp"
-        android:text="Return"
-        app:layout_constraintBottom_toTopOf="@+id/message_view_message_screen"
-        app:layout_constraintEnd_toStartOf="@+id/title_message_screen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

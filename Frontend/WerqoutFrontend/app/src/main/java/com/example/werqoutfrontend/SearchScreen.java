@@ -55,6 +55,9 @@ public class SearchScreen extends AppCompatActivity {
      * An Array List of JSON objects containing all of the search results
      */
     private ArrayList<JSONObject> jsonObjects;
+    /**
+     * The index of the search result within the recycler view
+     */
     private int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

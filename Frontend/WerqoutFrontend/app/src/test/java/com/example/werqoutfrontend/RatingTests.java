@@ -17,7 +17,7 @@ import com.example.werqoutfrontend.model.GymOwner;
 import com.example.werqoutfrontend.utils.CalculateRating;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OnlineTest {
+public class RatingTests {
 
     private Coach colin;
     private Coach testCoach;

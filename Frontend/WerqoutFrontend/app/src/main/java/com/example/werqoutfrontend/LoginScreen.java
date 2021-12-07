@@ -126,8 +126,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
             email = emailInput.getText().toString();
             password = passwordInput.getText().toString();
-//            startActivity(new Intent(getApplicationContext(), AthleteHomeScreen.class));
-                getJsonLoginInfo();
+            getJsonLoginInfo();
             }
         });
 
@@ -176,7 +175,6 @@ public class LoginScreen extends AppCompatActivity {
                             if (isGymOwner) {
                                 gymId = user.get("gymName").toString();
                             }
-                            Athlete athlete = new Athlete(emailResponse,passwordResponse,firstName,id);
                             getUserInfo(user);
                             break;
                         }
