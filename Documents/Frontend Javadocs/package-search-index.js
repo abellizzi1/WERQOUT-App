@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.example.werqoutfrontend"},{"l":"com.example.werqoutfrontend.app"},{"l":"com.example.werqoutfrontend.model"},{"l":"com.example.werqoutfrontend.network"},{"l":"com.example.werqoutfrontend.utils"},{"l":"com.example.werqoutfrontend.utils.filters"}]
