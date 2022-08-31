@@ -31,3 +31,4 @@ This was a group project in COM S 309 at Iowa State University taught by Simanta
 ### Project Award
 This project won honorable mention for best project in the class. There were 50+ teams in this class.
 
+![Honorable Mention Slide](https://github.com/abellizzi1/WERQOUT-App/blob/main/README-pics/COMS309HonorableMention.jpg)
