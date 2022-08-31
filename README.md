@@ -5,3 +5,9 @@ Android app with multiple users that has a backend. Frontend developed with Andr
 
 ## YouTube Video
 [![YouTube video displaying the app](https://img.youtube.com/vi/gSszORVkmQw/0.jpg)](https://youtu.be/gSszORVkmQw)
+
+## App Information
+
+
+### Types of Users
+There are 3 types of users: Athlete, Coach, and Gym Owner
