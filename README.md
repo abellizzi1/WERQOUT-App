@@ -26,14 +26,31 @@ There are 3 types of users: Athlete, Coach, and Gym Owner.
 **Messages:** The user can message any other user. This feature uses a websocket and it also displays if the user is online or offline.
 
 ### More Information
-This was a group project in COM S 309 at Iowa State University taught by Simanta Mitra. Each group had 4 members, with 2 on frontend and 2 on backend. Colin Brenizer and I (Angelo Bellizzi) developed the frontend, and John Schraderbacher and Evan Uhlmeyer developed the backend. Each file has an @author tag at the beginning with comments explaining what everything does, so it's easy to see who programmed each file. Files that I developed are in the directory Frontend/WerqoutFrontend/app/src/main/java/com/example/werqoutfrontend
-
-Files that I developed:
-
-- test
-- test2
+This was a group project in COM S 309 at Iowa State University taught by Simanta Mitra. Each group had 4 members, with 2 on frontend and 2 on backend. Colin Brenizer and I (Angelo Bellizzi) developed the frontend, and John Schraderbacher and Evan Uhlmeyer developed the backend. Each file has an @author tag at the beginning with comments explaining what everything does, so it's easy to see who programmed each file. Files that I developed are in the directory Frontend/WerqoutFrontend/app/src/main/java/com/example/werqoutfrontend.
 
 ### Project Award
 This project won honorable mention for best project in the class. There were 50+ teams in this class.
 
 ![Honorable Mention Slide](https://github.com/abellizzi1/WERQOUT-App/blob/main/README-pics/COMS309HonorableMention.jpg)
+
+### Files that I developed and contributed to (all Java):
+Models:
+- User
+- Team
+- GymOwner
+- Event
+
+Screens:
+- AddDeleteWorkoutScreen
+- AthleteHomeScreen
+- AthleteMyGroupScreen
+- CoachGroupsScreen
+- CoachHomeScreen
+- EditGroupScreen
+- GroupInfoScreen
+- GymOwnerHomeScreen
+- LoginScreen
+- ManageGymEventsScreen
+- ManageGymTeamsScreen
+- RegisterScreen
+- ViewGymTeamScreen
